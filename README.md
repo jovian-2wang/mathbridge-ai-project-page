@@ -1,35 +1,79 @@
-# MathBridge AI project page
+# MathBridge AI
 
-This is a public-facing, static project page for MathBridge AI, based on [Roman Hauksson-Neill's academic project Astro template](https://github.com/RomanHauksson/academic-project-astro-template). It describes the prototype and the [NSF FINDERS Foundry planning award #2627693](https://www.nsf.gov/awardsearch/show-award/?AWD_ID=2627693). It does not contain MathBridge's private application source, credentials, student records, or application backend.
+**Student-aware support for learning mathematics**
 
-## Run locally
+[Project website](https://jovian-2wang.github.io/mathbridge-ai-project-page/) · [Live platform](https://mathbridge-ai.duckdns.org/) · [NSF award #2627693](https://www.nsf.gov/awardsearch/show-award/?AWD_ID=2627693)
 
-Requires Node.js 24 or newer.
+MathBridge AI is a research prototype for Grade 6 mathematics learning. It connects a curriculum task with the student's response, learning preferences, and prior evidence so that the next hint, visual, or related problem responds to the learner's actual work.
+
+This repository contains the public academic project page. The application source, credentials, student records, and backend remain in a separate private repository.
+
+## Why MathBridge AI
+
+A student often needs more than a correct or incorrect result. MathBridge AI is designed to identify what the student understands, locate the point of difficulty, and offer a useful next step without immediately revealing the answer.
+
+Student preferences provide an additional presentation layer. The prototype can use a preferred language, selected interests, and optional read-aloud support while preserving the same mathematical structure and learning objective.
+
+## One learning record, three views
+
+| Experience | What it provides |
+| --- | --- |
+| **Student** | Course Mode and Free Math Help, structured hints, approved mathematical visuals, and related practice. |
+| **Teacher** | Recent evidence, micro-skill signals, possible misconceptions, and information for choosing the next instructional move. |
+| **Family** | A concise learning summary and short practice that support a useful conversation at home. |
+
+## Learning loop
+
+```mermaid
+flowchart TD
+    A[Curriculum task] --> B[Student response]
+    P[Language, interests, read-aloud] --> D[Student-aware support]
+    B --> C[Validate and diagnose]
+    C --> D
+    S[Instructional support] --> D
+    D --> H[Hint, visual, or related problem]
+    H --> E[Learning evidence]
+    E --> T[Teacher and family views]
+```
+
+For a course task, the source prompt and target micro-skill anchor the interaction. The current runtime validates the response, diagnoses the attempt, and produces the next support. The academic page also distinguishes this running system from a proposed import-time extension for extracting and evaluating instructional supports from curriculum materials.
+
+## Research context
+
+MathBridge AI is presented in the context of [NSF award #2627693](https://www.nsf.gov/awardsearch/show-award/?AWD_ID=2627693), with UT San Antonio and the University of Florida shown as research institutions on the project page.
+
+The current prototype demonstrates selected Grade 6 mathematics topics. The broader K–12 scope is a research direction, and the page does not claim measured learning gains.
+
+## Project resources
+
+- **Academic project page:** <https://jovian-2wang.github.io/mathbridge-ai-project-page/>
+- **Live MathBridge AI platform:** <https://mathbridge-ai.duckdns.org/>
+- **Public project-page source:** <https://github.com/jovian-2wang/mathbridge-ai-project-page>
+- **Application source:** private repository
+- **NSF award record:** <https://www.nsf.gov/awardsearch/show-award/?AWD_ID=2627693>
+
+## Development and deployment
+
+The project page is built with Astro and deployed as a static GitHub Pages site. A push to `main` runs the included GitHub Actions workflow and publishes the generated HTML.
+
+<details>
+<summary>Run the project page locally</summary>
+
+Node.js 24 or newer is required.
 
 ```bash
-cd mathbridge-ai-project-page
 npm ci
 npm run dev
 ```
 
-Open http://localhost:4321 in a browser. Run npm run build to regenerate dist/. If the extracted folder has another name, cd into the folder containing package.json.
+Build the static site with:
 
-Edit public copy in src/paper.mdx, the opening header in src/components/ProjectHeader.astro, the overview figure in src/components/OverviewFigure.astro, the interactive unit-rate illustration in src/components/LearningLab.astro, the live app guide in src/components/DemoNavigator.astro, the technical figure in src/components/Architecture.astro, and styling in src/styles/mathbridge.css. Institutional marks are in public/brands/.
+```bash
+npm run build
+```
 
-The unit-rate illustration uses fixed questions and fixed feedback; it is labeled as an illustration and does not call the private tutor. The running application is embedded separately, with a new-tab fallback. A role-specific test account is required to sign in. Selecting a role in the guide does not change the signed-in role in the application.
-
-## Publish separately from the private app
-
-Create a **separate repository** from these files for the public page. In GitHub, enable Pages with **GitHub Actions** as the source. The included `.github/workflows/astro.yml` builds and deploys the static page on a push to `main`, including for a repository subpath. Your MathBridge AI application repository can stay private. Do not copy its `.env`, database exports, or private source into this project-page repository.
-
-The page links to the existing MathBridge platform at `https://mathbridge-ai.duckdns.org/`. Its **Project code** button points to the separate public project-page repository; **App code** points to the private application repository and is labeled accordingly. Visitors need repository access to view the latter. Check that the live platform and its login experience are ready for external visitors before sharing the project page.
-
-## Institutional identities and project description
-
-The [NSF project record](https://nsf.elsevierpure.com/en/projects/nsf-ff-planning-a-student-aware-ai-platform-for-connected-and-con/) names UT San Antonio as lead and the University of Florida as a sub-awardee. The marks in this page come from the universities' official websites and appear together above the project title. Confirm use of both marks with the project and university brand contacts before public launch. UF's [brand guidance](https://brandcenter.ufl.edu/the-university-logo/) includes restrictions on pairing marks; UT San Antonio's [brand toolkit](https://www.utsa.edu/marcomstudio/resources/brand-toolkit/logos/) provides current logo guidance. Do not recolor or modify the supplied files.
-
-The prototype copy was cross-checked against a September 25, 2026 MathBridge AI source snapshot and the user-supplied visual progression and diagnosis document. The student preference fields in the source snapshot are language, up to three interests, and optional automatic read-aloud. The Answer Edition extraction process and `curriculum_instructional_supports` table shown in the diagram are a proposed extension, not part of the inspected runtime. The wider K–12 aim is described as a research vision; current coverage is described as selected Grade 6 topics. Review the live product and all claims before publishing.
+</details>
 
 ## Credits
 
-The page is adapted from Roman Hauksson-Neill's [Academic Project Page Template](https://github.com/RomanHauksson/academic-project-astro-template), itself adapted from earlier academic project pages. The source template identifies its license as [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). Retain the template credit in the site footer and comply with the license if distributing this adaptation. University marks remain the property of their respective institutions.
+The page is adapted from Roman Hauksson-Neill's [Academic Project Page Template](https://github.com/RomanHauksson/academic-project-astro-template). The template identifies its license as [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0). Institutional marks remain the property of their respective institutions.
