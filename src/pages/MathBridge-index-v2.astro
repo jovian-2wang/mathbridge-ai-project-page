@@ -1,0 +1,1246 @@
+---
+import { Font } from "astro:assets";
+import DemoNavigator from "../components/DemoNavigator.astro";
+import LearningLab from "../components/LearningLab.astro";
+import "../styles/global.css";
+import "../styles/mathbridge.css";
+
+const base = import.meta.env.BASE_URL.endsWith("/")
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+const live = "https://mathbridge-ai.duckdns.org/";
+const projectRepo =
+  "https://github.com/jovian-2wang/mathbridge-ai-project-page";
+const appRepo = "https://github.com/jovian-2wang/mathbridge-AI";
+const award = "https://www.nsf.gov/awardsearch/show-award/?AWD_ID=2627693";
+---
+
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta
+      name="description"
+      content="MathBridge AI is a curriculum-grounded mathematics learning platform for students, teachers, and families."
+    />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    <Font
+      cssVariable="--font-noto-sans"
+      preload={[{ subset: "latin", style: "normal" }]}
+    />
+    <title>MathBridge AI | Student-aware mathematics support</title>
+  </head>
+
+  <body class="project-page font-(family-name:--font-noto-sans)">
+    <header id="top">
+      <div class="nav shell">
+        <a class="brand" href="#top">MathBridge <b>AI</b></a>
+        <nav aria-label="Page navigation">
+          <a href="#learning">How it helps</a><a href="#roles">Three views</a><a
+            href="#demo">Live demo</a
+          ><a href="#pipeline">Research pipeline</a>
+        </nav>
+      </div>
+
+      <div class="affiliation-band">
+        <div class="affiliations shell">
+          <div>
+            <span>LEAD ORGANIZATION</span><a
+              href="https://www.utsa.edu/"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><img
+                src={`${base}brands/ut-san-antonio-logo.svg`}
+                alt="The University of Texas at San Antonio"
+              /></a>
+          </div>
+          <i aria-hidden="true"></i>
+          <div class="uf">
+            <span>SUB-AWARDEE ORGANIZATION</span><a
+              href="https://www.ufl.edu/"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><img
+                src={`${base}brands/uf-logo-full.png`}
+                alt="University of Florida"
+              /></a>
+          </div>
+          <a
+            class="award-link"
+            href={award}
+            target="_blank"
+            rel="noopener noreferrer">NSF Award #2627693 ↗</a
+          >
+        </div>
+      </div>
+
+      <div class="hero shell">
+        <div class="hero-copy">
+          <p class="overline">INTERACTIVE RESEARCH PROJECT</p>
+          <h1>MathBridge AI</h1>
+          <p class="subtitle">
+            Help the student understand the next step—not just see the correct
+            answer.
+          </p>
+          <p class="summary">
+            The assigned Math 6 task stays at the center. MathBridge reads the
+            student’s attempt, identifies the specific obstacle, and offers one
+            targeted hint or visual so the student can try again. Language,
+            interests, and read-aloud preferences make that help easier to
+            access without changing the mathematics.
+          </p>
+          <div class="actions">
+            <a class="primary" href="#demo">Explore the live demo</a><a
+              href={live}
+              target="_blank"
+              rel="noopener noreferrer">Open platform ↗</a
+            ><a href={projectRepo} target="_blank" rel="noopener noreferrer"
+              >Project code ↗</a
+            ><a href={award} target="_blank" rel="noopener noreferrer"
+              >NSF award ↗</a>
+          </div>
+          <p class="private-repo">
+            Application source: <a
+              href={appRepo}
+              target="_blank"
+              rel="noopener noreferrer">private repository ↗</a>
+          </p>
+        </div>
+
+        <aside
+          class="hero-example"
+          aria-label="Example of student-aware support"
+        >
+          <div class="task-tag">MATH 6 · UNIT RATE</div>
+          <p class="question">
+            24 points in 3 games at the same rate. How many points per game?
+          </p>
+          <div class="attempt">
+            <span>STUDENT ATTEMPT</span><strong>6 points per game</strong>
+          </div>
+          <div class="diagnosis">
+            <span>WHAT THE SYSTEM NOTICES</span><strong
+              >The student divided, but the rate does not scale back to 24.</strong>
+          </div>
+          <div class="next-step">
+            <span>NEXT-STEP HINT</span><strong
+              >“Three equal groups make 24. What number times 3 makes 24?”</strong>
+          </div>
+          <div class="retry">Hint → retry → similar problem</div>
+        </aside>
+      </div>
+    </header>
+
+    <main>
+      <section id="learning" class="section pale">
+        <div class="shell">
+          <div class="section-head">
+            <p class="overline">01 / HOW THE STUDENT IS SUPPORTED</p><h2>
+              One learning loop, with a clear reason for every step.
+            </h2>
+          </div>
+          <div class="core-loop">
+            <article class="primary-step">
+              <span>1</span><div>
+                <small>PRIMARY SOURCE</small><h3>Assigned Math 6 task</h3><p>
+                  The original prompt, numbers, relationship, and target skill
+                  stay fixed.
+                </p>
+              </div>
+            </article>
+            <b aria-hidden="true">→</b>
+            <article>
+              <span>2</span><div>
+                <small>LEARNING EVIDENCE</small><h3>Student attempt</h3><p>
+                  The response reveals what the student understands and where
+                  the reasoning breaks.
+                </p>
+              </div>
+            </article>
+            <b aria-hidden="true">→</b>
+            <article>
+              <span>3</span><div>
+                <small>ONE NEXT MOVE</small><h3>Targeted help</h3><p>
+                  A hint, question, or approved visual addresses that specific
+                  obstacle without giving away the answer.
+                </p>
+              </div>
+            </article>
+            <b aria-hidden="true">→</b>
+            <article>
+              <span>4</span><div>
+                <small>ACTIVE LEARNING</small><h3>Retry and transfer</h3><p>
+                  The student tries again, then uses the same idea in a similar
+                  problem.
+                </p>
+              </div>
+            </article>
+          </div>
+
+          <div class="preference-title">
+            <p class="overline">STUDENT PREFERENCES HAVE SPECIFIC JOBS</p><h3>
+              Preferences change access—not the learning goal.
+            </h3>
+          </div>
+          <div class="preference-grid">
+            <article>
+              <span>INTEREST</span><h4>
+                Make the explanation easier to enter.
+              </h4><p>
+                If a student chooses basketball, a hint may use a familiar
+                basketball analogy to explain equal rates. The assigned
+                question, numbers, and correct answer do not change.
+              </p><div>
+                <b>Basketball analogy</b><em>→ same ratio relationship</em>
+              </div>
+            </article>
+            <article>
+              <span>BILINGUAL SUPPORT</span><h4>
+                Clarify language without replacing English.
+              </h4><p>
+                The English task remains visible. A short Chinese or Spanish
+                explanation clarifies vocabulary and directions so language does
+                not hide the mathematics.
+              </p><div>
+                <b>“unit rate” + 单位率</b><em>→ same mathematical term</em>
+              </div>
+            </article>
+            <article>
+              <span>READ-ALOUD</span><h4>Reduce the reading barrier.</h4><p>
+                The student can listen to the prompt or hint. Audio provides
+                another way to access the words; it does not solve the problem.
+              </p><div>
+                <b>Listen to prompt</b><em>→ student still reasons</em>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="roles" class="section">
+        <div class="shell">
+          <div class="section-head">
+            <p class="overline">
+              02 / THE SAME EVIDENCE, THREE USEFUL OUTCOMES
+            </p><h2>Each view answers one practical question.</h2>
+          </div>
+          <div class="role-grid">
+            <article>
+              <div class="role-name">STUDENT</div><h3>
+                “What should I try next?”
+              </h3><div class="role-flow">
+                <span>My attempt</span><b>→</b><span>One focused hint</span><b
+                  >→</b
+                ><span>Try again</span>
+              </div><p>
+                The student receives enough support to continue thinking, then
+                practices the same idea in another problem.
+              </p><strong class="benefit"
+                >Benefit: progress without immediately revealing the answer.</strong>
+            </article>
+            <article>
+              <div class="role-name">TEACHER</div><h3>
+                “What should I teach next?”
+              </h3><div class="role-flow">
+                <span>Class attempts</span><b>→</b><span
+                  >Repeated misconception</span
+                ><b>→</b><span>Next mini-lesson</span>
+              </div><p>
+                The dashboard turns separate answers into patterns by skill,
+                misconception, and recent evidence.
+              </p><strong class="benefit"
+                >Benefit: the teacher can group students and choose a targeted
+                follow-up.</strong>
+            </article>
+            <article>
+              <div class="role-name">FAMILY</div><h3>
+                “How can I help tonight?”
+              </h3><div class="role-flow">
+                <span>Simple summary</span><b>→</b><span
+                  >One question to ask</span
+                ><b>→</b><span>Short practice</span>
+              </div><p>
+                The parent sees where the child is stuck without reading a
+                technical teacher dashboard.
+              </p><strong class="benefit"
+                >Benefit: a focused 10-minute conversation instead of more
+                unstructured homework.</strong>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="demo" class="section demo-section">
+        <div class="shell">
+          <div class="split-head">
+            <div>
+              <p class="overline">03 / LIVE PLATFORM</p><h2>
+                See the student, teacher, and parent views.
+              </h2>
+            </div><p>
+              This is the running MathBridge AI application. Choose a role to
+              see what to examine, then open the platform in the embedded window
+              or a new tab.
+            </p>
+          </div>
+          <DemoNavigator />
+        </div>
+      </section>
+
+      <section class="section preference-demo">
+        <div class="shell">
+          <div class="split-head">
+            <div>
+              <p class="overline">04 / TRY THE PREFERENCE LOGIC</p><h2>
+                Change the presentation, not the mathematics.
+              </h2>
+            </div><p>
+              Choose a language, interest, or reading option. The context and
+              access method change while the division relationship stays fixed.
+            </p>
+          </div>
+          <LearningLab />
+        </div>
+      </section>
+
+      <section id="pipeline" class="section pipeline-section">
+        <div class="shell">
+          <div class="section-head">
+            <p class="overline">05 / RESEARCH PIPELINE</p><h2>
+              The course is primary. Correct answers and solution explanations
+              are auxiliary.
+            </h2><p>
+              The offline process prepares safe materials before students use
+              the system. The online process begins with the assigned course
+              task and the student’s own response.
+            </p>
+          </div>
+
+          <div class="pipeline-grid">
+            <section class="offline-panel">
+              <header>
+                <span>OFFLINE · PREPARE THE COURSE</span><h3>
+                  Build one curriculum-grounded course record.
+                </h3>
+              </header>
+              <div class="source-main">
+                <div class="source-label">PRIMARY</div><div>
+                  <small>MATH 6 STUDENT EDITION</small><strong
+                    >Course task, prompt, numbers, target skill, and expected
+                    reasoning</strong>
+                </div>
+              </div>
+              <div class="vertical-arrow">↓</div>
+              <div class="course-record">
+                <small>AUTHORITATIVE COURSE RECORD</small><strong
+                  >The task students actually solve</strong>
+              </div>
+
+              <div class="auxiliary-wrap">
+                <div class="auxiliary-label">AUXILIARY ONLY</div>
+                <div class="auxiliary-flow">
+                  <div>
+                    <small>MATH 6 ANSWER EDITION</small><strong
+                      >Correct answer + official solution explanation</strong>
+                  </div><b>→</b>
+                  <div>
+                    <small>EXTRACT</small><strong
+                      >Possible explanation steps</strong>
+                  </div><b>→</b>
+                  <div>
+                    <small>CHECK AUTOMATICALLY</small><strong
+                      >Keep only material consistent with the course task</strong>
+                  </div>
+                </div>
+                <p>
+                  The Answer Edition helps prepare explanations. It never
+                  replaces the Student Edition task and is never shown as the
+                  student’s answer.
+                </p>
+              </div>
+              <div class="vertical-arrow">↓</div>
+              <div class="stored-record">
+                <small>SUPABASE</small><strong
+                  >Course task + micro-skill + hints + visuals + approved
+                  explanation materials</strong>
+              </div>
+            </section>
+
+            <section class="online-panel">
+              <header>
+                <span>ONLINE · SUPPORT THE STUDENT</span><h3>
+                  Turn one attempt into one useful next move.
+                </h3>
+              </header>
+              <div class="online-flow">
+                <div>
+                  <small>1 · COURSE</small><strong>Assigned Math 6 task</strong>
+                </div><b>↓</b>
+                <div>
+                  <small>2 · STUDENT</small><strong
+                    >Student submits an answer or explanation</strong>
+                </div><b>↓</b>
+                <div>
+                  <small>3 · UNDERSTAND THE ATTEMPT</small><strong
+                    >Validator checks the response; diagnosis identifies the
+                    obstacle</strong>
+                </div><b>↓</b>
+                <div class="conditional">
+                  <small>4 · ONLY IF HELP IS NEEDED</small><strong
+                    >Retrieve one approved explanation or visual connected to
+                    this task or micro-skill</strong>
+                </div><b>↓</b>
+                <div>
+                  <small>5 · PRESENT THE NEXT STEP</small><strong
+                    >Hint Agent uses the diagnosis and selected preference to
+                    create one actionable hint</strong>
+                </div><b>↓</b>
+                <div class="final-step">
+                  <small>6 · STUDENT LEARNS BY DOING</small><strong
+                    >Read or listen → try again → apply the idea to a similar
+                    task</strong>
+                </div>
+              </div>
+              <div class="preference-input">
+                <span>PREFERENCE ENTERS HERE</span><p>
+                  <b>Interest</b> may supply a familiar analogy. <b
+                    >Bilingual support</b
+                  > may clarify a term. <b>Read-aloud</b> may speak the hint. None
+                  changes the correct mathematics.
+                </p>
+              </div>
+            </section>
+          </div>
+
+          <p class="status-note">
+            <b>Prototype status:</b> Course tasks, micro-skills, validator, diagnosis,
+            Hint Agent, hints, evidence, and visuals describe the current platform.
+            Importing and automatically evaluating Answer Edition explanation materials
+            is the proposed research extension.
+          </p>
+        </div>
+      </section>
+
+      <section class="award-section section">
+        <div class="shell award-grid">
+          <div>
+            <p class="overline">RESEARCH CONTEXT</p><h2>
+              NSF Award #2627693
+            </h2><p>
+              MathBridge AI is presented as an academic research prototype
+              involving UT San Antonio and the University of Florida.
+            </p>
+          </div><a href={award} target="_blank" rel="noopener noreferrer"
+            >View the official award record ↗</a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="shell">
+        <strong>MathBridge AI</strong><span
+          >Student-aware mathematics support</span
+        ><a href={projectRepo} target="_blank" rel="noopener noreferrer"
+          >GitHub project page ↗</a>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --ink: #173244;
+    --muted: #526a79;
+    --blue: #17667a;
+    --blue2: #2c7f92;
+    --orange: #b65d3b;
+    --line: #d4e1e5;
+    --pale: #f3f7f8;
+    --dark: #173d50;
+  }
+  .project-page {
+    margin: 0;
+    background: #fff;
+    color: var(--ink);
+    font-family: var(--font-noto-sans), Arial, sans-serif;
+  }
+  .project-page * {
+    box-sizing: border-box;
+  }
+  .project-page :is(h1, h2, h3, h4, p, dl, dd, ul) {
+    margin-block-start: 0;
+  }
+  .project-page :is(a, button, input):focus-visible {
+    outline: 3px solid #ef9f43;
+    outline-offset: 3px;
+  }
+  .shell {
+    width: min(1180px, calc(100% - 3rem));
+    margin-inline: auto;
+  }
+  .nav {
+    min-height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+  .brand {
+    color: var(--ink) !important;
+    font-size: 1rem;
+    font-weight: 900 !important;
+    text-decoration: none !important;
+  }
+  .brand b {
+    color: var(--orange);
+  }
+  .nav nav {
+    display: flex;
+    gap: clamp(0.8rem, 2.4vw, 1.8rem);
+  }
+  .nav nav a {
+    color: #526775 !important;
+    font-size: 0.76rem;
+    font-weight: 750 !important;
+    text-decoration: none !important;
+  }
+  .affiliation-band {
+    background: var(--dark);
+  }
+  .affiliations {
+    min-height: 106px;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  .affiliations > div {
+    display: grid;
+    gap: 0.5rem;
+  }
+  .affiliations span {
+    color: #b6cbd3;
+    font-size: 0.59rem;
+    font-weight: 850;
+    letter-spacing: 0.14em;
+  }
+  .affiliations img {
+    display: block;
+    width: auto;
+    max-width: 220px;
+    max-height: 42px;
+    margin: 0;
+    filter: brightness(0) invert(1);
+  }
+  .affiliations .uf img {
+    max-width: 230px;
+    max-height: 47px;
+    filter: none;
+  }
+  .affiliations > i {
+    height: 55px;
+    border-left: 1px solid #587688;
+  }
+  .award-link {
+    margin-left: auto;
+    color: #fff !important;
+    border: 1px solid #6b8796;
+    padding: 0.7rem 0.9rem;
+    font-size: 0.72rem;
+    font-weight: 800 !important;
+    text-decoration: none !important;
+  }
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.08fr) minmax(380px, 0.92fr);
+    gap: clamp(3rem, 7vw, 7rem);
+    align-items: center;
+    padding: 5.2rem 0;
+  }
+  .overline {
+    color: var(--orange);
+    font-size: 0.68rem;
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    line-height: 1.4;
+    margin-bottom: 0.8rem;
+  }
+  .hero h1 {
+    font-size: clamp(4.1rem, 7.5vw, 6.7rem);
+    line-height: 0.96;
+    letter-spacing: -0.065em;
+    font-weight: 780;
+    margin: 0 0 1rem;
+  }
+  .subtitle {
+    color: #254f64;
+    font:
+      400 clamp(1.35rem, 2.4vw, 1.9rem)/1.28 Georgia,
+      serif;
+    max-width: 700px;
+    margin-bottom: 1rem;
+  }
+  .summary {
+    color: #496171;
+    font-size: 1rem;
+    line-height: 1.7;
+    max-width: 720px;
+    margin-bottom: 1.5rem;
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .actions a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 42px;
+    color: var(--dark) !important;
+    border: 1px solid #b9cbd2;
+    padding: 0.58rem 0.82rem;
+    font-size: 0.73rem;
+    font-weight: 800 !important;
+    text-decoration: none !important;
+  }
+  .actions .primary {
+    background: var(--orange);
+    border-color: var(--orange);
+    color: #fff !important;
+  }
+  .private-repo {
+    color: #74838c;
+    font-size: 0.68rem;
+    margin: 0.8rem 0 0;
+  }
+  .hero-example {
+    border: 1px solid #b9cfd6;
+    background: #f8fbfb;
+    box-shadow: 16px 16px 0 #e7eef0;
+    padding: 1.4rem;
+  }
+  .task-tag {
+    color: var(--blue);
+    font-size: 0.61rem;
+    font-weight: 900;
+    letter-spacing: 0.13em;
+    border-bottom: 1px solid #d6e3e6;
+    padding-bottom: 0.7rem;
+  }
+  .question {
+    color: var(--ink);
+    font-size: 1.2rem;
+    font-weight: 760;
+    line-height: 1.42;
+    margin: 1rem 0;
+  }
+  .attempt,
+  .diagnosis,
+  .next-step {
+    display: grid;
+    gap: 0.18rem;
+    padding: 0.7rem 0.8rem;
+    margin-top: 0.55rem;
+  }
+  .attempt {
+    background: #fff1ea;
+    border-left: 3px solid var(--orange);
+  }
+  .diagnosis {
+    background: #edf4f6;
+    border-left: 3px solid #78aeba;
+  }
+  .next-step {
+    background: #e6f1ee;
+    border-left: 3px solid #4e8d7e;
+  }
+  .hero-example span {
+    color: #617987;
+    font-size: 0.55rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+  }
+  .hero-example strong {
+    color: #294a59;
+    font-size: 0.76rem;
+    line-height: 1.45;
+  }
+  .retry {
+    margin-top: 0.8rem;
+    text-align: center;
+    color: var(--blue);
+    font-size: 0.66rem;
+    font-weight: 850;
+    letter-spacing: 0.08em;
+  }
+  .section {
+    padding: 4.8rem 0;
+  }
+  .pale {
+    background: var(--pale);
+  }
+  .section-head {
+    max-width: 860px;
+    margin-bottom: 1.8rem;
+  }
+  .section-head h2,
+  .split-head h2,
+  .award-grid h2 {
+    font-size: clamp(2.15rem, 3.8vw, 3.45rem);
+    line-height: 1.14;
+    letter-spacing: -0.047em;
+    font-weight: 740;
+    margin: 0 0 0.8rem;
+  }
+  .section-head > p:last-child,
+  .split-head > p {
+    color: var(--muted);
+    font-size: 0.91rem;
+    line-height: 1.65;
+  }
+  .core-loop {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    align-items: stretch;
+  }
+  .core-loop article {
+    display: flex;
+    gap: 0.8rem;
+    border: 1px solid #d2e0e4;
+    background: #fff;
+    padding: 1.1rem;
+  }
+  .core-loop article.primary-step {
+    border: 2px solid #4f91a1;
+    background: #eaf4f6;
+  }
+  .core-loop article > span {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #e7f0f2;
+    color: var(--blue);
+    font-size: 0.68rem;
+    font-weight: 900;
+  }
+  .core-loop .primary-step > span {
+    background: var(--blue);
+    color: #fff;
+  }
+  .core-loop small {
+    color: #6d8089;
+    font-size: 0.53rem;
+    font-weight: 900;
+    letter-spacing: 0.09em;
+  }
+  .core-loop h3 {
+    font-size: 1rem;
+    line-height: 1.25;
+    margin: 0.35rem 0;
+  }
+  .core-loop p {
+    color: #5b707b;
+    font-size: 0.71rem;
+    line-height: 1.5;
+    margin: 0;
+  }
+  .core-loop > b {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    color: var(--orange);
+    font-size: 1.25rem;
+  }
+  .preference-title {
+    margin: 2.6rem 0 1rem;
+  }
+  .preference-title h3 {
+    font-size: 1.7rem;
+    letter-spacing: -0.035em;
+    margin: 0;
+  }
+  .preference-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .preference-grid article {
+    border-top: 4px solid #69a2b0;
+    background: #fff;
+    padding: 1.25rem;
+  }
+  .preference-grid article:nth-child(2) {
+    border-color: #c17a57;
+  }
+  .preference-grid article:nth-child(3) {
+    border-color: #6c9788;
+  }
+  .preference-grid article > span {
+    color: var(--blue);
+    font-size: 0.62rem;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+  }
+  .preference-grid h4 {
+    font-size: 1.1rem;
+    line-height: 1.3;
+    margin: 0.55rem 0;
+  }
+  .preference-grid p {
+    color: #566d79;
+    font-size: 0.78rem;
+    line-height: 1.58;
+  }
+  .preference-grid article > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    border-top: 1px solid #dae5e7;
+    padding-top: 0.65rem;
+  }
+  .preference-grid b,
+  .preference-grid em {
+    font-size: 0.65rem;
+  }
+  .preference-grid b {
+    color: #315b69;
+  }
+  .preference-grid em {
+    color: var(--orange);
+    font-style: normal;
+  }
+  .role-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .role-grid article {
+    border: 1px solid #d0dfe3;
+    padding: 1.35rem;
+    background: #fff;
+  }
+  .role-grid article:nth-child(2) {
+    background: #f4f8f9;
+    border-color: #a9c9d1;
+  }
+  .role-name {
+    color: var(--orange);
+    font-size: 0.62rem;
+    font-weight: 900;
+    letter-spacing: 0.13em;
+  }
+  .role-grid h3 {
+    font:
+      400 1.45rem/1.3 Georgia,
+      serif;
+    color: #244b5d;
+    margin: 0.55rem 0 0.9rem;
+  }
+  .role-flow {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    gap: 0.25rem;
+    align-items: center;
+    background: #edf4f6;
+    padding: 0.7rem;
+  }
+  .role-flow span {
+    color: #315966;
+    font-size: 0.6rem;
+    font-weight: 800;
+    line-height: 1.3;
+    text-align: center;
+  }
+  .role-flow b {
+    color: var(--orange);
+  }
+  .role-grid p {
+    color: #556b77;
+    font-size: 0.76rem;
+    line-height: 1.55;
+    margin: 1rem 0 0.7rem;
+  }
+  .benefit {
+    display: block;
+    color: #28586a;
+    font-size: 0.71rem;
+    line-height: 1.45;
+    border-top: 1px solid #d7e3e6;
+    padding-top: 0.7rem;
+  }
+  .demo-section {
+    background: #fff;
+  }
+  .preference-demo {
+    background: #f6f8f9;
+  }
+  .split-head {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 4rem;
+    align-items: end;
+    margin-bottom: 1.8rem;
+  }
+  .split-head h2 {
+    margin-bottom: 0;
+  }
+  .pipeline-section {
+    background: #e9f0f2;
+  }
+  .pipeline-grid {
+    display: grid;
+    grid-template-columns: 1.07fr 0.93fr;
+    gap: 1rem;
+  }
+  .offline-panel,
+  .online-panel {
+    border: 1px solid #b9cfd5;
+    background: #fff;
+    padding: 1.3rem;
+  }
+  .pipeline-grid header {
+    border-bottom: 1px solid #d4e2e5;
+    padding-bottom: 0.85rem;
+    margin-bottom: 1rem;
+  }
+  .pipeline-grid header span {
+    color: var(--blue);
+    font-size: 0.61rem;
+    font-weight: 900;
+    letter-spacing: 0.13em;
+  }
+  .pipeline-grid header h3 {
+    font-size: 1.3rem;
+    letter-spacing: -0.03em;
+    margin: 0.4rem 0 0;
+  }
+  .source-main {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    border: 2px solid #3f8698;
+    background: #e7f3f5;
+  }
+  .source-label {
+    display: grid;
+    place-items: center;
+    background: #3f8698;
+    color: #fff;
+    font-size: 0.57rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    padding: 0.6rem;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+  }
+  .source-main > div:last-child,
+  .course-record,
+  .stored-record {
+    display: grid;
+    gap: 0.25rem;
+    padding: 0.8rem;
+  }
+  .source-main small,
+  .course-record small,
+  .stored-record small,
+  .auxiliary-flow small,
+  .online-flow small {
+    color: #637b86;
+    font-size: 0.54rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+  }
+  .source-main strong,
+  .course-record strong,
+  .stored-record strong {
+    color: #244b5b;
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
+  .vertical-arrow,
+  .online-flow > b {
+    color: #4d8796;
+    text-align: center;
+    font-size: 1.15rem;
+    line-height: 1.1;
+    padding: 0.2rem;
+  }
+  .course-record {
+    border: 1px solid #70a6b3;
+    background: #f0f7f8;
+    text-align: center;
+  }
+  .auxiliary-wrap {
+    position: relative;
+    border: 1px dashed #c47b57;
+    background: #fff7f2;
+    padding: 1rem;
+    margin-top: 1rem;
+  }
+  .auxiliary-label {
+    position: absolute;
+    top: -0.55rem;
+    left: 1rem;
+    background: #fff7f2;
+    color: #a95333;
+    font-size: 0.55rem;
+    font-weight: 900;
+    letter-spacing: 0.11em;
+    padding: 0 0.35rem;
+  }
+  .auxiliary-flow {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .auxiliary-flow > div {
+    display: grid;
+    gap: 0.25rem;
+  }
+  .auxiliary-flow strong {
+    color: #704534;
+    font-size: 0.65rem;
+    line-height: 1.4;
+  }
+  .auxiliary-flow > b {
+    color: var(--orange);
+  }
+  .auxiliary-wrap > p {
+    color: #775b4e;
+    font-size: 0.64rem;
+    line-height: 1.45;
+    border-top: 1px dashed #d7aa92;
+    padding-top: 0.55rem;
+    margin: 0.7rem 0 0;
+  }
+  .stored-record {
+    border: 2px solid #3f8698;
+    background: #dfeef1;
+  }
+  .online-flow {
+    display: grid;
+  }
+  .online-flow > div {
+    display: grid;
+    gap: 0.2rem;
+    border: 1px solid #a9c8d0;
+    background: #eef6f7;
+    padding: 0.67rem 0.75rem;
+  }
+  .online-flow strong {
+    color: #294d5d;
+    font-size: 0.7rem;
+    line-height: 1.4;
+  }
+  .online-flow .conditional {
+    border: 1px dashed #c47b57;
+    background: #fff5ef;
+  }
+  .online-flow .conditional small,
+  .online-flow .conditional strong {
+    color: #87503a;
+  }
+  .online-flow .final-step {
+    border: 2px solid #3e8495;
+    background: #dfeef1;
+  }
+  .preference-input {
+    margin-top: 0.9rem;
+    border-left: 4px solid var(--orange);
+    background: #fff4ed;
+    padding: 0.75rem;
+  }
+  .preference-input span {
+    color: #a55335;
+    font-size: 0.55rem;
+    font-weight: 900;
+    letter-spacing: 0.11em;
+  }
+  .preference-input p {
+    color: #6d5043;
+    font-size: 0.65rem;
+    line-height: 1.48;
+    margin: 0.25rem 0 0;
+  }
+  .status-note {
+    color: #5e737f;
+    font-size: 0.7rem;
+    line-height: 1.55;
+    margin: 1rem 0 0;
+  }
+  .award-section {
+    background: var(--dark);
+    color: #fff;
+  }
+  .award-grid {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 4rem;
+    align-items: center;
+  }
+  .award-grid h2 {
+    color: #fff;
+  }
+  .award-grid p:last-child {
+    color: #bed0d8;
+    font-size: 0.88rem;
+    line-height: 1.6;
+  }
+  .award-grid > a {
+    color: #fff !important;
+    border: 1px solid #6f8c9b;
+    padding: 0.8rem 1rem;
+    font-size: 0.75rem;
+    font-weight: 800 !important;
+    text-decoration: none !important;
+    white-space: nowrap;
+  }
+  footer {
+    background: #102735;
+    color: #fff;
+  }
+  footer > div {
+    min-height: 85px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  footer span {
+    color: #91a9b4;
+    font-size: 0.68rem;
+  }
+  footer a {
+    margin-left: auto;
+    color: #c4d9df !important;
+    font-size: 0.69rem;
+  }
+  @media (max-width: 980px) {
+    .hero {
+      grid-template-columns: 1fr;
+    }
+    .hero-example {
+      max-width: 660px;
+    }
+    .affiliations {
+      flex-wrap: wrap;
+      padding-block: 1rem;
+    }
+    .award-link {
+      width: 100%;
+      margin-left: 0;
+      text-align: center;
+    }
+    .core-loop {
+      grid-template-columns: 1fr;
+      gap: 0.45rem;
+    }
+    .core-loop > b {
+      width: auto;
+      transform: rotate(90deg);
+    }
+    .pipeline-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 760px) {
+    .shell {
+      width: min(1180px, calc(100% - 2rem));
+    }
+    .nav {
+      align-items: flex-start;
+      flex-direction: column;
+      justify-content: center;
+      padding-block: 0.75rem;
+      gap: 0.4rem;
+    }
+    .nav nav {
+      width: 100%;
+      overflow-x: auto;
+    }
+    .nav nav a {
+      white-space: nowrap;
+    }
+    .affiliations > div {
+      width: calc(50% - 1rem);
+    }
+    .affiliations img,
+    .affiliations .uf img {
+      max-width: 150px;
+      max-height: 34px;
+    }
+    .section {
+      padding: 3.6rem 0;
+    }
+    .preference-grid,
+    .role-grid,
+    .split-head,
+    .award-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    .hero {
+      padding: 4rem 0;
+    }
+    .split-head {
+      align-items: start;
+    }
+    .award-grid > a {
+      justify-self: start;
+    }
+  }
+  @media (max-width: 540px) {
+    .affiliations > div {
+      width: 100%;
+    }
+    .affiliations > i {
+      display: none;
+    }
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .actions a {
+      justify-content: center;
+      text-align: center;
+      font-size: 0.67rem;
+    }
+    .actions .primary {
+      grid-column: 1/-1;
+    }
+    .hero-example {
+      padding: 1rem;
+      box-shadow: 9px 9px 0 #e7eef0;
+    }
+    .role-flow {
+      grid-template-columns: 1fr;
+    }
+    .role-flow b {
+      transform: rotate(90deg);
+      text-align: center;
+    }
+    .auxiliary-flow {
+      grid-template-columns: 1fr;
+    }
+    .auxiliary-flow > b {
+      transform: rotate(90deg);
+      text-align: center;
+    }
+    footer > div {
+      align-items: flex-start;
+      flex-direction: column;
+      justify-content: center;
+      padding-block: 1rem;
+    }
+    footer a {
+      margin-left: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+</style>
