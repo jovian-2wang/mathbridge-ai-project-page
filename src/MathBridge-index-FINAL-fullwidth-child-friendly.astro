@@ -1,0 +1,1672 @@
+---
+import { Font } from "astro:assets";
+import "../styles/global.css";
+import "../styles/mathbridge.css";
+
+const base = import.meta.env.BASE_URL.endsWith("/")
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+const live = "https://mathbridge-ai.duckdns.org/";
+const projectRepo =
+  "https://github.com/jovian-2wang/mathbridge-ai-project-page";
+const appRepo = "https://github.com/jovian-2wang/mathbridge-AI";
+const award = "https://www.nsf.gov/awardsearch/show-award/?AWD_ID=2627693";
+---
+
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta
+      name="description"
+      content="MathBridge AI is a curriculum-grounded mathematics learning platform for students, teachers, and families."
+    />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    <Font
+      cssVariable="--font-noto-sans"
+      preload={[{ subset: "latin", style: "normal" }]}
+    />
+    <title>MathBridge AI | Student-aware mathematics support</title>
+  </head>
+
+  <body class="project-page font-(family-name:--font-noto-sans)">
+    <header id="top">
+      <div class="nav shell">
+        <a class="brand" href="#top">MathBridge <b>AI</b></a>
+        <nav aria-label="Page navigation">
+          <a href="#learning">How it helps</a><a href="#roles">Three views</a><a
+            href="#demo">Live demo</a
+          ><a href="#pipeline">Research pipeline</a>
+        </nav>
+      </div>
+
+      <div class="affiliation-band">
+        <div class="affiliations shell">
+          <div>
+            <span>LEAD ORGANIZATION</span><a
+              href="https://www.utsa.edu/"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><img
+                src={`${base}brands/ut-san-antonio-logo.svg`}
+                alt="The University of Texas at San Antonio"
+              /></a
+            >
+          </div>
+          <i aria-hidden="true"></i>
+          <div class="uf">
+            <span>SUB-AWARDEE ORGANIZATION</span><a
+              href="https://www.ufl.edu/"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><img
+                src={`${base}brands/uf-logo-full.png`}
+                alt="University of Florida"
+              /></a
+            >
+          </div>
+          <a
+            class="award-link"
+            href={award}
+            target="_blank"
+            rel="noopener noreferrer">NSF Award #2627693 ↗</a
+          >
+        </div>
+      </div>
+
+      <div class="hero shell">
+        <div class="hero-copy">
+          <p class="overline">INTERACTIVE RESEARCH PROJECT</p>
+          <h1>MathBridge AI</h1>
+          <p class="subtitle">
+            Stuck on a math problem? Get one helpful clue, then try again.
+          </p>
+          <p class="summary">
+            MathBridge starts with the Math 6 problem from class. It looks at
+            the student’s work and helps with the exact step that feels hard.
+            Students can choose examples they enjoy, add Chinese or Spanish,
+            and listen when reading the question is difficult.
+          </p>
+          <div class="actions">
+            <a class="primary" href="#demo">Explore the live demo</a><a
+              href={live}
+              target="_blank"
+              rel="noopener noreferrer">Open platform ↗</a
+            ><a href={projectRepo} target="_blank" rel="noopener noreferrer"
+              >Project code ↗</a
+            ><a href={award} target="_blank" rel="noopener noreferrer"
+              >NSF award ↗</a
+            >
+          </div>
+          <p class="private-repo">
+            Application source: <a
+              href={appRepo}
+              target="_blank"
+              rel="noopener noreferrer">private repository ↗</a
+            >
+          </p>
+        </div>
+
+        <aside
+          class="hero-example"
+          aria-label="Example of student-aware support"
+        >
+          <div class="task-tag">MATH 6 · UNIT RATE</div>
+          <p class="question">
+            24 points in 3 games at the same rate. How many points per game?
+          </p>
+          <div class="attempt">
+            <span>YOU TRIED</span><strong>6 points per game</strong>
+          </div>
+          <div class="diagnosis">
+            <span>HERE IS THE STUCK STEP</span><strong
+              >6 points for each game would make 18, not 24.</strong
+            >
+          </div>
+          <div class="next-step">
+            <span>ONE CLUE</span><strong
+              >“Three equal groups make 24. What number times 3 makes 24?”</strong
+            >
+          </div>
+          <div class="retry">GET A CLUE → TRY AGAIN → PRACTICE ONCE MORE</div>
+        </aside>
+      </div>
+    </header>
+
+    <main>
+      <section id="learning" class="section pale">
+        <div class="shell">
+          <div class="section-head">
+            <p class="overline">01 / HOW IT HELPS</p><h2>
+              You do the thinking. MathBridge helps you keep going.
+            </h2>
+          </div>
+          <div class="core-loop">
+            <article class="primary-step">
+              <span>1</span><div>
+                <small>FROM CLASS</small><h3>Your Math 6 problem</h3>
+              </div>
+            </article>
+            <b aria-hidden="true">→</b>
+            <article>
+              <span>2</span><div>
+                <small>FIRST</small><h3>You give it a try</h3>
+              </div>
+            </article>
+            <b aria-hidden="true">→</b>
+            <article>
+              <span>3</span><div>
+                <small>THEN</small><h3>We find the stuck step</h3>
+              </div>
+            </article>
+            <b aria-hidden="true">→</b>
+            <article>
+              <span>4</span><div>
+                <small>HELP</small><h3>You get one clear clue</h3>
+              </div>
+            </article>
+            <b aria-hidden="true">→</b>
+            <article class="retry-step">
+              <span>5</span><div>
+                <small>YOUR TURN</small><h3>You try again</h3>
+              </div>
+            </article>
+          </div>
+          <p class="loop-explanation">
+            <b>The class problem always comes first.</b> MathBridge does not
+            change the math or give away the answer. It gives just enough help
+            for the student to make the next move.
+          </p>
+
+          <div class="preference-title">
+            <p class="overline">CHOOSE WHAT HELPS YOU LEARN</p><h3>
+              The same math can be explained in a way that works better for you.
+            </h3>
+          </div>
+          <div class="preference-grid">
+            <article>
+              <span>THINGS I LIKE</span><h4>
+                Make a clue feel familiar.
+              </h4><p>
+                Choose basketball, baking, or games. A clue can use that topic
+                to explain the hard step. The class problem stays the same.
+              </p><div>
+                <b>Basketball: points ÷ games</b><em>→ still the same division</em>
+              </div>
+            </article>
+            <article>
+              <span>MY LANGUAGE</span><h4>
+                Understand the words and focus on the math.
+              </h4><p>
+                Keep the English question on screen and add Chinese or Spanish
+                underneath. This helps with tricky words without changing the
+                math.
+              </p><div>
+                <b>“unit rate” + 单位率</b><em>→ one idea, two languages</em>
+              </div>
+            </article>
+            <article>
+              <span>READ IT TO ME</span><h4>Listen when reading feels hard.</h4><p>
+                Press play to hear the question or clue. Nothing plays by
+                surprise, and the student still works out the answer.
+              </p><div>
+                <b>Press play when you want</b><em>→ no surprise sound</em>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="roles" class="section">
+        <div class="shell">
+          <div class="section-head">
+            <p class="overline">
+              02 / ONE PLATFORM, THREE PEOPLE
+            </p><h2>Everyone sees what they need—not a wall of data.</h2>
+          </div>
+          <div class="role-grid">
+            <article>
+              <div class="role-name">STUDENT</div><h3>
+                “How do I get unstuck?”
+              </h3><div class="role-flow">
+                <span>I try</span><b>→</b><span>I get one clue</span><b
+                  >→</b
+                ><span>Try again</span>
+              </div><p>
+                The clue helps with the hard step without showing the answer.
+              </p><strong class="benefit"
+                >The student stays in charge of the thinking.</strong
+              >
+            </article>
+            <article>
+              <div class="role-name">TEACHER</div><h3>
+                “Where does my class need help?”
+              </h3><div class="role-flow">
+                <span>See student work</span><b>→</b><span
+                  >Spot a common stuck step</span
+                ><b>→</b><span>Plan the next lesson</span>
+              </div><p>
+                The teacher can see which idea is causing trouble and which
+                students may need the same kind of help.
+              </p><strong class="benefit"
+                >Less guessing. More focused small groups and mini-lessons.</strong
+              >
+            </article>
+            <article>
+              <div class="role-name">FAMILY</div><h3>
+                “What can we work on together?”
+              </h3><div class="role-flow">
+                <span>See the skill</span><b>→</b><span
+                  >Ask one helpful question</span
+                ><b>→</b><span>Practice together</span>
+              </div><p>
+                Families get a short, plain-language update—not a technical
+                school report.
+              </p><strong class="benefit"
+                >A useful 10-minute conversation instead of extra homework.</strong
+              >
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="demo" class="section demo-section">
+        <div class="shell">
+          <div class="split-head">
+            <div>
+              <p class="overline">03 / LIVE PLATFORM</p><h2>
+                Open the real student, teacher, and family views.
+              </h2>
+            </div><p>
+              Choose who you are. The guide shows what that person can do in
+              the working platform.
+            </p>
+          </div>
+          <div id="live-demo" class="mb-live">
+            <div class="mb-live-head">
+              <div class="mb-role-tabs" role="tablist" aria-label="Choose a MathBridge view">
+                <button type="button" role="tab" data-role="student" aria-selected="true">Student</button>
+                <button type="button" role="tab" data-role="teacher" aria-selected="false">Teacher</button>
+                <button type="button" role="tab" data-role="family" aria-selected="false">Family</button>
+              </div>
+              <span class="mb-live-label">● WORKING DEMO</span>
+            </div>
+            <div class="mb-live-grid">
+              <aside class="mb-guide">
+                <span class="mb-eyebrow">WHAT YOU CAN DO</span>
+                <h3 id="demo-guide-title">Practice one step at a time.</h3>
+                <p id="demo-guide-intro">Try a class problem. If you get stuck, ask for one clue and try again.</p>
+                <ol id="demo-guide-steps">
+                  <li>Choose your language, interests, and reading help.</li>
+                  <li>Try today’s Math 6 problem.</li>
+                  <li>Ask for a clue or picture when you need it.</li>
+                </ol>
+                <p id="demo-guide-access" class="mb-access">Open the demo and choose Student.</p>
+                <a class="mb-open-app" href={live} target="_blank" rel="noopener noreferrer">Open the full platform ↗</a>
+              </aside>
+              <div class="mb-app-window">
+                <div class="mb-address"><span aria-hidden="true">● ● ●</span><span>mathbridge-ai.duckdns.org</span><a href={live} target="_blank" rel="noopener noreferrer">Open ↗</a></div>
+                <iframe src={live} title="Working MathBridge AI platform" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="clipboard-read; clipboard-write"></iframe>
+                <div class="mb-app-foot">This is the real working demo. If it does not appear here, <a href={live} target="_blank" rel="noopener noreferrer">open it in a new tab ↗</a></div>
+              </div>
+            </div>
+          </div>
+          <script is:inline>
+            (() => {
+              const root = document.getElementById("live-demo");
+              if (!root) return;
+              const views = {
+                student: {
+                  title: "Practice one step at a time.",
+                  intro: "Try a class problem. If you get stuck, ask for one clue and try again.",
+                  steps: ["Choose your language, interests, and reading help.", "Try today’s Math 6 problem.", "Ask for a clue or picture when you need it."],
+                  access: "Open the demo and choose Student."
+                },
+                teacher: {
+                  title: "See where students got stuck.",
+                  intro: "Look beyond right or wrong. See the step that needs another explanation.",
+                  steps: ["See recent student attempts.", "Find students stuck on the same idea.", "Plan a small group or short mini-lesson."],
+                  access: "Open the demo and choose Teacher."
+                },
+                family: {
+                  title: "Know how to help at home.",
+                  intro: "Get a short update, one question to ask, and a quick activity to try together.",
+                  steps: ["See what your child is learning.", "Read one helpful question to ask.", "Try a short practice problem together."],
+                  access: "Open the demo and choose Parent."
+                }
+              };
+              const buttons = [...root.querySelectorAll("[data-role]")];
+              buttons.forEach((button) => button.addEventListener("click", () => {
+                const view = views[button.dataset.role];
+                root.querySelector("#demo-guide-title").textContent = view.title;
+                root.querySelector("#demo-guide-intro").textContent = view.intro;
+                root.querySelector("#demo-guide-access").textContent = view.access;
+                root.querySelector("#demo-guide-steps").replaceChildren(...view.steps.map((step) => {
+                  const item = document.createElement("li");
+                  item.textContent = step;
+                  return item;
+                }));
+                buttons.forEach((item) => item.setAttribute("aria-selected", String(item === button)));
+              }));
+            })();
+          </script>
+        </div>
+      </section>
+
+      <section class="section preference-demo">
+        <div class="shell">
+          <div class="split-head">
+            <div>
+              <p class="overline">04 / TRY THE PREFERENCE LOGIC</p><h2>
+                Try it: make the help feel like yours.
+              </h2>
+            </div><p>
+              Change the topic, add a translation, or turn on the play button.
+              Then solve the problem and ask for a clue if you need one.
+            </p>
+          </div>
+          <div id="learning-lab" class="mb-lab">
+            <div class="mb-profile">
+              <span class="mb-eyebrow">MY CHOICES</span>
+              <h3>Make the help work for you.</h3>
+              <p>Try these buttons. They change the clue—not the class problem.</p>
+              <fieldset>
+                <legend>Add a translation</legend>
+                <div class="mb-chips">
+                  <button type="button" data-lang="en" aria-pressed="true">English</button>
+                  <button type="button" data-lang="zh" aria-pressed="false">English + 中文</button>
+                  <button type="button" data-lang="es" aria-pressed="false">English + Español</button>
+                </div>
+              </fieldset>
+              <fieldset>
+                <legend>Things I like <small>— used inside the clue</small></legend>
+                <div class="mb-chips">
+                  <button type="button" data-interest="basketball" aria-pressed="true">Basketball</button>
+                  <button type="button" data-interest="baking" aria-pressed="false">Baking</button>
+                  <button type="button" data-interest="games" aria-pressed="false">Games</button>
+                </div>
+              </fieldset>
+              <label class="mb-audio-setting">
+                <input id="lab-audio" type="checkbox" />
+                <span><strong>Show the play button</strong><small>Sound starts only when you press Play</small></span>
+              </label>
+              <div class="mb-constant">
+                <small>THE CLASS PROBLEM NEVER CHANGES</small>
+                <strong id="lab-constant">24 ÷ 3 = ?</strong>
+                <span>Your choices only change how the clue is explained.</span>
+              </div>
+            </div>
+            <div class="mb-example">
+              <div class="mb-example-bar"><span>MATH 6 / TRY IT</span><span id="lab-round">01 / 02</span></div>
+              <div class="mb-example-body">
+                <span class="mb-topic">YOUR CLASS PROBLEM</span>
+                <h3 id="lab-question">A class packs 24 notebooks equally into 3 boxes. How many notebooks go in each box?</h3>
+                <p id="lab-translation" class="mb-translation" hidden></p>
+                <button id="lab-listen" class="mb-listen" type="button" hidden>▶ Play the question</button>
+                <form id="lab-form">
+                  <label for="lab-answer">Your answer</label>
+                  <div class="mb-answer-row"><input id="lab-answer" inputmode="numeric" autocomplete="off" type="text" /><span id="lab-unit">notebooks in each box</span><button type="submit">Check</button></div>
+                </form>
+                <p id="lab-feedback" class="mb-feedback" role="status" aria-live="polite"></p>
+                <div class="mb-help-buttons"><button id="lab-hint" type="button">Give me one clue</button><button id="lab-visual" type="button">Show a picture ▦</button></div>
+                <div id="lab-hint-panel" class="mb-help-panel" hidden><span>YOUR CLUE</span><p id="lab-hint-copy"></p><p id="lab-hint-second" hidden></p><button id="lab-hint-listen" class="mb-listen" type="button" hidden>▶ Play the clue</button></div>
+                <div id="lab-ratio-panel" class="mb-ratio-panel" hidden>
+                  <span>SHARE THE NOTEBOOKS EQUALLY</span>
+                  <table aria-label="Equal groups table"><tbody><tr><th scope="row">Boxes</th><td>1</td><td>2</td><td id="lab-boxes">3</td></tr><tr><th scope="row">Notebooks</th><td>?</td><td>?</td><td id="lab-total">24</td></tr></tbody></table>
+                  <p>What number belongs under 1 box?</p>
+                </div>
+                <button id="lab-next" class="mb-next" type="button" hidden>Try one more →</button>
+              </div>
+              <div class="mb-example-foot"><span>TRY → GET ONE CLUE → TRY AGAIN</span><a href="#demo">Open the full demo ↘</a></div>
+            </div>
+          </div>
+          <script is:inline>
+            (() => {
+              const root = document.getElementById("learning-lab");
+              if (!root) return;
+              const get = (selector) => root.querySelector(selector);
+              const questions = [
+                "A class packs 24 notebooks equally into 3 boxes. How many notebooks go in each box?",
+                "A class packs 36 markers equally into 4 bins. How many markers go in each bin?"
+              ];
+              const translations = {
+                zh: ["一个班把 24 本练习册平均装进 3 个箱子。每个箱子里有多少本？", "一个班把 36 支彩笔平均放进 4 个盒子。每个盒子里有多少支？"],
+                es: ["Una clase reparte 24 cuadernos por igual en 3 cajas. ¿Cuántos van en cada caja?", "Una clase reparte 36 marcadores por igual en 4 recipientes. ¿Cuántos van en cada uno?"]
+              };
+              const clues = {
+                basketball: ["Think about 24 points shared across 3 games. How many points would go with one game? Use that same division here.", "Think about 36 points shared across 4 games. How many points would go with one game?"],
+                baking: ["Think about 24 cookies shared across 3 trays. How many cookies would go on one tray? Use that same division here.", "Think about 36 cookies shared across 4 trays. How many cookies would go on one tray?"],
+                games: ["Think about 24 coins shared across 3 game levels. How many coins would go in one level? Use that same division here.", "Think about 36 coins shared across 4 levels. How many coins would go in one level?"]
+              };
+              let lang = "en";
+              let interest = "basketball";
+              let round = 0;
+              const answer = get("#lab-answer");
+              const audio = get("#lab-audio");
+              const speak = (words) => {
+                if (!("speechSynthesis" in window)) return;
+                window.speechSynthesis.cancel();
+                const voiceLine = new SpeechSynthesisUtterance(words);
+                const voices = window.speechSynthesis.getVoices();
+                voiceLine.voice = voices.find((voice) => /Samantha|Google US English|Microsoft Aria|Ava|Karen/i.test(voice.name)) || voices.find((voice) => voice.lang === "en-US") || null;
+                voiceLine.lang = "en-US";
+                voiceLine.rate = 0.92;
+                voiceLine.pitch = 1;
+                voiceLine.volume = 0.85;
+                window.speechSynthesis.speak(voiceLine);
+              };
+              const draw = () => {
+                get("#lab-question").textContent = questions[round];
+                get("#lab-constant").textContent = round ? "36 ÷ 4 = ?" : "24 ÷ 3 = ?";
+                get("#lab-unit").textContent = round ? "markers in each bin" : "notebooks in each box";
+                get("#lab-round").textContent = round ? "02 / 02" : "01 / 02";
+                get("#lab-boxes").textContent = round ? "4" : "3";
+                get("#lab-total").textContent = round ? "36" : "24";
+                const translation = get("#lab-translation");
+                translation.hidden = lang === "en";
+                translation.textContent = lang === "en" ? "" : translations[lang][round];
+                get("#lab-hint-copy").textContent = clues[interest][round];
+                const second = get("#lab-hint-second");
+                second.hidden = lang === "en";
+                second.textContent = lang === "zh" ? (round ? "想一想：36 平均分成 4 份，每份是多少？" : "想一想：24 平均分成 3 份，每份是多少？") : (lang === "es" ? (round ? "Piensa: si repartes 36 en 4 grupos iguales, ¿cuánto hay en cada grupo?" : "Piensa: si repartes 24 en 3 grupos iguales, ¿cuánto hay en cada grupo?") : "");
+                get("#lab-listen").hidden = !audio.checked;
+                get("#lab-hint-listen").hidden = !audio.checked;
+                get("#lab-hint-panel").hidden = true;
+                get("#lab-ratio-panel").hidden = true;
+                get("#lab-next").hidden = true;
+                get("#lab-feedback").textContent = "";
+                get("#lab-feedback").className = "mb-feedback";
+                answer.value = "";
+                root.querySelectorAll("[data-lang]").forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.lang === lang)));
+                root.querySelectorAll("[data-interest]").forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.interest === interest)));
+              };
+              root.querySelectorAll("[data-lang]").forEach((button) => button.addEventListener("click", () => { lang = button.dataset.lang; draw(); }));
+              root.querySelectorAll("[data-interest]").forEach((button) => button.addEventListener("click", () => { interest = button.dataset.interest; get("#lab-hint-copy").textContent = clues[interest][round]; }));
+              audio.addEventListener("change", () => {
+                get("#lab-listen").hidden = !audio.checked;
+                get("#lab-hint-listen").hidden = !audio.checked;
+                if (!audio.checked && "speechSynthesis" in window) window.speechSynthesis.cancel();
+              });
+              get("#lab-listen").addEventListener("click", () => speak(questions[round]));
+              get("#lab-hint-listen").addEventListener("click", () => speak(clues[interest][round]));
+              get("#lab-hint").addEventListener("click", () => { get("#lab-hint-copy").textContent = clues[interest][round]; get("#lab-hint-panel").hidden = false; });
+              get("#lab-visual").addEventListener("click", () => { get("#lab-ratio-panel").hidden = false; });
+              get("#lab-next").addEventListener("click", () => { round = 1; draw(); answer.focus(); });
+              get("#lab-form").addEventListener("submit", (event) => {
+                event.preventDefault();
+                const feedback = get("#lab-feedback");
+                if (!answer.value.trim()) { feedback.textContent = "Type a number first."; answer.focus(); return; }
+                if (Number(answer.value) === (round ? 9 : 8)) {
+                  feedback.textContent = round ? "Yes—9 is right. You used the same idea again!" : "Yes—8 is right. Now try the same idea one more time.";
+                  feedback.classList.add("is-correct");
+                  get("#lab-next").hidden = Boolean(round);
+                } else {
+                  feedback.textContent = "Not yet. Open one clue or the picture, then try again.";
+                }
+              });
+              draw();
+            })();
+          </script>
+        </div>
+      </section>
+
+      <section id="pipeline" class="section pipeline-section">
+        <div class="shell">
+          <div class="section-head">
+            <p class="overline">05 / HOW THE SUPPORT IS BUILT</p><h2>
+              The Student Edition leads. The Answer Edition only helps check the support.
+            </h2><p>
+              There are two separate jobs: prepare helpful material before
+              students arrive, then use it only when a student needs a clue.
+            </p>
+          </div>
+
+          <div class="pipeline-stack">
+            <section class="pipeline-block">
+              <header>
+                <span>BEFORE STUDENTS USE IT</span><h3>
+                  Build and check the help.
+                </h3>
+              </header>
+              <div class="primary-route">
+                <div>
+                  <small>THE COURSE</small><strong
+                    >Math 6 Student Edition task</strong>
+                </div><b>→</b><div>
+                  <small>WHAT STUDENTS LEARN</small><strong
+                    >Problem + math skill</strong>
+                </div><b>→</b><div class="database-box">
+                  <small>SAVED FOR THE PLATFORM</small><strong
+                    >Course task and checked support</strong>
+                </div>
+              </div>
+              <div class="aux-route">
+                <span>USED TO CHECK</span><div>
+                  <small>Math 6 Answer Edition</small><strong
+                    >Correct answer + worked solution</strong>
+                </div><b>→</b><div>
+                  <small>Automatic review</small><strong
+                    >Keep accurate explanations</strong>
+                </div><b>↗</b>
+              </div>
+              <p class="pipeline-note">
+                The Answer Edition checks accuracy. It never replaces the
+                Student Edition task and is never copied to the student as a clue.
+              </p>
+            </section>
+
+            <section class="pipeline-block">
+              <header>
+                <span>WHILE A STUDENT IS PRACTICING</span><h3>
+                  Start with the student’s own work.
+                </h3>
+              </header>
+              <div class="runtime-route">
+                <div><small>COURSE</small><strong>Math 6 task</strong></div><b
+                  >→</b
+                ><div><small>STUDENT</small><strong>Tries it</strong></div><b
+                  >→</b
+                ><div>
+                  <small>MATHBRIDGE</small><strong>Finds the stuck step</strong>
+                </div><b>→</b><div class="help-box">
+                  <small>ONLY WHEN NEEDED</small><strong
+                    >One checked clue or picture</strong>
+                </div><b>→</b><div class="retry-box">
+                  <small>STUDENT</small><strong>Tries again</strong>
+                </div>
+              </div>
+              <div class="preference-strip">
+                <span>THE CLUE CAN MATCH THE STUDENT</span><b>Interest:</b> familiar example
+                <i>·</i><b>Language:</b> translate hard words <i>·</i><b
+                  >Listen:</b
+                > play only when pressed
+              </div>
+              <p class="pipeline-note">
+                These choices change how a clue is explained. The class task,
+                math skill, and correct answer stay exactly the same.
+              </p>
+            </section>
+          </div>
+
+          <p class="status-note">
+            <b>Prototype status:</b> Course tasks, micro-skills, validator, diagnosis,
+            Hint Agent, hints, evidence, and visuals describe the current platform.
+            Importing and automatically evaluating Answer Edition explanation materials
+            is the proposed research extension.
+          </p>
+        </div>
+      </section>
+
+      <section class="award-section section">
+        <div class="shell award-grid">
+          <div>
+            <p class="overline">RESEARCH CONTEXT</p><h2>
+              NSF Award #2627693
+            </h2><p>
+              MathBridge AI is presented as an academic research prototype
+              involving UT San Antonio and the University of Florida.
+            </p>
+          </div><a href={award} target="_blank" rel="noopener noreferrer"
+            >View the official award record ↗</a
+          >
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="shell">
+        <strong>MathBridge AI</strong><span
+          >Student-aware mathematics support</span
+        ><a href={projectRepo} target="_blank" rel="noopener noreferrer"
+          >GitHub project page ↗</a
+        >
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --ink: #173244;
+    --muted: #526a79;
+    --blue: #17667a;
+    --blue2: #2c7f92;
+    --orange: #b65d3b;
+    --line: #d4e1e5;
+    --pale: #f3f7f8;
+    --dark: #173d50;
+  }
+  .project-page {
+    margin: 0;
+    background: #fff;
+    color: var(--ink);
+    font-family: var(--font-noto-sans), Arial, sans-serif;
+  }
+  .project-page main {
+    margin-inline: 0;
+  }
+  .project-page * {
+    box-sizing: border-box;
+  }
+  .project-page :is(h1, h2, h3, h4, p, dl, dd, ul) {
+    margin-block-start: 0;
+  }
+  .project-page :is(a, button, input):focus-visible {
+    outline: 3px solid #ef9f43;
+    outline-offset: 3px;
+  }
+  .shell {
+    width: calc(100% - clamp(2rem, 5vw, 6rem));
+    max-width: none;
+    margin-inline: auto;
+  }
+  .nav {
+    min-height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+  .brand {
+    color: var(--ink) !important;
+    font-size: 1rem;
+    font-weight: 900 !important;
+    text-decoration: none !important;
+  }
+  .brand b {
+    color: var(--orange);
+  }
+  .nav nav {
+    display: flex;
+    gap: clamp(0.8rem, 2.4vw, 1.8rem);
+  }
+  .nav nav a {
+    color: #526775 !important;
+    font-size: 0.76rem;
+    font-weight: 750 !important;
+    text-decoration: none !important;
+  }
+  .affiliation-band {
+    background: var(--dark);
+  }
+  .affiliations {
+    min-height: 106px;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  .affiliations > div {
+    display: grid;
+    gap: 0.5rem;
+  }
+  .affiliations span {
+    color: #b6cbd3;
+    font-size: 0.59rem;
+    font-weight: 850;
+    letter-spacing: 0.14em;
+  }
+  .affiliations img {
+    display: block;
+    width: auto;
+    max-width: 220px;
+    max-height: 42px;
+    margin: 0;
+    filter: brightness(0) invert(1);
+  }
+  .affiliations .uf img {
+    max-width: 230px;
+    max-height: 47px;
+    filter: none;
+  }
+  .affiliations > i {
+    height: 55px;
+    border-left: 1px solid #587688;
+  }
+  .award-link {
+    margin-left: auto;
+    color: #fff !important;
+    border: 1px solid #6b8796;
+    padding: 0.7rem 0.9rem;
+    font-size: 0.72rem;
+    font-weight: 800 !important;
+    text-decoration: none !important;
+  }
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.08fr) minmax(380px, 0.92fr);
+    gap: clamp(2rem, 4vw, 5rem);
+    align-items: center;
+    padding: 4.2rem 0;
+  }
+  .overline {
+    color: var(--orange);
+    font-size: 0.68rem;
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    line-height: 1.4;
+    margin-bottom: 0.8rem;
+  }
+  .hero h1 {
+    font-size: clamp(3.7rem, 6vw, 6rem);
+    line-height: 0.96;
+    letter-spacing: -0.065em;
+    font-weight: 780;
+    margin: 0 0 1rem;
+  }
+  .subtitle {
+    color: #254f64;
+    font:
+      400 clamp(1.35rem, 2.4vw, 1.9rem)/1.28 Georgia,
+      serif;
+    max-width: 700px;
+    margin-bottom: 1rem;
+  }
+  .summary {
+    color: #496171;
+    font-size: 1rem;
+    line-height: 1.7;
+    max-width: 720px;
+    margin-bottom: 1.5rem;
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .actions a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 42px;
+    color: var(--dark) !important;
+    border: 1px solid #b9cbd2;
+    padding: 0.58rem 0.82rem;
+    font-size: 0.73rem;
+    font-weight: 800 !important;
+    text-decoration: none !important;
+  }
+  .actions .primary {
+    background: var(--orange);
+    border-color: var(--orange);
+    color: #fff !important;
+  }
+  .private-repo {
+    color: #74838c;
+    font-size: 0.68rem;
+    margin: 0.8rem 0 0;
+  }
+  .hero-example {
+    border: 1px solid #b9cfd6;
+    background: #f8fbfb;
+    box-shadow: 16px 16px 0 #e7eef0;
+    padding: 1.4rem;
+  }
+  .task-tag {
+    color: var(--blue);
+    font-size: 0.61rem;
+    font-weight: 900;
+    letter-spacing: 0.13em;
+    border-bottom: 1px solid #d6e3e6;
+    padding-bottom: 0.7rem;
+  }
+  .question {
+    color: var(--ink);
+    font-size: 1.2rem;
+    font-weight: 760;
+    line-height: 1.42;
+    margin: 1rem 0;
+  }
+  .attempt,
+  .diagnosis,
+  .next-step {
+    display: grid;
+    gap: 0.18rem;
+    padding: 0.7rem 0.8rem;
+    margin-top: 0.55rem;
+  }
+  .attempt {
+    background: #fff1ea;
+    border-left: 3px solid var(--orange);
+  }
+  .diagnosis {
+    background: #edf4f6;
+    border-left: 3px solid #78aeba;
+  }
+  .next-step {
+    background: #e6f1ee;
+    border-left: 3px solid #4e8d7e;
+  }
+  .hero-example span {
+    color: #617987;
+    font-size: 0.55rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+  }
+  .hero-example strong {
+    color: #294a59;
+    font-size: 0.76rem;
+    line-height: 1.45;
+  }
+  .retry {
+    margin-top: 0.8rem;
+    text-align: center;
+    color: var(--blue);
+    font-size: 0.66rem;
+    font-weight: 850;
+    letter-spacing: 0.08em;
+  }
+  .section {
+    padding: 4.2rem 0;
+  }
+  .pale {
+    background: var(--pale);
+  }
+  .section-head {
+    max-width: 860px;
+    margin-bottom: 1.8rem;
+  }
+  .section-head h2,
+  .split-head h2,
+  .award-grid h2 {
+    font-size: clamp(2rem, 2.7vw, 2.75rem);
+    line-height: 1.14;
+    letter-spacing: -0.047em;
+    font-weight: 740;
+    margin: 0 0 0.8rem;
+  }
+  .section-head > p:last-child,
+  .split-head > p {
+    color: var(--muted);
+    font-size: 0.91rem;
+    line-height: 1.65;
+  }
+  .core-loop {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) 28px minmax(0, 1fr) 28px minmax(
+        0,
+        1fr
+      ) 28px minmax(0, 1fr) 28px minmax(0, 1.15fr);
+    align-items: stretch;
+  }
+  .core-loop article {
+    display: flex;
+    gap: 0.8rem;
+    border: 1px solid #d2e0e4;
+    background: #fff;
+    padding: 1.1rem;
+  }
+  .core-loop article.primary-step {
+    border: 2px solid #4f91a1;
+    background: #eaf4f6;
+  }
+  .core-loop article > span {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #e7f0f2;
+    color: var(--blue);
+    font-size: 0.68rem;
+    font-weight: 900;
+  }
+  .core-loop .primary-step > span {
+    background: var(--blue);
+    color: #fff;
+  }
+  .core-loop small {
+    color: #6d8089;
+    font-size: 0.53rem;
+    font-weight: 900;
+    letter-spacing: 0.09em;
+  }
+  .core-loop h3 {
+    font-size: clamp(0.9rem, 1.1vw, 1.12rem);
+    line-height: 1.25;
+    margin: 0.35rem 0;
+  }
+  .core-loop > b {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    color: var(--orange);
+    font-size: 1.25rem;
+  }
+  .core-loop .retry-step {
+    border-color: #74a08f;
+    background: #edf5f1;
+  }
+  .loop-explanation {
+    max-width: 980px;
+    color: #536a76;
+    font-size: 0.78rem;
+    line-height: 1.6;
+    margin: 0.9rem 0 0;
+  }
+  .loop-explanation b {
+    color: #28586a;
+  }
+  .preference-title {
+    margin: 2.6rem 0 1rem;
+  }
+  .preference-title h3 {
+    font-size: 1.7rem;
+    letter-spacing: -0.035em;
+    margin: 0;
+  }
+  .preference-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .preference-grid article {
+    border-top: 4px solid #69a2b0;
+    background: #fff;
+    padding: 1.25rem;
+  }
+  .preference-grid article:nth-child(2) {
+    border-color: #c17a57;
+  }
+  .preference-grid article:nth-child(3) {
+    border-color: #6c9788;
+  }
+  .preference-grid article > span {
+    color: var(--blue);
+    font-size: 0.62rem;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+  }
+  .preference-grid h4 {
+    font-size: 1.1rem;
+    line-height: 1.3;
+    margin: 0.55rem 0;
+  }
+  .preference-grid p {
+    color: #566d79;
+    font-size: 0.84rem;
+    line-height: 1.58;
+  }
+  .preference-grid article > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    border-top: 1px solid #dae5e7;
+    padding-top: 0.65rem;
+  }
+  .preference-grid b,
+  .preference-grid em {
+    font-size: 0.65rem;
+  }
+  .preference-grid b {
+    color: #315b69;
+  }
+  .preference-grid em {
+    color: var(--orange);
+    font-style: normal;
+  }
+  .role-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .role-grid article {
+    border: 1px solid #d0dfe3;
+    padding: 1.35rem;
+    background: #fff;
+  }
+  .role-grid article:nth-child(2) {
+    background: #f4f8f9;
+    border-color: #a9c9d1;
+  }
+  .role-name {
+    color: var(--orange);
+    font-size: 0.62rem;
+    font-weight: 900;
+    letter-spacing: 0.13em;
+  }
+  .role-grid h3 {
+    font:
+      400 1.45rem/1.3 Georgia,
+      serif;
+    color: #244b5d;
+    margin: 0.55rem 0 0.9rem;
+  }
+  .role-flow {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    gap: 0.25rem;
+    align-items: center;
+    background: #edf4f6;
+    padding: 0.7rem;
+  }
+  .role-flow span {
+    color: #315966;
+    font-size: 0.6rem;
+    font-weight: 800;
+    line-height: 1.3;
+    text-align: center;
+  }
+  .role-flow b {
+    color: var(--orange);
+  }
+  .role-grid p {
+    color: #556b77;
+    font-size: 0.84rem;
+    line-height: 1.55;
+    margin: 1rem 0 0.7rem;
+  }
+  .benefit {
+    display: block;
+    color: #28586a;
+    font-size: 0.78rem;
+    line-height: 1.45;
+    border-top: 1px solid #d7e3e6;
+    padding-top: 0.7rem;
+  }
+  .demo-section {
+    background: #fff;
+  }
+  .preference-demo {
+    background: #f6f8f9;
+  }
+  .split-head {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: clamp(2rem, 5vw, 6rem);
+    align-items: end;
+    margin-bottom: 1.8rem;
+  }
+  .split-head h2 {
+    margin-bottom: 0;
+  }
+  .pipeline-section {
+    background: #e9f0f2;
+  }
+  .pipeline-grid {
+    display: grid;
+    grid-template-columns: 1.07fr 0.93fr;
+    gap: 1rem;
+  }
+  .offline-panel,
+  .online-panel {
+    border: 1px solid #b9cfd5;
+    background: #fff;
+    padding: 1.3rem;
+  }
+  .pipeline-grid header {
+    border-bottom: 1px solid #d4e2e5;
+    padding-bottom: 0.85rem;
+    margin-bottom: 1rem;
+  }
+  .pipeline-grid header span {
+    color: var(--blue);
+    font-size: 0.61rem;
+    font-weight: 900;
+    letter-spacing: 0.13em;
+  }
+  .pipeline-grid header h3 {
+    font-size: 1.3rem;
+    letter-spacing: -0.03em;
+    margin: 0.4rem 0 0;
+  }
+  .source-main {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    border: 2px solid #3f8698;
+    background: #e7f3f5;
+  }
+  .source-label {
+    display: grid;
+    place-items: center;
+    background: #3f8698;
+    color: #fff;
+    font-size: 0.57rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    padding: 0.6rem;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+  }
+  .source-main > div:last-child,
+  .course-record,
+  .stored-record {
+    display: grid;
+    gap: 0.25rem;
+    padding: 0.8rem;
+  }
+  .source-main small,
+  .course-record small,
+  .stored-record small,
+  .auxiliary-flow small,
+  .online-flow small {
+    color: #637b86;
+    font-size: 0.54rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+  }
+  .source-main strong,
+  .course-record strong,
+  .stored-record strong {
+    color: #244b5b;
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
+  .vertical-arrow,
+  .online-flow > b {
+    color: #4d8796;
+    text-align: center;
+    font-size: 1.15rem;
+    line-height: 1.1;
+    padding: 0.2rem;
+  }
+  .course-record {
+    border: 1px solid #70a6b3;
+    background: #f0f7f8;
+    text-align: center;
+  }
+  .auxiliary-wrap {
+    position: relative;
+    border: 1px dashed #c47b57;
+    background: #fff7f2;
+    padding: 1rem;
+    margin-top: 1rem;
+  }
+  .auxiliary-label {
+    position: absolute;
+    top: -0.55rem;
+    left: 1rem;
+    background: #fff7f2;
+    color: #a95333;
+    font-size: 0.55rem;
+    font-weight: 900;
+    letter-spacing: 0.11em;
+    padding: 0 0.35rem;
+  }
+  .auxiliary-flow {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .auxiliary-flow > div {
+    display: grid;
+    gap: 0.25rem;
+  }
+  .auxiliary-flow strong {
+    color: #704534;
+    font-size: 0.65rem;
+    line-height: 1.4;
+  }
+  .auxiliary-flow > b {
+    color: var(--orange);
+  }
+  .auxiliary-wrap > p {
+    color: #775b4e;
+    font-size: 0.64rem;
+    line-height: 1.45;
+    border-top: 1px dashed #d7aa92;
+    padding-top: 0.55rem;
+    margin: 0.7rem 0 0;
+  }
+  .stored-record {
+    border: 2px solid #3f8698;
+    background: #dfeef1;
+  }
+  .online-flow {
+    display: grid;
+  }
+  .online-flow > div {
+    display: grid;
+    gap: 0.2rem;
+    border: 1px solid #a9c8d0;
+    background: #eef6f7;
+    padding: 0.67rem 0.75rem;
+  }
+  .online-flow strong {
+    color: #294d5d;
+    font-size: 0.7rem;
+    line-height: 1.4;
+  }
+  .online-flow .conditional {
+    border: 1px dashed #c47b57;
+    background: #fff5ef;
+  }
+  .online-flow .conditional small,
+  .online-flow .conditional strong {
+    color: #87503a;
+  }
+  .online-flow .final-step {
+    border: 2px solid #3e8495;
+    background: #dfeef1;
+  }
+  .preference-input {
+    margin-top: 0.9rem;
+    border-left: 4px solid var(--orange);
+    background: #fff4ed;
+    padding: 0.75rem;
+  }
+  .preference-input span {
+    color: #a55335;
+    font-size: 0.55rem;
+    font-weight: 900;
+    letter-spacing: 0.11em;
+  }
+  .preference-input p {
+    color: #6d5043;
+    font-size: 0.65rem;
+    line-height: 1.48;
+    margin: 0.25rem 0 0;
+  }
+  .pipeline-stack {
+    display: grid;
+    gap: 1rem;
+  }
+  .pipeline-block {
+    border: 1px solid #b9cfd5;
+    background: #fff;
+    padding: 1.35rem;
+  }
+  .pipeline-block > header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 2rem;
+    border-bottom: 1px solid #d4e2e5;
+    padding-bottom: 0.8rem;
+    margin-bottom: 1rem;
+  }
+  .pipeline-block > header span {
+    color: var(--blue);
+    font-size: 0.61rem;
+    font-weight: 900;
+    letter-spacing: 0.13em;
+    white-space: nowrap;
+  }
+  .pipeline-block > header h3 {
+    font-size: 1.2rem;
+    letter-spacing: -0.025em;
+    margin: 0;
+    text-align: right;
+  }
+  .primary-route,
+  .runtime-route {
+    display: grid;
+    grid-template-columns: minmax(190px, 1fr) 28px minmax(
+        190px,
+        1fr
+      ) 28px minmax(190px, 1fr);
+    align-items: stretch;
+    gap: 0.25rem;
+  }
+  .runtime-route {
+    grid-template-columns: minmax(150px, 1fr) 24px minmax(
+        130px,
+        0.8fr
+      ) 24px minmax(170px, 1.1fr) 24px minmax(190px, 1.2fr) 24px minmax(
+        130px,
+        0.8fr
+      );
+  }
+  .primary-route > div,
+  .runtime-route > div,
+  .aux-route > div {
+    display: grid;
+    align-content: center;
+    gap: 0.2rem;
+    min-height: 74px;
+    border: 1px solid #9fc2cb;
+    background: #edf6f7;
+    padding: 0.75rem 1rem;
+  }
+  .primary-route > div:first-child {
+    border: 2px solid #3f8698;
+    background: #dfeff2;
+  }
+  .primary-route > b,
+  .runtime-route > b,
+  .aux-route > b {
+    display: grid;
+    place-items: center;
+    color: var(--orange);
+    font-size: 1.15rem;
+  }
+  .primary-route small,
+  .runtime-route small,
+  .aux-route small {
+    color: #647b86;
+    font-size: 0.54rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+  }
+  .primary-route strong,
+  .runtime-route strong,
+  .aux-route strong {
+    color: #264d5c;
+    font-size: 0.78rem;
+    line-height: 1.35;
+  }
+  .primary-route .database-box {
+    background: #dcecef;
+    border: 2px solid #3f8698;
+  }
+  .aux-route {
+    display: grid;
+    grid-template-columns: 82px minmax(220px, 1fr) 28px minmax(220px, 1fr) 28px;
+    align-items: stretch;
+    gap: 0.25rem;
+    max-width: 820px;
+    margin: 0.8rem 0 0 auto;
+  }
+  .aux-route > span {
+    display: grid;
+    place-items: center;
+    color: #a65335;
+    background: #fff2ea;
+    border: 1px dashed #c77d58;
+    font-size: 0.55rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+  }
+  .aux-route > div {
+    min-height: 62px;
+    border-style: dashed;
+    border-color: #c77d58;
+    background: #fff7f2;
+  }
+  .aux-route strong {
+    color: #754a38;
+  }
+  .runtime-route .help-box {
+    border: 1px dashed #c77d58;
+    background: #fff5ef;
+  }
+  .runtime-route .retry-box {
+    border: 2px solid #5e9381;
+    background: #e8f2ed;
+  }
+  .preference-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    align-items: center;
+    border-left: 4px solid var(--orange);
+    background: #fff4ed;
+    color: #725244;
+    padding: 0.7rem 0.85rem;
+    margin-top: 0.85rem;
+    font-size: 0.68rem;
+  }
+  .preference-strip > span {
+    color: #a65335;
+    font-size: 0.56rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    margin-right: 0.35rem;
+  }
+  .preference-strip i {
+    color: #bd7b5e;
+    font-style: normal;
+  }
+  .pipeline-note {
+    color: #627681;
+    font-size: 0.68rem;
+    line-height: 1.5;
+    margin: 0.65rem 0 0;
+  }
+  .status-note {
+    color: #5e737f;
+    font-size: 0.7rem;
+    line-height: 1.55;
+    margin: 1rem 0 0;
+  }
+  .award-section {
+    background: var(--dark);
+    color: #fff;
+  }
+  .award-grid {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 4rem;
+    align-items: center;
+  }
+  .award-grid h2 {
+    color: #fff;
+  }
+  .award-grid p:last-child {
+    color: #bed0d8;
+    font-size: 0.88rem;
+    line-height: 1.6;
+  }
+  .award-grid > a {
+    color: #fff !important;
+    border: 1px solid #6f8c9b;
+    padding: 0.8rem 1rem;
+    font-size: 0.75rem;
+    font-weight: 800 !important;
+    text-decoration: none !important;
+    white-space: nowrap;
+  }
+  footer {
+    background: #102735;
+    color: #fff;
+  }
+  footer > div {
+    min-height: 85px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  footer span {
+    color: #91a9b4;
+    font-size: 0.68rem;
+  }
+  footer a {
+    margin-left: auto;
+    color: #c4d9df !important;
+    font-size: 0.69rem;
+  }
+  /* The demo and preference lab use the full content width. */
+  .project-page .mb-live-grid {
+    grid-template-columns: minmax(250px, 0.24fr) minmax(0, 0.76fr);
+  }
+  .project-page .mb-guide,
+  .project-page .mb-app-window iframe {
+    min-height: 560px;
+  }
+  .project-page .mb-lab {
+    grid-template-columns: minmax(290px, 0.3fr) minmax(0, 0.7fr);
+  }
+  .project-page .mb-profile {
+    padding: 1.65rem;
+  }
+  .project-page .mb-example-body {
+    padding: 1.8rem clamp(1.5rem, 3vw, 3.2rem);
+  }
+  .project-page .mb-example-body h3 {
+    max-width: 860px;
+    font-size: clamp(1.45rem, 2vw, 2rem);
+  }
+  .project-page .mb-listen {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 0.25rem;
+    border: 1px solid #a8c7cf;
+    background: #f3f8f9;
+    padding: 0.52rem 0.72rem;
+  }
+  .project-page #lab-hint-listen {
+    margin-top: 0.65rem;
+  }
+  .project-page .mb-guide h3,
+  .project-page .mb-profile h3 {
+    font-size: 1.35rem;
+  }
+  .project-page .mb-guide li,
+  .project-page .mb-guide > p:not(.mb-access),
+  .project-page .mb-profile > p {
+    font-size: 0.84rem;
+  }
+  @media (max-width: 980px) {
+    .hero {
+      grid-template-columns: 1fr;
+    }
+    .hero-example {
+      max-width: 660px;
+    }
+    .affiliations {
+      flex-wrap: wrap;
+      padding-block: 1rem;
+    }
+    .award-link {
+      width: 100%;
+      margin-left: 0;
+      text-align: center;
+    }
+    .core-loop {
+      grid-template-columns: 1fr;
+      gap: 0.45rem;
+    }
+    .core-loop > b {
+      width: auto;
+      transform: rotate(90deg);
+    }
+    .pipeline-grid {
+      grid-template-columns: 1fr;
+    }
+    .project-page .mb-live-grid,
+    .project-page .mb-lab {
+      grid-template-columns: 1fr;
+    }
+    .project-page .mb-guide,
+    .project-page .mb-app-window iframe {
+      min-height: 0;
+    }
+    .project-page .mb-app-window iframe {
+      height: 70vh;
+      min-height: 520px;
+    }
+    .pipeline-block > header {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .pipeline-block > header h3 {
+      text-align: left;
+    }
+    .primary-route,
+    .runtime-route,
+    .aux-route {
+      grid-template-columns: 1fr;
+      max-width: none;
+      margin-left: 0;
+    }
+    .primary-route > b,
+    .runtime-route > b,
+    .aux-route > b {
+      transform: rotate(90deg);
+      min-height: 22px;
+    }
+    .aux-route > span {
+      min-height: 36px;
+    }
+  }
+  @media (max-width: 760px) {
+    .shell {
+      width: min(1180px, calc(100% - 2rem));
+    }
+    .nav {
+      align-items: flex-start;
+      flex-direction: column;
+      justify-content: center;
+      padding-block: 0.75rem;
+      gap: 0.4rem;
+    }
+    .nav nav {
+      width: 100%;
+      overflow-x: auto;
+    }
+    .nav nav a {
+      white-space: nowrap;
+    }
+    .affiliations > div {
+      width: calc(50% - 1rem);
+    }
+    .affiliations img,
+    .affiliations .uf img {
+      max-width: 150px;
+      max-height: 34px;
+    }
+    .section {
+      padding: 3.6rem 0;
+    }
+    .preference-grid,
+    .role-grid,
+    .split-head,
+    .award-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    .hero {
+      padding: 4rem 0;
+    }
+    .split-head {
+      align-items: start;
+    }
+    .award-grid > a {
+      justify-self: start;
+    }
+  }
+  @media (max-width: 540px) {
+    .affiliations > div {
+      width: 100%;
+    }
+    .affiliations > i {
+      display: none;
+    }
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .actions a {
+      justify-content: center;
+      text-align: center;
+      font-size: 0.67rem;
+    }
+    .actions .primary {
+      grid-column: 1/-1;
+    }
+    .hero-example {
+      padding: 1rem;
+      box-shadow: 9px 9px 0 #e7eef0;
+    }
+    .role-flow {
+      grid-template-columns: 1fr;
+    }
+    .role-flow b {
+      transform: rotate(90deg);
+      text-align: center;
+    }
+    .auxiliary-flow {
+      grid-template-columns: 1fr;
+    }
+    .auxiliary-flow > b {
+      transform: rotate(90deg);
+      text-align: center;
+    }
+    footer > div {
+      align-items: flex-start;
+      flex-direction: column;
+      justify-content: center;
+      padding-block: 1rem;
+    }
+    footer a {
+      margin-left: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+</style>
