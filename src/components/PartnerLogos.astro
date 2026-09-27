@@ -1,0 +1,15 @@
+---
+const base = import.meta.env.BASE_URL.endsWith("/")
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+---
+<div class="mb-institutions" aria-label="Organizations named in the NSF award">
+  <div class="mb-institution">
+    <span>LEAD ORGANIZATION</span>
+    <a href="https://www.utsa.edu/"><img src={`${base}brands/ut-san-antonio-logo.svg`} alt="UT San Antonio" width="344" height="48" loading="lazy" /></a>
+  </div>
+  <div class="mb-institution">
+    <span>SUB-AWARDEE ORGANIZATION</span>
+    <a href="https://www.ufl.edu/"><img src={`${base}brands/uf-logo-full.png`} alt="University of Florida" width="367" height="68" loading="lazy" /></a>
+  </div>
+</div>

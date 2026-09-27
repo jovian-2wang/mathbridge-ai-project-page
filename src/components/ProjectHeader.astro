@@ -1,0 +1,39 @@
+---
+const base = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : import.meta.env.BASE_URL + "/";
+---
+<header class="mb-header full-bleed">
+  <div class="mb-shell">
+    <nav class="mb-nav" aria-label="Project navigation">
+      <a href="#top" class="mb-wordmark">M<span>↗</span> <b>MathBridge AI</b></a>
+      <div><a href="#learning">Learning</a><a href="#demo">Demo</a><a href="#research">Research</a></div>
+      <a class="mb-nav-open" href="https://mathbridge-ai.duckdns.org/" target="_blank" rel="noopener noreferrer">Open app ↗</a>
+    </nav>
+    <div class="mb-institutions" aria-label="Institutions named in the award">
+      <span>INSTITUTIONS ON THE AWARD</span>
+      <a href="https://www.utsa.edu/" target="_blank" rel="noopener noreferrer"><img src={base + "brands/ut-san-antonio-logo.svg"} alt="UT San Antonio" width="344" height="48" /></a>
+      <i aria-hidden="true"></i>
+      <a href="https://www.ufl.edu/" target="_blank" rel="noopener noreferrer"><img src={base + "brands/uf-logo-full.png"} alt="University of Florida" width="367" height="68" /></a>
+    </div>
+    <div id="top" class="mb-hero">
+      <div>
+        <p class="mb-eyebrow">STUDENT-AWARE MATHEMATICS / RESEARCH PROTOTYPE</p>
+        <h1>Make the next math step <em>clear.</em></h1>
+        <p class="mb-hero-lede">MathBridge AI connects curriculum tasks with a student's language, interests, and own attempts—then helps them keep reasoning.</p>
+        <div class="mb-project-links" aria-label="Project resources">
+          <a class="mb-primary-link" href="#demo">Live demo ↘</a>
+          <a href="https://github.com/jovian-2wang/mathbridge-AI" target="_blank" rel="noopener noreferrer">Code <small>(private)</small> ↗</a>
+          <a href="https://www.nsf.gov/awardsearch/show-award/?AWD_ID=2627693" target="_blank" rel="noopener noreferrer">NSF award ↗</a>
+          <a href="https://mathbridge-ai.duckdns.org/" target="_blank" rel="noopener noreferrer">Open platform ↗</a>
+        </div>
+      </div>
+      <div class="mb-hero-index">
+        <div><span>STUDENT'S STARTING POINT</span><span>01—03</span></div>
+        <p><b>01</b><strong>Language</strong><small>English · 中文 · Español</small></p>
+        <p><b>02</b><strong>Interests</strong><small>A familiar context for practice</small></p>
+        <p><b>03</b><strong>Reading support</strong><small>Hear the prompt when needed</small></p>
+        <footer><span>GOAL</span> One useful next step.</footer>
+      </div>
+    </div>
+    <div class="mb-hero-bottom"><span>NSF FINDERS Foundry · Planning award #2627693</span><a href="#learning">Try the learning example ↓</a></div>
+  </div>
+</header>

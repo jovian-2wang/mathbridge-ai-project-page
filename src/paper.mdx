@@ -1,0 +1,67 @@
+---
+title: MathBridge AI | Student-aware mathematics support
+theme: light
+favicon: favicon.svg
+description: A research prototype connecting student preferences, Grade 6 mathematics practice, and teacher and family support.
+---
+
+import ProjectHeader from "./components/ProjectHeader.astro";
+import LearningLab from "./components/LearningLab.astro";
+import DemoNavigator from "./components/DemoNavigator.astro";
+import Architecture from "./components/Architecture.astro";
+
+<ProjectHeader />
+
+<section id="learning" className="mb-learning full-bleed" aria-labelledby="learning-title">
+  <div className="mb-shell">
+    <div className="mb-section-top">
+      <div><p className="mb-eyebrow">01 / STUDENT EXPERIENCE</p><h2 id="learning-title">The student's choices belong in the math.</h2></div>
+      <p>Language, interests, and reading support can change how a learner approaches a task. The mathematical relationship stays the same.</p>
+    </div>
+    <LearningLab />
+    <p className="mb-caption">Interactive illustration with fixed wording and a fixed answer. For generated tutoring, open the real platform below.</p>
+  </div>
+</section>
+
+<section className="mb-why full-bleed" aria-labelledby="why-title">
+  <div className="mb-shell mb-why-grid">
+    <div><p className="mb-eyebrow">WHY IT MAY HELP</p><h2 id="why-title">One prompt. Another attempt.</h2></div>
+    <div>
+      <p><span>01</span><strong>Try the course task.</strong> The task supplies the quantities, units, and learning target.</p>
+      <p><span>02</span><strong>Get support for the next step.</strong> A hint or suitable visual can respond to the attempt without starting with the answer.</p>
+      <p><span>03</span><strong>Use the idea again.</strong> Similar Problem offers another chance to reason, sometimes in a context the student chose.</p>
+    </div>
+  </div>
+</section>
+
+<section id="demo" className="mb-demo-section full-bleed" aria-labelledby="demo-title">
+  <div className="mb-shell">
+    <div className="mb-section-top">
+      <div><p className="mb-eyebrow">02 / LIVE PLATFORM</p><h2 id="demo-title">Explore the working app.</h2></div>
+      <p>Choose a student, teacher, or parent guide. The window beside it opens the running MathBridge AI application.</p>
+    </div>
+    <DemoNavigator />
+  </div>
+</section>
+
+<section id="connected" className="mb-connected full-bleed" aria-labelledby="connected-title">
+  <div className="mb-shell">
+    <p className="mb-eyebrow">03 / CONNECTED SUPPORT</p><h2 id="connected-title">What each person can do next.</h2>
+    <div className="mb-roles">
+      <article><span>STUDENT</span><h3>Keep reasoning</h3><p>Course Mode and Free Math Help offer hints, visuals, and another problem.</p></article>
+      <article><span>TEACHER</span><h3>Plan instruction</h3><p>See recent attempts and skill signals for a student or the class.</p></article>
+      <article><span>FAMILY</span><h3>Talk about the work</h3><p>Read a plain-language summary and try short practice together.</p></article>
+    </div>
+    <p className="mb-caption">These are prototype features and tutoring signals, not formal assessment results or measured learning gains.</p>
+  </div>
+</section>
+
+<section id="research" className="mb-research full-bleed" aria-labelledby="research-title">
+  <div className="mb-shell">
+    <div className="mb-research-grid">
+      <div><p className="mb-eyebrow">04 / RESEARCH CONTEXT</p><h2 id="research-title">Connected mathematics support.</h2><p>MathBridge AI is a prototype associated with an NSF FINDERS Foundry planning project. Its current course coverage focuses on selected Grade 6 topics. The broader question is how a student's work can inform support at school and at home.</p><a href="https://www.nsf.gov/awardsearch/show-award/?AWD_ID=2627693" target="_blank" rel="noopener noreferrer">NSF award #2627693 ↗</a></div>
+      <div><p className="mb-eyebrow">TECHNICAL NOTE</p><h3>Where a hint comes from</h3><p>The current runtime connects a course task, a student response, validation, diagnosis, and the Hint Agent. A proposed Answer Edition import would add evaluated instructional supports before a student session.</p></div>
+    </div>
+    <details className="mb-disclosure"><summary>View the current and proposed pipelines <span aria-hidden="true">＋</span></summary><div><Architecture /><p><strong>Status:</strong> The Answer Edition extractor and curriculum_instructional_supports table are proposed. They are not in the live demo.</p></div></details>
+  </div>
+</section>

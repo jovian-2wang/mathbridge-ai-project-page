@@ -1,0 +1,54 @@
+<figure class="mb-architecture-figure" aria-labelledby="architecture-caption">
+  <div class="mb-architecture-key" aria-label="Diagram status key">
+    <span><i class="mb-key-current" aria-hidden="true"></i> Existing curriculum or runtime</span>
+    <span><i class="mb-key-proposed" aria-hidden="true"></i> Proposed instructional support extension</span>
+  </div>
+
+  <div class="mb-architecture-lanes">
+    <section class="mb-architecture-lane" aria-labelledby="offline-heading">
+      <header><span>01 · AUTHORING TIME</span><h3 id="offline-heading">Offline curriculum import</h3><p>Source tasks are prepared before runtime; the Answer Edition support path is proposed.</p></header>
+      <div class="mb-source-columns">
+        <div class="mb-source-path">
+          <div class="mb-arch-node"><small>INPUT A</small><strong>Student Edition PDF</strong></div>
+          <div class="mb-arch-arrow" aria-hidden="true">↓</div>
+          <div class="mb-arch-node"><strong>Source task, prompt,<br />task specification</strong></div>
+          <p class="mb-arch-source-note">The task's quantities, relationships, and expected reasoning remain authoritative.</p>
+        </div>
+        <div class="mb-source-path">
+          <div class="mb-arch-node mb-proposed"><small>INPUT B</small><strong>Answer Edition PDF</strong></div>
+          <div class="mb-arch-arrow" aria-hidden="true">↓</div>
+          <div class="mb-arch-node mb-proposed"><strong>Generic extractor</strong></div>
+          <div class="mb-arch-arrow" aria-hidden="true">↓</div>
+          <div class="mb-arch-node mb-proposed"><strong>Support candidates</strong></div>
+          <div class="mb-arch-arrow" aria-hidden="true">↓</div>
+          <div class="mb-arch-node mb-proposed"><strong>Automatic evaluator</strong><small>RUNS AT IMPORT ONLY</small></div>
+        </div>
+      </div>
+      <div class="mb-arch-arrow mb-arch-merge" aria-hidden="true">↓</div>
+      <div class="mb-arch-database">
+        <small>STRUCTURED CURRICULUM · SUPABASE</small>
+        <div class="mb-arch-db-groups">
+          <div><strong>Existing records</strong><p>Source tasks · micro-skills · task–skill links · hints · evidence · visuals</p></div>
+          <div class="mb-arch-new-record"><strong>Proposed new table</strong><code>curriculum_instructional_supports</code></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-architecture-lane" aria-labelledby="online-heading">
+      <header><span>02 · STUDENT RUNTIME</span><h3 id="online-heading">Online hint generation</h3><p>Preserve the current student workflow; add a targeted retrieval only when needed.</p></header>
+      <div class="mb-runtime-input"><div class="mb-arch-node"><strong>Student</strong></div><span aria-hidden="true">→</span><div class="mb-arch-node"><strong>Course task</strong></div><span aria-hidden="true">→</span><div class="mb-arch-node"><strong>Response</strong></div></div>
+      <div class="mb-arch-arrow" aria-hidden="true">↓</div>
+      <div class="mb-runtime-core">
+        <small>EXISTING RUNTIME</small>
+        <div><span>Validator</span><b aria-hidden="true">→</b><span>Diagnosis</span><b aria-hidden="true">→</b><span>Hint Agent</span></div>
+      </div>
+      <div class="mb-arch-arrow" aria-hidden="true">↓</div>
+      <div class="mb-arch-node mb-proposed mb-arch-lookup"><small>CONDITIONAL LOOKUP</small><strong>Instructional support DB</strong><p>Task-specific support · micro-skill support</p></div>
+      <div class="mb-arch-arrow" aria-hidden="true">↓</div>
+      <div class="mb-arch-node mb-arch-output"><strong>Existing Hint Agent · same LLM call</strong><p>Selected support informs the next explanation and one actionable step.</p></div>
+      <div class="mb-arch-arrow" aria-hidden="true">↓</div>
+      <div class="mb-arch-result">Student hint</div>
+    </section>
+  </div>
+  <figcaption id="architecture-caption"><strong>Figure 1.</strong> Proposed Answer Edition support is evaluated during import and stored as structured curriculum data. At runtime the existing validator, diagnosis, and Hint Agent remain in place; the new lookup supplies selected support to the Hint Agent's existing LLM call.</figcaption>
+</figure>

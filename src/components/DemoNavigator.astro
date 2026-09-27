@@ -1,0 +1,69 @@
+---
+const liveUrl = "https://mathbridge-ai.duckdns.org/";
+---
+<div id="live-demo" class="mb-live">
+  <div class="mb-live-head">
+    <div class="mb-role-tabs" role="tablist" aria-label="Choose a MathBridge role">
+      <button id="role-student" role="tab" type="button" aria-selected="true" tabindex="0" aria-controls="role-guide" data-role="student">Student</button>
+      <button id="role-teacher" role="tab" type="button" aria-selected="false" tabindex="-1" aria-controls="role-guide" data-role="teacher">Teacher</button>
+      <button id="role-parent" role="tab" type="button" aria-selected="false" tabindex="-1" aria-controls="role-guide" data-role="parent">Parent</button>
+    </div>
+    <span class="mb-live-label">● RUNNING PLATFORM</span>
+  </div>
+  <div class="mb-live-grid">
+    <aside id="role-guide" class="mb-guide" role="tabpanel" aria-labelledby="role-student">
+      <span class="mb-eyebrow">WHAT TO EXPLORE</span>
+      <h3 id="guide-title"></h3>
+      <p id="guide-intro"></p>
+      <div id="student-modes" class="mb-modes">
+        <button type="button" data-mode="course" aria-pressed="true">Course Mode</button>
+        <button type="button" data-mode="free" aria-pressed="false">Free Math Help</button>
+      </div>
+      <ol id="guide-steps"></ol>
+      <p id="guide-access" class="mb-access"></p>
+      <a class="mb-open-app" href={liveUrl} target="_blank" rel="noopener noreferrer">Open full platform ↗</a>
+    </aside>
+    <div class="mb-app-window">
+      <div class="mb-address"><span aria-hidden="true">● ● ●</span><span>mathbridge-ai.duckdns.org</span><a href={liveUrl} target="_blank" rel="noopener noreferrer">New tab ↗</a></div>
+      <iframe src={liveUrl} title="Running MathBridge AI platform" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="clipboard-read; clipboard-write"></iframe>
+      <div class="mb-app-foot">Sign in with an account for the selected role. If embedding is blocked, <a href={liveUrl} target="_blank" rel="noopener noreferrer">open the app in a new tab ↗</a></div>
+    </div>
+  </div>
+</div>
+<script>
+  const root = document.getElementById("live-demo");
+  if (root) {
+    const $ = (selector: string) => root.querySelector(selector) as HTMLElement;
+    const views = {
+      student: {
+        course: { title:"Begin with your learning profile.", intro:"Your language, interests, and reading support are saved before practice.", steps:["Save preferences in My Learning Profile.","Open Review Today's Math Course and try a task.","Ask for a hint or visual; then try Similar Problem."] },
+        free: { title:"Bring a question of your own.", intro:"Free Math Help is a separate path for a question the student brings.", steps:["Save preferences in My Learning Profile.","Open Free Math Help and enter a question.","Continue with a hint or visual when needed."] },
+        access:"Use a student test account."
+      },
+      teacher: { course: { title:"Look behind the answer.", intro:"Teacher Dashboard and Class Overview organize learning evidence for planning.", steps:["Select a student in Teacher Dashboard.","Review recent attempts and possible skill gaps.","Open Class Overview to look across the class."] }, access:"Use a teacher test account." },
+      parent: { course: { title:"Support the next conversation.", intro:"Parent Summary turns learning activity into a clearer home conversation.", steps:["Open the linked student's Parent Summary.","Read the summary and questions to ask.","Try short practice and its answer key together."] }, access:"Use a parent test account linked to a student." }
+    };
+    type Role = keyof typeof views;
+    let role: Role = "student";
+    let mode: "course" | "free" = "course";
+    const tabs = [...root.querySelectorAll<HTMLButtonElement>("[data-role]")];
+    const draw = () => {
+      const selected = views[role];
+      const path = role === "student" && mode === "free" ? views.student.free : selected.course;
+      $("#guide-title").textContent = path.title;
+      $("#guide-intro").textContent = path.intro;
+      $("#guide-access").textContent = selected.access;
+      $("#guide-steps").replaceChildren(...path.steps.map(step => { const li=document.createElement("li"); li.textContent=step; return li; }));
+      $("#student-modes").hidden = role !== "student";
+      $("#role-guide").setAttribute("aria-labelledby","role-"+role);
+      for (const tab of tabs) { const active=tab.dataset.role===role; tab.setAttribute("aria-selected",String(active)); tab.tabIndex=active?0:-1; }
+      for (const button of root.querySelectorAll<HTMLButtonElement>("[data-mode]")) button.setAttribute("aria-pressed",String(button.dataset.mode===mode));
+    };
+    for (const tab of tabs) {
+      tab.addEventListener("click", () => { role=(tab.dataset.role||"student") as Role; draw(); });
+      tab.addEventListener("keydown", event => { if (event.key!=="ArrowRight" && event.key!=="ArrowLeft") return; event.preventDefault(); const next=tabs[(tabs.indexOf(tab)+(event.key==="ArrowRight"?1:-1)+tabs.length)%tabs.length]; next.click(); next.focus(); });
+    }
+    for (const button of root.querySelectorAll<HTMLButtonElement>("[data-mode]")) button.addEventListener("click", () => { mode=button.dataset.mode==="free"?"free":"course"; draw(); });
+    draw();
+  }
+</script>
