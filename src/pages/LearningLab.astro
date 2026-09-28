@@ -1,0 +1,142 @@
+<div id="learning-lab" class="mb-lab">
+  <div class="mb-profile">
+    <span class="mb-eyebrow">MY LEARNING PROFILE</span>
+    <h3>Start with the learner.</h3>
+    <p>Try the choices saved in the real student's profile.</p>
+    <fieldset><legend>Language</legend><div class="mb-chips">
+      <button type="button" data-lang="en" aria-pressed="true">English only</button>
+      <button type="button" data-lang="zh" aria-pressed="false">Bilingual · English + 中文</button>
+      <button type="button" data-lang="es" aria-pressed="false">Bilingual · English + Español</button>
+    </div></fieldset>
+    <fieldset><legend>Interest <small>(optional; choose all that fit)</small></legend><div class="mb-chips">
+      <button type="button" data-interest="basketball" aria-pressed="false">Basketball</button>
+      <button type="button" data-interest="baking" aria-pressed="false">Baking</button>
+      <button type="button" data-interest="games" aria-pressed="false">Games</button>
+    </div></fieldset>
+    <div class="mb-constant"><small>THE MATHEMATICAL IDEA</small><strong id="lab-constant">24 ÷ 3 = ?</strong><span>Changing preferences keeps the calculation intact.</span></div>
+  </div>
+  <div class="mb-example">
+    <div class="mb-example-bar"><span>UNIT RATE / INTERACTIVE EXAMPLE</span><span id="lab-round">01 / 02</span></div>
+    <div class="mb-example-body">
+      <span id="lab-topic" class="mb-topic">BASKETBALL</span>
+      <h3 id="lab-question"></h3>
+      <p id="lab-translation" class="mb-translation" hidden></p>
+      <button id="lab-listen" class="mb-listen" type="button">🔊 Listen to question</button>
+      <form id="lab-form">
+        <label for="lab-answer">Your answer</label>
+        <div class="mb-answer-row"><input id="lab-answer" inputmode="numeric" autocomplete="off" type="text" aria-describedby="lab-unit lab-feedback" /><span id="lab-unit"></span><button type="submit">Check ↗</button></div>
+      </form>
+      <p id="lab-feedback" class="mb-feedback" role="status" aria-live="polite"></p>
+      <div class="mb-help-buttons"><button id="lab-hint" type="button">A small hint ↗</button><button id="lab-visual" type="button">See a ratio table ▦</button></div>
+      <div id="lab-hint-panel" class="mb-help-panel" hidden><span>THINK ABOUT THE RELATIONSHIP</span><p id="lab-hint-copy"></p><p id="lab-hint-second" hidden></p></div>
+      <div id="lab-ratio-panel" class="mb-ratio-panel" hidden>
+        <span>THE SAME RATE IN EACH COLUMN</span>
+        <table aria-label="Ratio table for the example"><tbody>
+          <tr><th id="lab-row-count" scope="row">Games</th><td>1</td><td id="lab-middle-count">2</td><td id="lab-final-count">3</td></tr>
+          <tr><th id="lab-row-total" scope="row">Points</th><td>?</td><td>?</td><td id="lab-total">24</td></tr>
+        </tbody></table>
+        <p id="lab-table-note">What number belongs under 1 game?</p>
+      </div>
+      <button id="lab-next" class="mb-next" type="button" hidden>Try a similar problem →</button>
+    </div>
+    <div class="mb-example-foot"><span>TRY → GET A CLUE → TRY AGAIN</span><a href="#demo">Go to the live app ↘</a></div>
+  </div>
+</div>
+<script>
+  const root = document.getElementById("learning-lab");
+  if (root) {
+    const $ = (selector: string) => root.querySelector(selector) as HTMLElement;
+    const problems = {
+      basketball: { topic:"BASKETBALL", unit:"points per game", count:"Games", total:"Points",
+        first:"A team scores 24 points in 3 games at the same rate. How many points per game?",
+        next:"A team scores 36 points in 4 games at the same rate. How many points per game?",
+        zh:["一支球队在 3 场比赛中共得 24 分，每场得分相同。每场得多少分？","一支球队在 4 场比赛中共得 36 分，每场得分相同。每场得多少分？"],
+        es:["Un equipo anota 24 puntos en 3 partidos al mismo ritmo. ¿Cuántos puntos por partido?","Un equipo anota 36 puntos en 4 partidos al mismo ritmo. ¿Cuántos puntos por partido?"] },
+      baking: { topic:"BAKING", unit:"cookies per tray", count:"Trays", total:"Cookies",
+        first:"A baker puts 24 cookies on 3 trays, the same number on each. How many cookies per tray?",
+        next:"A baker puts 36 cookies on 4 trays, the same number on each. How many cookies per tray?",
+        zh:["烘焙师把 24 块饼干平均放在 3 个烤盘上。每盘有多少块？","烘焙师把 36 块饼干平均放在 4 个烤盘上。每盘有多少块？"],
+        es:["Se reparten 24 galletas en 3 bandejas por igual. ¿Cuántas hay por bandeja?","Se reparten 36 galletas en 4 bandejas por igual. ¿Cuántas hay por bandeja?"] },
+      games: { topic:"GAMES", unit:"coins per level", count:"Levels", total:"Coins",
+        first:"A player collects 24 coins across 3 levels, the same number in each. How many coins per level?",
+        next:"A player collects 36 coins across 4 levels, the same number in each. How many coins per level?",
+        zh:["一位玩家在 3 个关卡中共收集 24 枚金币，每关数量相同。每关多少枚？","一位玩家在 4 个关卡中共收集 36 枚金币，每关数量相同。每关多少枚？"],
+        es:["Un jugador recoge 24 monedas en 3 niveles por igual. ¿Cuántas por nivel?","Un jugador recoge 36 monedas en 4 niveles por igual. ¿Cuántas por nivel?"] }
+    };
+    type Interest = keyof typeof problems;
+    let interests: Interest[] = [];
+    let lang = "en";
+    let round = 0;
+    const answer = $("#lab-answer") as HTMLInputElement;
+    const activeInterest = (problemRound: number): Interest => {
+      if (!interests.length) return "basketball";
+      return interests[Math.min(problemRound, interests.length - 1)];
+    };
+    const say = (value: string) => {
+      if (!("speechSynthesis" in window)) return;
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(value);
+      utterance.lang = "en-US";
+      window.speechSynthesis.speak(utterance);
+    };
+    const draw = () => {
+      const selectedInterest = activeInterest(round);
+      const item = problems[selectedInterest];
+      $("#lab-topic").textContent = interests.length ? item.topic : "SAMPLE PROBLEM";
+      $("#lab-constant").textContent = round ? "36 ÷ 4 = ?" : "24 ÷ 3 = ?";
+      $("#lab-question").textContent = round ? item.next : item.first;
+      $("#lab-translation").hidden = lang === "en";
+      $("#lab-translation").textContent = lang === "zh" ? item.zh[round] : item.es[round];
+      $("#lab-unit").textContent = item.unit;
+      $("#lab-round").textContent = round ? "02 / 02" : "01 / 02";
+      $("#lab-row-count").textContent = item.count;
+      $("#lab-row-total").textContent = item.total;
+      $("#lab-middle-count").textContent = round ? "2" : "2";
+      $("#lab-final-count").textContent = round ? "4" : "3";
+      $("#lab-total").textContent = round ? "36" : "24";
+      $("#lab-table-note").textContent = "What number belongs under 1 " + item.count.slice(0,-1).toLowerCase() + "?";
+      $("#lab-hint-copy").textContent = round ? "Four equal rates make 36. What number times 4 makes 36?" : "Three equal rates make 24. What number times 3 makes 24?";
+      $("#lab-hint-second").hidden = lang === "en";
+      $("#lab-hint-second").textContent = round
+        ? (lang === "zh" ? "四份相同的数量合起来是 36。哪个数乘 4 等于 36？" : "Cuatro cantidades iguales suman 36. ¿Qué número por 4 da 36?")
+        : (lang === "zh" ? "三份相同的数量合起来是 24。哪个数乘 3 等于 24？" : "Tres cantidades iguales suman 24. ¿Qué número por 3 da 24?");
+      $("#lab-hint-panel").hidden = true;
+      $("#lab-ratio-panel").hidden = true;
+      $("#lab-next").hidden = true;
+      $("#lab-feedback").textContent = "";
+      $("#lab-feedback").className = "mb-feedback";
+      answer.value = "";
+      for (const button of root.querySelectorAll<HTMLButtonElement>("[data-lang]")) button.setAttribute("aria-pressed", String(button.dataset.lang === lang));
+      for (const button of root.querySelectorAll<HTMLButtonElement>("[data-interest]")) button.setAttribute("aria-pressed", String(interests.includes(button.dataset.interest as Interest)));
+    };
+    for (const button of root.querySelectorAll<HTMLButtonElement>("[data-lang]")) button.addEventListener("click", () => { lang = button.dataset.lang || "en"; window.speechSynthesis?.cancel(); draw(); });
+    for (const button of root.querySelectorAll<HTMLButtonElement>("[data-interest]")) button.addEventListener("click", () => {
+      const selected = button.dataset.interest as Interest;
+      interests = interests.includes(selected) ? interests.filter(item => item !== selected) : [...interests, selected];
+      round = 0;
+      window.speechSynthesis?.cancel();
+      draw();
+    });
+    $("#lab-listen").addEventListener("click", () => say(round ? problems[activeInterest(round)].next : problems[activeInterest(round)].first));
+    $("#lab-hint").addEventListener("click", () => { $("#lab-hint-panel").hidden = false; });
+    $("#lab-visual").addEventListener("click", () => { $("#lab-ratio-panel").hidden = false; });
+    $("#lab-next").addEventListener("click", () => { round = 1; draw(); answer.focus(); });
+    $("#lab-form").addEventListener("submit", event => {
+      event.preventDefault();
+      const feedback = $("#lab-feedback");
+      if (!answer.value.trim()) { feedback.textContent = "Enter a number to check your thinking."; answer.focus(); return; }
+      if (Number(answer.value.trim()) === (round ? 9 : 8)) {
+        feedback.textContent = round ? "Yes. 36 ÷ 4 = 9. You used the idea again." : "Yes. 24 ÷ 3 = 8. Now try it once more.";
+        if (lang === "zh") feedback.textContent += round ? " / 对，你再次用到了相同的方法。" : " / 对，现在再用这个方法试一次。";
+        if (lang === "es") feedback.textContent += round ? " / Sí, usaste la misma idea otra vez." : " / Sí, ahora inténtalo otra vez.";
+        feedback.classList.add("is-correct");
+        $("#lab-next").hidden = !!round;
+      } else {
+        feedback.textContent = "Look for equal rates. Try the hint or ratio table, then answer again.";
+        if (lang === "zh") feedback.textContent += " / 想一想相同的比率。看看提示或比率表，再试一次。";
+        if (lang === "es") feedback.textContent += " / Busca tasas iguales. Mira la pista o la tabla y vuelve a intentarlo.";
+      }
+    });
+    draw();
+  }
+</script>
