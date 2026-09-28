@@ -1,13 +1,16 @@
 ---
 import { Font } from "astro:assets";
-import DemoNavigator from "../components/DemoNavigator.astro";
-import LearningLab from "../components/LearningLab.astro";
+import RoleExperience from "../components/RoleExperience.astro";
+import LearningCycle from "../components/LearningCycle.astro";
+import InterestPicker from "../components/InterestPicker.astro";
 import "../styles/global.css";
 import "../styles/mathbridge.css";
 
 const base = import.meta.env.BASE_URL.endsWith("/")
   ? import.meta.env.BASE_URL
   : `${import.meta.env.BASE_URL}/`;
+const utsaLogo = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTcyIiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMTcyIDI0IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8ZyBjbGlwLXBhdGg9InVybCgjY2xpcDBfODk3XzMxNDUpIj4KPHBhdGggZD0iTTE2Ny42MDEgNy4wMDE1SDE2Ni43MTVWNi42ODM1NEgxNjguODU3VjcuMDAxNUgxNjcuOTc1VjkuMjc0ODVIMTY3LjYwMlY3LjAwMTVIMTY3LjYwMVpNMTY5LjYgNi45NTNWOS4yNzQ4NUgxNjkuMjQ1VjYuNjgzNTRIMTY5Ljg1OEwxNzAuNjM0IDguODYwNzhMMTcxLjQwNiA2LjY4MzU0SDE3Mi4wMDFWOS4yNzQ4NUgxNzEuNjQ2VjYuOTQyMjJMMTcwLjgxMSA5LjI3NDg1SDE3MC40MzVMMTY5LjYgNi45NTNaTTc3LjU4NDUgNy43Nzg0NUM3Ni44ODEyIDYuODg4MzMgNzUuNjUwNCA2LjM5NTIxIDc0LjQ2MTYgNi4zOTUyMUM3MS4yNTM2IDYuMzk1MjEgNjkuMzYzNCA4Ljk2MzE4IDY5LjM2MzQgMTIuMDgzNUM2OS4zNjM0IDE1LjIwMzkgNzEuMTU4NyAxNy43NzE5IDc0LjQzODMgMTcuNzcxOUM3NS42MjggMTcuNzcxOSA3Ni44NzUgMTcuMjc3IDc3LjU4NDUgMTYuMzg1TDc3LjY2OTYgMTcuNTMySDgwLjIzMDhWNi42MzU5M0g3Ny42Njk2TDc3LjU4NDUgNy43NzkzNVY3Ljc3ODQ1Wk03NC44OTI1IDE1LjUzODlDNzMuMTY4OSAxNS41Mzg5IDcyLjA5MjEgMTQuMDAzIDcyLjA5MjEgMTIuMDgyNkM3Mi4wOTIxIDEwLjE2MjMgNzMuMTY4OSA4LjYyNjM1IDc0Ljg5MjUgOC42MjYzNUM3Ni4yMjU1IDguNjI2MzUgNzcuMDcwMyA5LjQ4MjM0IDc3LjU0OTUgMTAuNDQ3OVYxMy43MTY1Qzc3LjA3MDMgMTQuNjgyIDc2LjIyNTUgMTUuNTM4IDc0Ljg5MjUgMTUuNTM4VjE1LjUzODlaTTkxLjk1OTkgMTAuNTk1MlYxNy41MzExSDg5LjI3ODdWMTAuODM1Qzg5LjI3ODcgOS43MDY4OSA4OC42MzI4IDguNzcwOTYgODcuNDExOCA4Ljc3MDk2Qzg2LjExODIgOC43NzA5NiA4NS4wMzg3IDkuODQxNjIgODQuNTM5NyAxMC45MTQxVjE3LjUzMTFIODEuODU4NVY2LjY4MjY0SDg0LjQ0MzlMODQuNTE5MSA4LjE4OTgyQzg1LjM0ODcgNi45OTA3MiA4Ni42NzYzIDYuNDY3MDcgODcuOTg2OSA2LjQ2NzA3QzkwLjUyMzkgNi40NjcwNyA5MS45NjA4IDguMTIzMzYgOTEuOTYwOCAxMC41OTUySDkxLjk1OTlaTTM4Ljg5MTYgMy44MjYzNUg0MS43MTYyVjEyLjI5ODJDNDEuNzE2MiAxNS45OTQzIDM5LjI1MDkgMTcuNzcwMSAzNS44NTEyIDE3Ljc3MDFDMzIuMjYwNyAxNy43NzAxIDMwLjEwNjIgMTUuODI2NCAzMC4xMDYyIDEyLjM5NDNWMy44MjYzNUgzMi45MzA4VjEyLjEwNjlDMzIuOTMwOCAxNC4yNDI4IDM0LjE3NTEgMTUuMzIzNCAzNS45MjI4IDE1LjMyMzRDMzcuNjcwNiAxNS4zMjM0IDM4Ljg5MDcgMTQuMjQzNyAzOC44OTA3IDEyLjEwNjlWMy44MjYzNUgzOC44OTE2Wk02MS4wMDk4IDcuNTIyNDZDNjEuMDA5OCA4LjU1NDQ5IDYyLjA2MzMgOC45NjIyOCA2My41NzEgOS4yMjYzNUM2Ni4yMjggOS42ODI2NCA2OC42NDU5IDEwLjUyMjUgNjguNjQ1OSAxMy41OTQzQzY4LjY0NTkgMTYuNDAyMSA2Ni4zOTU1IDE3Ljc3MDEgNjMuMjg0MyAxNy43NzAxQzU5LjY5MzggMTcuNzcwMSA1Ny41NjM1IDE1LjgwMjEgNTcuNjU5MyAxMi42MDk5SDYwLjUzMTRDNjAuNTU1NiAxNC40MDk5IDYxLjU2MDcgMTUuNDE3NyA2My4yODQzIDE1LjQxNzdDNjQuNjk3IDE1LjQxNzcgNjUuNjMwNSAxNC45ODU2IDY1LjYzMDUgMTMuODMzMkM2NS42MzA1IDEyLjY4MDggNjQuNzQ0NSAxMi4xNzcgNjIuODc3NiAxMS44NjUzQzYwLjYyNzIgMTEuNDgwOCA1Ny45OTQ0IDEwLjc4NTYgNTcuOTk0NCA3Ljc2MTM4QzU3Ljk5NDQgNS4wOTczMSA2MC4yNDQ3IDMuNTg1NjMgNjMuMTY1MSAzLjU4NTYzQzY2LjMyNDcgMy41ODU2MyA2OC41OTkzIDUuMjg5NTMgNjguNjQ2NyA4LjA5NzMxSDY1Ljc3NDdDNjUuNzI3MiA2Ljg0OTcgNjQuNzY5NiA1LjkzNzEzIDYzLjE2NTEgNS45MzcxM0M2MS45MjA4IDUuOTM3MTMgNjEuMDEwNyA2LjUxMjg4IDYxLjAxMDcgNy41MjE1Nkw2MS4wMDk4IDcuNTIyNDZaTTQyLjkxMyAzLjgyNjM1SDU0LjU0NjNWNi43MzAyNEw1MC4xNDE1IDUuNjI2MzVWMTcuNTMwMkg0Ny4zMTdWNS42MjYzNUw0Mi45MTIxIDYuNzMwMjRWMy44MjYzNUg0Mi45MTNaTTEzMi45NCA2LjQ0MjgyQzEyOS41ODggNi40NDI4MiAxMjcuNTA2IDguNzIyNDYgMTI3LjUwNiAxMi4xMDY5QzEyNy41MDYgMTUuNDkxMyAxMjkuNTg4IDE3Ljc3MSAxMzIuOTQgMTcuNzcxQzEzNi4yOTEgMTcuNzcxIDEzOC4zNzQgMTUuNDkxMyAxMzguMzc0IDEyLjEwNjlDMTM4LjM3NCA4LjcyMjQ2IDEzNi4yOTEgNi40NDI4MiAxMzIuOTQgNi40NDI4MlpNMTMyLjk0IDE1LjU4NjVDMTMxLjE5MiAxNS41ODY1IDEzMC4yMTEgMTQuMDc0OSAxMzAuMjExIDEyLjEwNjlDMTMwLjIxMSAxMC4xMzg5IDEzMS4xOTMgOC42MjcyNSAxMzIuOTQgOC42MjcyNUMxMzQuNjg3IDguNjI3MjUgMTM1LjY2OSAxMC4xMzg5IDEzNS42NjkgMTIuMTA2OUMxMzUuNjY5IDE0LjA3NDkgMTM0LjY4NyAxNS41ODY1IDEzMi45NCAxNS41ODY1Wk0xNTAuODY5IDMuMDM1MDNIMTUzLjc0MVY1LjYyNzI1SDE1MC44NjlWMy4wMzUwM1pNMTYwLjA4NCA2LjQ0MjgyQzE1Ni43MzMgNi40NDI4MiAxNTQuNjUgOC43MjI0NiAxNTQuNjUgMTIuMTA2OUMxNTQuNjUgMTUuNDkxMyAxNTYuNzMzIDE3Ljc3MSAxNjAuMDg0IDE3Ljc3MUMxNjMuNDM2IDE3Ljc3MSAxNjUuNTE5IDE1LjQ5MTMgMTY1LjUxOSAxMi4xMDY5QzE2NS41MTkgOC43MjI0NiAxNjMuNDM2IDYuNDQyODIgMTYwLjA4NCA2LjQ0MjgyWk0xNjAuMDg0IDE1LjU4NjVDMTU4LjMzNyAxNS41ODY1IDE1Ny4zNTYgMTQuMDc0OSAxNTcuMzU2IDEyLjEwNjlDMTU3LjM1NiAxMC4xMzg5IDE1OC4zMzggOC42MjcyNSAxNjAuMDg0IDguNjI3MjVDMTYxLjgzMSA4LjYyNzI1IDE2Mi44MTMgMTAuMTM4OSAxNjIuODEzIDEyLjEwNjlDMTYyLjgxMyAxNC4wNzQ5IDE2MS44MzEgMTUuNTg2NSAxNjAuMDg0IDE1LjU4NjVaTTE1MC45NjUgNi42ODI2NEgxNTMuNjQ2VjE3LjUzMTFIMTUwLjk2NVY2LjY4MjY0Wk0xMTkuNTExIDEwLjU5NTJWMTcuNTMxMUgxMTYuODNWMTAuODM1QzExNi44MyA5LjcwNjg5IDExNi4xODQgOC43NzA5NiAxMTQuOTYzIDguNzcwOTZDMTEzLjY3IDguNzcwOTYgMTEyLjU5IDkuODQxNjIgMTEyLjA5MSAxMC45MTQxVjE3LjUzMTFIMTA5LjQxVjYuNjgyNjRIMTExLjk5NUwxMTIuMDcgOC4xODk4MkMxMTIuOSA2Ljk5MDcyIDExNC4yMjggNi40NjcwNyAxMTUuNTM4IDYuNDY3MDdDMTE4LjA3NSA2LjQ2NzA3IDExOS41MTIgOC4xMjMzNiAxMTkuNTEyIDEwLjU5NTJIMTE5LjUxMVpNMTQ5LjQ4IDEwLjU5NTJWMTcuNTMxMUgxNDYuNzk5VjEwLjgzNUMxNDYuNzk5IDkuNzA2ODkgMTQ2LjE1MyA4Ljc3MDk2IDE0NC45MzIgOC43NzA5NkMxNDMuNjM5IDguNzcwOTYgMTQyLjU1OSA5Ljg0MTYyIDE0Mi4wNiAxMC45MTQxVjE3LjUzMTFIMTM5LjM3OVY2LjY4MjY0SDE0MS45NjRMMTQyLjA0IDguMTg5ODJDMTQyLjg2OSA2Ljk5MDcyIDE0NC4xOTcgNi40NjcwNyAxNDUuNTA3IDYuNDY3MDdDMTQ4LjA0NCA2LjQ2NzA3IDE0OS40ODEgOC4xMjMzNiAxNDkuNDgxIDEwLjU5NTJIMTQ5LjQ4Wk05Ny44OTY2IDMuODI2MzVMOTkuNDE4NiA1LjgzOTIzTDk1LjI4NzkgMTcuNTMwMkg5OC4xMTI1TDk5LjIzMzIgMTQuMjY2MkgxMDQuNzQyTDEwNS44NDQgMTcuNTMwMkgxMDguNzY1TDEwNC4wNDkgMy44MjYzNUg5Ny44OTc1SDk3Ljg5NjZaTTEwMC4wMzkgMTEuOTE0N0wxMDEuMTUyIDguNjc0ODVMMTAxLjk5MyA1Ljg5OTQxTDEwMi44NTEgOC42NzQ4NUwxMDMuOTQ2IDExLjkxNDdIMTAwLjAzOVpNMTI0LjQxOSA2LjY4MjY0SDEyNy4yNjdWOC44NjcwN0gxMjQuNDE5VjEzLjcxNTZDMTI0LjQxOSAxNC45MTU2IDEyNC43NTQgMTUuMzQ3NiAxMjUuOTc1IDE1LjM0NzZIMTI3LjI2N1YxNy41MzJIMTI1LjMyOUMxMjIuNjI0IDE3LjUzMiAxMjEuNzM4IDE2LjEzOTggMTIxLjczOCAxNC4wMjgxVjguODY3OTdIMTIwLjAxNVY2LjY4MzU0SDEyMS43MzhWNC43MTU1N0wxMjQuNDIgMy4zNzE4NlY2LjY4MzU0TDEyNC40MTkgNi42ODI2NFoiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik0xMS41Mjk0IDUuMTQwNDJDMTEuNTY5NyA1LjUyMDM2IDExLjY2OTEgNiAxMS43NDg5IDYuMzQwNDJDMTIuNzg2MiAxMC4zODA1IDE3LjE3NDkgMTEuOTQwNyAyMi43ODAxIDEwLjc4MDJWNi42NDA0MkMxOC4zMzE0IDcuNTYwMTggMTIuODI2NSA3LjA0MDEyIDExLjU2OTcgMS45NjA3OEgxMS4yMTA1QzkuOTUzNiA3LjA0MDEyIDQuNDQ4NzEgNy41NjAxOCAwIDYuNjQwNDJWMTAuNzgwMkM1LjYwNTIzIDExLjkzOTggOS45OTM5MiAxMC4zODA1IDExLjAzMTMgNi4zNDA0MkMxMS4xMTEgNiAxMS4yMTA1IDUuNTIwMzYgMTEuMjUwOCA1LjE0MDQySDExLjUzMDNIMTEuNTI5NFpNMTEuNTY5NyA4LjkzOTgyQzEyLjYyNjggMTMuNDIwMSAxNy4zMTQ3IDE0LjY4MDIgMjIuNjgwNyAxMy42MTk1QzIyLjM4MTUgMTUuMjU5NiAyMS43MjMxIDE2LjgxOTggMjAuNzA2MyAxOC4wOTk3QzE0LjcyMjEgMTguNDE5NSAxMi4wNDkgMTYuMTIwMSAxMS41MzAzIDEyLjExOTVIMTEuMjUwOEMxMC43MzIxIDE2LjExOTIgOC4wNTg5MiAxOC40MTk1IDIuMDc0NzUgMTguMDk5N0MxLjA1NzA4IDE2LjgxOTggMC4zOTk1NDIgMTUuMjU5NiAwLjEwMDMzMyAxMy42MTk1QzUuNDY2MzcgMTQuNjc5MyAxMC4xNTQzIDEzLjQxOTIgMTEuMjExNCA4LjkzOTgySDExLjU3MDZIMTEuNTY5N1pNMTEuNjQ5NCAwQzEzLjM0NTIgNC4zNzk2NCAxOS4wNDk5IDQuNTYwMTggMjIuNzgwMSAzLjgwMDNWMEgxMS42NDk0Wk0xMS4xMzA3IDBIMFYzLjgwMDNDMy43MzAyNSA0LjU2MDE4IDkuNDM0OTIgNC4zNzk2NCAxMS4xMzA3IDBaTTExLjIzMDIgMTUuOTIwN0MxMC40NTI2IDE4LjkyMDcgNy44OTg1NiAyMC40ODA4IDUuNTA0OSAyMC44MDA2TDExLjM4OTYgMjQuMDAwOUwxNy4yNzQ0IDIwLjgwMDZDMTQuODgwNyAyMC40ODA4IDEyLjMyNzYgMTguOTIwNyAxMS41NDkxIDE1LjkyMDdIMTEuMjMwMloiIGZpbGw9IndoaXRlIi8+CjwvZz4KPGRlZnM+CjxjbGlwUGF0aCBpZD0iY2xpcDBfODk3XzMxNDUiPgo8cmVjdCB3aWR0aD0iMTcyIiBoZWlnaHQ9IjI0IiBmaWxsPSJ3aGl0ZSIvPgo8L2NsaXBQYXRoPgo8L2RlZnM+Cjwvc3ZnPgo=";
+const ufLogo = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAW8AAABECAYAAABOILRVAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAylpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDkuMC1jMDAxIDc5LjE0ZWNiNDJmMmMsIDIwMjMvMDEvMTMtMTI6MjU6NDQgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCAyNC4yIChNYWNpbnRvc2gpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjJGMzExRDNDMjNFRDExRUU5Q0UwRjg5NzlCNkZBMThBIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjJGMzExRDNEMjNFRDExRUU5Q0UwRjg5NzlCNkZBMThBIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MkYzMTFEM0EyM0VEMTFFRTlDRTBGODk3OUI2RkExOEEiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MkYzMTFEM0IyM0VEMTFFRTlDRTBGODk3OUI2RkExOEEiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5I7q2xAAAjMklEQVR4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";
 const live = "https://mathbridge-ai.duckdns.org/";
 const projectRepo =
   "https://github.com/jovian-2wang/mathbridge-ai-project-page";
@@ -22,11 +25,11 @@ const award = "https://www.nsf.gov/awardsearch/show-award/?AWD_ID=2627693";
     <meta name="viewport" content="width=device-width" />
     <meta
       name="description"
-      content="MathBridge AI connects curriculum tasks, student responses, learning preferences, and evidence to support mathematics learning."
+      content="MathBridge AI helps sixth graders learn mathematics through daily courses, their own questions, step-by-step hints, bilingual explanations, and read-aloud support."
     />
     <meta
       property="og:title"
-      content="MathBridge AI | Student-aware mathematics support"
+      content="MathBridge AI | Math support for sixth graders"
     />
     <meta
       property="og:description"
@@ -38,7 +41,7 @@ const award = "https://www.nsf.gov/awardsearch/show-award/?AWD_ID=2627693";
       cssVariable="--font-noto-sans"
       preload={[{ subset: "latin", style: "normal" }]}
     />
-    <title>MathBridge AI | Student-aware mathematics support</title>
+    <title>MathBridge AI | Math support for sixth graders</title>
   </head>
 
   <body class="site-page font-(family-name:--font-noto-sans)">
@@ -46,7 +49,7 @@ const award = "https://www.nsf.gov/awardsearch/show-award/?AWD_ID=2627693";
       <div class="topbar shell">
         <a class="brand" href="#top">MathBridge <b>AI</b></a>
         <nav aria-label="Page navigation">
-          <a href="#why">Learning model</a><a href="#demo">Live demo</a><a
+          <a href="#why">Student · Teacher · Parent</a><a href="#demo">Live demo</a><a
             href="#preferences">Preferences</a
           ><a href="#system">System design</a>
         </nav>
@@ -60,7 +63,7 @@ const award = "https://www.nsf.gov/awardsearch/show-award/?AWD_ID=2627693";
               target="_blank"
               rel="noopener noreferrer"
               ><img
-                src={`${base}brands/ut-san-antonio-logo.svg`}
+                src={utsaLogo} width="344" height="48"
                 alt="The University of Texas at San Antonio"
               /></a>
           </div>
@@ -71,7 +74,7 @@ const award = "https://www.nsf.gov/awardsearch/show-award/?AWD_ID=2627693";
               target="_blank"
               rel="noopener noreferrer"
               ><img
-                src={`${base}brands/uf-logo-full.png`}
+                src={ufLogo} width="367" height="68"
                 alt="University of Florida"
               /></a>
           </div>
@@ -88,21 +91,17 @@ const award = "https://www.nsf.gov/awardsearch/show-award/?AWD_ID=2627693";
         <div>
           <p class="eyebrow">INTERACTIVE RESEARCH PROJECT</p>
           <h1>MathBridge AI</h1>
-          <p class="subtitle">AI math support for sixth graders.</p>
+          <p class="subtitle">Helping sixth graders learn mathematics</p>
           <p class="lede">
-            Students can work on today’s Grade 6 Course lesson or ask any math
-            question in Free Math Help. MathBridge AI identifies gaps in each
-            response and guides the student’s next step with hints and visuals.
+            MathBridge AI helps sixth graders understand mathematics, one step at a time.
+            Students can learn today’s course or ask their own math questions,
+            with guided hints, helpful visuals, bilingual explanations, and audio.
           </p>
-          <div class="links">
-            <a class="primary" href="#demo">Explore the live demo</a><a
-              href={live}
-              target="_blank"
-              rel="noopener noreferrer">Open platform ↗</a
-            ><a href={projectRepo} target="_blank" rel="noopener noreferrer"
-              >Project code ↗</a
-            ><a href={award} target="_blank" rel="noopener noreferrer"
-              >NSF award ↗</a>
+          <div class="links" aria-label="Project resources">
+            <a class="primary" href="#demo">Live demo</a>
+            <a href={appRepo} target="_blank" rel="noopener noreferrer">Code (private) ↗</a>
+            <a href={award} target="_blank" rel="noopener noreferrer">NSF award ↗</a>
+            <a href={live} target="_blank" rel="noopener noreferrer">Open platform ↗</a>
           </div>
           <p class="repo-note">
             Application source: <a
@@ -114,298 +113,40 @@ const award = "https://www.nsf.gov/awardsearch/show-award/?AWD_ID=2627693";
 
         <aside class="profile-card">
           <p class="card-label">STUDENT LEARNING PROFILE</p>
-          <h2>Preferences are part of the learning support.</h2>
+          <h2>Learn in the language that helps you.</h2>
           <dl>
-            <div><dt>Language</dt><dd>English · 中文 · Español</dd></div><div>
-              <dt>Interest context</dt><dd>Basketball · Baking · Games</dd>
+            <div><dt>Language</dt><dd>English · English + 中文 · English + Español</dd></div><div>
+              <dt>Interests</dt><dd><InterestPicker /></dd>
             </div><div>
-              <dt>Reading support</dt><dd>Listen to the prompt or hint</dd>
+              <dt>Reading support</dt><dd>Click to hear the question or hint</dd>
             </div>
           </dl>
           <div class="change">
-            <b>WHAT CAN CHANGE</b><span
-              >Wording, familiar context, and access mode.</span>
+            <b>FREE MATH HELP</b><span>Ask any Grade 6 math question. Bring a problem, explore an idea, or ask about something you do not understand.</span>
           </div>
           <div class="constant">
-            <b>WHAT STAYS FIXED</b><span
-              >Quantities, mathematical relationship, target skill, and expected
-              reasoning.</span>
+            <b>COURSE MODE</b><span>Review what your teacher taught in class today. Work through explanations, guided practice, and independent checks to build a solid understanding of each classroom concept.</span>
           </div>
         </aside>
       </div>
     </header>
 
     <main>
-      <section id="why" class="section soft">
-        <div class="shell">
-          <div class="heading">
-            <p class="eyebrow">
-              01 / WHY THE STUDENT CAN LEARN MORE EFFECTIVELY
-            </p><h2>
-              Support follows the student’s thinking, then adapts how the next
-              step is communicated.
-            </h2><p>
-              MathBridge does not replace the task with easier mathematics. It
-              locates the obstacle in the current attempt, selects one useful
-              move, and gives the student another chance to reason.
-            </p>
-          </div>
-          <div class="learning-cycle">
-            <article>
-              <span>01</span><h3>Meet the real task</h3><p>
-                The source prompt, quantities, and target micro-skill remain
-                authoritative.
-              </p>
-            </article><i>→</i>
-            <article>
-              <span>02</span><h3>Reveal the current idea</h3><p>
-                The response exposes a strategy, missing label, reversed order,
-                or other obstacle.
-              </p>
-            </article><i>→</i>
-            <article>
-              <span>03</span><h3>Receive one next move</h3><p>
-                A targeted hint, visual, or question supports reasoning without
-                giving away the answer.
-              </p>
-            </article><i>→</i>
-            <article>
-              <span>04</span><h3>Try and transfer</h3><p>
-                The student retries, then applies the same relationship to a
-                similar problem.
-              </p>
-            </article>
-          </div>
-          <div class="preference-bridge">
-            <div>
-              <small>STUDENT PREFERENCE</small><strong
-                >Language + interest + read-aloud</strong>
-            </div><b aria-hidden="true">↳</b><p>
-              Preferences reduce avoidable language and access barriers. They
-              shape how the task and hint are presented; they do not change what
-              counts as correct mathematics.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section id="demo" class="section">
-        <div class="shell">
-          <div class="split-heading">
-            <div>
-              <p class="eyebrow">02 / LIVE SYSTEM</p><h2>
-                Open the working platform.
-              </h2>
-            </div><p>
-              Choose Student, Teacher, or Parent for a guided path. The window
-              below is the running MathBridge AI application—not a static
-              screenshot.
-            </p>
-          </div><DemoNavigator />
-          <div class="course-foundations" aria-label="Course sources and teaching method">
-            <p>
-              <strong>COURSE TASK</strong>
-              <a href="https://bluebonnet.tea.texas.gov/" target="_blank" rel="noopener noreferrer">
-                TEA Bluebonnet Grade 6 Student Edition ↗
-              </a>
-            </p>
-            <p>
-              <strong>OFFICIAL PRACTICE</strong>
-              <a href="https://tea.texas.gov/data-reports/staar/staar-released-test-questions" target="_blank" rel="noopener noreferrer">
-                TEA released STAAR questions ↗
-              </a>
-            </p>
-            <p>
-              <strong>SOCRATIC SUPPORT</strong>
-              <span>Explain one idea, then ask one guiding question.</span>
-            </p>
-          </div>
-          <p class="caption">
-            <b>Live demo.</b> Role-specific access requires a matching test account.
-            Use “Open full platform” if the embedded window is blocked.
-          </p>
-        </div>
-      </section>
-
-      <section id="preferences" class="section pale">
-        <div class="shell">
-          <div class="split-heading">
-            <div>
-              <p class="eyebrow">03 / INTERACTIVE LEARNING EXAMPLE</p><h2>
-                Change the access path. Keep the mathematics.
-              </h2>
-            </div><p>
-              Change the language, familiar context, or reading support. Then
-              answer, request a clue, view a representation, and try a related
-              task.
-            </p>
-          </div><LearningLab /><p class="caption">
-            <b>Interactive illustration.</b> This browser example demonstrates the
-            preference logic. Generated tutoring and saved evidence are available
-            in the live platform.
-          </p>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="shell">
-          <div class="heading">
-            <p class="eyebrow">04 / ONE LEARNING RECORD, THREE PURPOSES</p><h2>
-              Each role sees what it needs to support the next step.
-            </h2>
-          </div>
-          <div class="roles">
-            <article>
-              <span>STUDENT</span><h3>Act on the next move</h3><ul>
-                <li>Course Mode for assigned curriculum tasks</li><li>
-                  Free Math Help for a student’s own question
-                </li><li>
-                  Hint ladder, approved visuals, retry, and similar problem
-                </li><li>Saved language, interest, and reading preferences</li>
-              </ul>
-            </article>
-            <article>
-              <span>TEACHER</span><h3>Recognize a teachable pattern</h3><ul>
-                <li>Recent attempts and evidence by student</li><li>
-                  Micro-skill status and possible misconception signals
-                </li><li>Student-level and class-level views</li><li>
-                  A basis for deciding what to revisit next
-                </li>
-              </ul>
-            </article>
-            <article>
-              <span>FAMILY</span><h3>Continue the conversation at home</h3><ul>
-                <li>A readable summary of recent learning activity</li><li>
-                  Questions to ask without revealing answers first
-                </li><li>Short practice connected to the same skill</li><li>
-                  Progress rather than a single score
-                </li>
-              </ul>
-            </article>
-          </div><p class="caption">
-            These prototype views organize learning evidence. They do not claim
-            measured learning gains.
-          </p>
-        </div>
-      </section>
+      <RoleExperience />
 
       <section id="system" class="section system">
         <div class="shell">
           <div class="heading">
-            <p class="eyebrow">05 / SYSTEM DESIGN</p><h2>
-              Curriculum support is prepared offline and retrieved only when
-              needed.
-            </h2><p>
-              This follows the proposed workflow directly. Solid blue elements
-              are part of the current curriculum or runtime. Dashed orange
-              elements mark the proposed Answer Edition support extension.
-            </p>
+            <p class="eyebrow">02 / THE ADAPTIVE LEARNING CYCLE</p>
+            <h2>Find the gap. Build understanding. Bring the student back.</h2>
+            <p>MathBridge AI connects questions, diagnosis, targeted teaching, and independent checks
+              in a continuous learning cycle. Support can reach back to Grade 5 or Grade 4 foundations,
+              then move forward through each prerequisite to the original Grade 6 goal.</p>
           </div>
-          <div class="key">
-            <span><i></i> Existing curriculum or runtime</span><span
-              ><i class="proposed-line"></i> Proposed instructional support extension</span>
-          </div>
-
-          <div class="architecture">
-            <section class="arch-panel">
-              <header>
-                <span>OFFLINE / COURSE DATA IMPORT</span><h3>
-                  Prepare trustworthy support before students arrive.
-                </h3>
-              </header>
-              <div class="offline-paths">
-                <div class="path">
-                  <div class="node">
-                    <small>CURRICULUM SOURCE</small><strong
-                      >Student Edition PDF</strong>
-                  </div><b>↓</b><div class="node">
-                    <strong>Source Task / Prompt / Task Spec</strong>
-                  </div><b class="merge">↘</b>
-                </div>
-                <div class="path">
-                  <div class="node proposed">
-                    <small>SUPPORT SOURCE</small><strong
-                      >Answer Edition PDF</strong>
-                  </div><b class="orange">↓</b><div class="node proposed">
-                    <strong>Generic Extractor</strong>
-                  </div><b class="orange">↓</b><div class="node proposed">
-                    <strong>Support Candidates</strong>
-                  </div><b class="orange">↓</b><div class="node proposed">
-                    <strong>Automatic Evaluator</strong><small
-                      >RUNS ONLY DURING IMPORT</small>
-                  </div><b class="merge orange">↙</b>
-                </div>
-              </div>
-              <div class="database">
-                <div class="db-head">
-                  <span>SUPABASE</span><strong
-                    >Structured curriculum and support</strong>
-                </div><div class="db-records">
-                  <div>
-                    <small>EXISTING</small><code>curriculum_source_tasks</code
-                    ><code>curriculum_micro_skills</code><code
-                      >task–skill links</code
-                    ><code>hints · evidence · visuals</code>
-                  </div><div class="new">
-                    <small>PROPOSED NEW</small><code
-                      >curriculum_instructional_supports</code>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <section class="arch-panel">
-              <header>
-                <span>ONLINE / STUDENT RUNTIME</span><h3>
-                  Use the student’s attempt to choose the next support.
-                </h3>
-              </header>
-              <div class="runtime-start">
-                <div class="node"><strong>Student</strong></div><b>↓</b><div
-                  class="node"
-                >
-                  <strong>Course Task</strong>
-                </div><b>↓</b><div class="node">
-                  <strong>Student Response</strong>
-                </div>
-              </div>
-              <div class="runtime-row">
-                <aside>
-                  <small>ACCESS PREFERENCES</small><strong>Language</strong
-                  ><strong>Interest context</strong><strong>Read-aloud</strong
-                  ><p>Shapes presentation—not the target skill.</p>
-                </aside><b>→</b><div class="runtime-core">
-                  <small>EXISTING RUNTIME</small><strong>Validator</strong><i
-                    >↓</i
-                  ><strong>Diagnosis</strong><i>↓</i><strong>Hint Agent</strong>
-                </div>
-              </div>
-              <div class="lookup-arrow">
-                ↓ <small>LOOK UP ONLY WHEN NEEDED</small>
-              </div>
-              <div class="support-db proposed">
-                <small>INSTRUCTIONAL SUPPORT DB</small><div>
-                  <strong>Task-specific support</strong><span>or</span><strong
-                    >Micro-skill support</strong>
-                </div>
-              </div>
-              <div class="lookup-arrow">↓</div>
-              <div class="node output">
-                <small>EXISTING HINT AGENT · SAME LLM CALL</small><strong
-                  >Combine diagnosis, selected support, and student preference</strong>
-              </div><div class="down">↓</div>
-              <div class="student-hint">
-                <strong>Student Hint</strong><span
-                  >one useful next move → another attempt</span>
-              </div>
-            </section>
-          </div>
-          <p class="caption">
-            <b>System status.</b> Validator, diagnosis, Hint Agent, curriculum tasks,
-            micro-skills, hints, evidence, and visuals describe the current prototype.
-            The Answer Edition extractor, automatic evaluator, instructional-support
-            table, and conditional lookup are proposed extensions.
-          </p>
+          <LearningCycle />
+          <p class="caption"><b>Evidence guides the route.</b> A single incorrect answer does not establish a prerequisite gap.
+            The mapped Grade 5 skill is checked first; Grade 4 is probed only when the Grade 5 independent check still fails.
+            Passing a check shows evidence for that skill, not mastery of an entire grade.</p>
         </div>
       </section>
 
@@ -427,7 +168,7 @@ const award = "https://www.nsf.gov/awardsearch/show-award/?AWD_ID=2627693";
     <footer>
       <div class="shell">
         <strong>MathBridge AI</strong><span
-          >Student-aware mathematics support</span
+          >Math support for sixth graders</span
         ><a href={projectRepo} target="_blank" rel="noopener noreferrer"
           >GitHub project page ↗</a>
       </div>
@@ -465,8 +206,7 @@ const award = "https://www.nsf.gov/awardsearch/show-award/?AWD_ID=2627693";
     outline-offset: 3px;
   }
   .shell {
-    width: calc(100% - clamp(2rem, 5vw, 6rem));
-    max-width: none;
+    width: min(1160px, calc(100% - 3rem));
     margin-inline: auto;
   }
   .topbar {
@@ -521,7 +261,9 @@ const award = "https://www.nsf.gov/awardsearch/show-award/?AWD_ID=2627693";
     display: block;
     width: auto;
     max-width: 225px;
+    height: auto;
     max-height: 45px;
+    object-fit: contain;
     margin: 0;
     filter: brightness(0) invert(1);
   }
@@ -698,35 +440,9 @@ const award = "https://www.nsf.gov/awardsearch/show-award/?AWD_ID=2627693";
   .split-heading h2 {
     margin-bottom: 0;
   }
-  .course-foundations {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1rem 2rem;
-    border-top: 1px solid #d4e0e5;
-    border-bottom: 1px solid #d4e0e5;
-    padding: 1rem 0;
-    margin-top: 1.4rem;
-  }
-  .course-foundations p {
-    display: grid;
-    gap: 0.25rem;
-    margin: 0;
-    color: #526574;
-    font-size: 0.78rem;
-    line-height: 1.45;
-  }
-  .course-foundations strong {
-    color: #27546a;
-    font-size: 0.59rem;
-    letter-spacing: 0.1em;
-  }
-  .course-foundations a {
-    color: #27546a !important;
-    font-weight: 750 !important;
-  }
   .learning-cycle {
     display: grid;
-    grid-template-columns: repeat(7, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr) 30px minmax(0, 1fr) 30px minmax(0, 1fr) 30px minmax(0, 1fr);
     align-items: stretch;
   }
   .learning-cycle article {
@@ -1196,10 +912,6 @@ const award = "https://www.nsf.gov/awardsearch/show-award/?AWD_ID=2627693";
       grid-template-columns: 1fr;
       gap: 1.1rem;
     }
-    .course-foundations {
-      grid-template-columns: 1fr;
-      gap: 0.75rem;
-    }
     .preference-bridge {
       grid-template-columns: 1fr;
     }
@@ -1280,4 +992,10 @@ const award = "https://www.nsf.gov/awardsearch/show-award/?AWD_ID=2627693";
       scroll-behavior: auto;
     }
   }
+</style>
+
+<style>
+  #system { width: 100vw; margin-left: calc((100% - 100vw) / 2); background: #edf4f5; }
+  #system > .shell { max-width: 1180px; }
+  #system .heading { max-width: 820px; }
 </style>
