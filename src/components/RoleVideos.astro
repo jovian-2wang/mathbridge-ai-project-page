@@ -1,0 +1,35 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+const roles = [
+  {id:'student', label:'Student', title:'From a question to an independent answer.', description:'Follow a sample question through a guiding hint, a visual explanation, and a new problem.'},
+  {id:'teacher', label:'Teacher', title:'See the thinking. Plan the next step.', description:'Explore sample learning evidence, teaching suggestions, and guidance for matched practice.'},
+  {id:'parent', label:'Parent', title:'Understand progress. Help at home.', description:'See a sample learning summary, a question to ask together, and a home-practice explanation.'},
+];
+---
+<section class="role-videos" id="demo" aria-labelledby="video-title">
+  <div class="video-intro"><p class="video-eyebrow">SEE MATHBRIDGE AI IN ACTION</p><h2 id="video-title">One learning journey.<br />Three perspectives.</h2><p>Watch how learning support connects the student, teacher, and family.</p></div>
+  <div class="video-showcase">
+    <div class="video-switch" aria-label="Choose a video">{roles.map((role,i)=><button type="button" data-video={role.id} aria-pressed={i===0} aria-controls={`video-panel-${role.id}`}>{role.label}</button>)}</div>
+    {roles.map((role,i)=><div class="role-video-panel" id={`video-panel-${role.id}`} hidden={i!==0}>
+      <div class="video-copy"><p class="video-eyebrow">{role.label.toUpperCase()} WALKTHROUGH</p><h3>{role.title}</h3><p>{role.description}</p></div>
+      <video controls playsinline preload="none" poster={`${base}videos/${role.id}-poster.png`} aria-label={`${role.label} sample walkthrough`}>
+        <source src={`${base}videos/${role.id}.webm`} type="video/webm" />
+        Your browser does not support this video. <a href={`${base}videos/${role.id}.webm`}>Download the {role.label.toLowerCase()} walkthrough</a>.
+      </video>
+    </div>)}
+    <p class="video-note">Recorded walkthroughs of the illustrative demo · On-screen text, no narration · Sample content, not a live platform session</p>
+  </div>
+</section>
+<script>
+  const showcase = document.querySelector('.role-videos');
+  showcase?.querySelectorAll<HTMLButtonElement>('[data-video]').forEach(button => {
+    button.addEventListener('click', () => {
+      showcase.querySelectorAll<HTMLVideoElement>('video').forEach(video => video.pause());
+      showcase.querySelectorAll<HTMLButtonElement>('[data-video]').forEach(tab => tab.setAttribute('aria-pressed', String(tab === button)));
+      showcase.querySelectorAll<HTMLElement>('.role-video-panel').forEach(panel => {panel.hidden = panel.id !== `video-panel-${button.dataset.video}`;});
+    });
+  });
+</script>
+<style>
+.role-videos{width:min(1120px,calc(100% - 64px));margin:35px auto 75px}.video-intro{text-align:center;max-width:720px;margin:0 auto 34px}.video-eyebrow{font-size:10px;font-weight:750;letter-spacing:.14em;color:#247473;margin-bottom:14px}.video-intro h2{font-size:clamp(30px,4vw,46px);line-height:1.12}.video-intro>p:last-child{color:#546c76;line-height:1.7;margin-top:18px}.video-showcase{border:1px solid #d4e2df;border-radius:20px;overflow:hidden;background:white;box-shadow:0 22px 70px #183e4812}.video-switch{display:flex;justify-content:center;gap:12px;padding:20px;background:#f2f7f4}.video-switch button{border:0;border-radius:30px;padding:12px 30px;font:inherit;font-size:15px;background:transparent;color:#536d73;cursor:pointer}.video-switch button[aria-pressed=true]{background:#195b62;color:white}.video-switch button:focus-visible{outline:3px solid #b98a42;outline-offset:3px}.video-copy{padding:30px 36px 24px}.video-copy h3{font-size:clamp(23px,3vw,30px);font-weight:600;line-height:1.25;letter-spacing:-.025em}.video-copy>p:last-child{font-size:14px;line-height:1.7;color:#546c76;margin-top:10px}.role-video-panel[hidden]{display:none}.role-video-panel video{display:block;width:calc(100% - 48px);margin:0 24px;aspect-ratio:1280/820;background:#f4f8f6;border:1px solid #dce6df;border-radius:10px;object-fit:contain}.video-note{text-align:center;padding:20px 25px;font-size:11px;line-height:1.7;color:#677e77}@media(max-width:650px){.role-videos{width:calc(100% - 32px)}.video-switch{gap:4px;padding:14px 8px}.video-switch button{font-size:13px;padding:10px 21px}.video-copy{padding:24px 20px}.role-video-panel video{width:100%;margin:0;border-radius:0;border-inline:0}.video-note{font-size:10px}}
+</style>

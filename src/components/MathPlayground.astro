@@ -1,0 +1,56 @@
+<div class="math-playground" aria-label="Interactive unit-rate example">
+  <div class="play-heading"><span>MAKE MATH YOURS</span><span aria-hidden="true">✦</span></div>
+  <h4>Same idea. Your world.</h4>
+  <p class="play-caption">Choose a context. Move the slider. See the relationship.</p>
+  <div class="play-interests" aria-label="Example interest"><button data-interest="sports" aria-pressed="true">Basketball</button><button data-interest="music" aria-pressed="false">Music</button><button data-interest="cooking" aria-pressed="false">Cooking</button></div>
+  <label class="play-language">Read in <select aria-label="Example language"><option value="en">English</option><option value="zh">English + 中文</option><option value="es">English + Español</option></select></label>
+  <div class="play-scene"><div class="play-symbol" aria-hidden="true">◉</div><div><span class="play-topic">BASKETBALL PRACTICE</span><p class="play-question"></p><p class="play-translation" lang="zh"></p></div></div>
+  <label class="play-slider-label" for="play-quantity"><span class="play-unit">Baskets made</span><output for="play-quantity">3</output></label>
+  <input id="play-quantity" type="range" min="1" max="6" value="3" step="1" />
+  <div class="play-equation" aria-live="polite"><strong>3 × 2 = 6</strong><span>2 points for each basket</span></div>
+  <div class="play-controls"><button class="play-listen" type="button">◖)) Hear the question</button><button class="play-hint" type="button" aria-expanded="false">Why does it work? +</button></div>
+  <p class="play-explanation" hidden></p><p class="play-audio-status" role="status"></p>
+  <small>Interactive illustration · Explore an equivalent relationship in three contexts.</small>
+</div>
+<script>
+ const playground = document.querySelector<HTMLElement>('.math-playground');
+ if(playground){
+  const examples = {
+   sports:{title:'BASKETBALL PRACTICE',unit:'Baskets made',symbol:'◉',rate:'2 points for each basket',en:(n:number)=>`Each basket earns 2 points. How many points do ${n} baskets earn?`,zh:(n:number)=>`每次投篮得 2 分。投进 ${n} 次共得多少分？`,es:(n:number)=>`Cada canasta vale 2 puntos. ¿Cuántos puntos valen ${n} canastas?`},
+   music:{title:'YOUR PLAYLIST',unit:'Songs played',symbol:'♫',rate:'2 minutes for each song',en:(n:number)=>`Each song lasts 2 minutes. How long do ${n} songs last?`,zh:(n:number)=>`每首歌时长 2 分钟。${n} 首歌一共多长时间？`,es:(n:number)=>`Cada canción dura 2 minutos. ¿Cuánto duran ${n} canciones?`},
+   cooking:{title:'IN THE KITCHEN',unit:'Batches made',symbol:'◒',rate:'2 cups for each batch',en:(n:number)=>`Each batch needs 2 cups of flour. How many cups do ${n} batches need?`,zh:(n:number)=>`每份需要 2 杯面粉。${n} 份共需要多少杯？`,es:(n:number)=>`Cada tanda necesita 2 tazas de harina. ¿Cuántas tazas necesitan ${n} tandas?`}
+  };
+  let interest:keyof typeof examples='sports';
+  const slider=playground.querySelector<HTMLInputElement>('input')!;
+  const language=playground.querySelector<HTMLSelectElement>('select')!;
+  const hint=playground.querySelector<HTMLButtonElement>('.play-hint')!;
+  const explanation=playground.querySelector<HTMLElement>('.play-explanation')!;
+  const status=playground.querySelector<HTMLElement>('.play-audio-status')!;
+  const render=()=>{
+   const e=examples[interest],n=Number(slider.value);
+   playground.querySelector('.play-topic')!.textContent=e.title;
+   playground.querySelector('.play-unit')!.textContent=e.unit;
+   playground.querySelector('.play-symbol')!.textContent=e.symbol;
+   playground.querySelector('.play-question')!.textContent=e.en(n);
+   const translation=playground.querySelector<HTMLElement>('.play-translation')!;
+   translation.textContent=language.value==='zh'?e.zh(n):language.value==='es'?e.es(n):'';translation.lang=language.value;
+   playground.querySelector('output')!.textContent=String(n);
+   playground.querySelector('.play-equation strong')!.textContent=`${n} × 2 = ${n*2}`;
+   playground.querySelector('.play-equation span')!.textContent=e.rate;
+   explanation.textContent=`There are ${n} equal groups of 2. Add 2 ${n===1?'once':`${n} times`}, or multiply ${n} × 2. The amount per group stays the same.`;
+   playground.dataset.context=interest;
+   status.textContent='';
+  };
+  playground.querySelectorAll<HTMLButtonElement>('[data-interest]').forEach(button=>button.addEventListener('click',()=>{interest=button.dataset.interest as keyof typeof examples;playground.querySelectorAll('[data-interest]').forEach(el=>el.setAttribute('aria-pressed',String(el===button)));window.speechSynthesis?.cancel();render();}));
+  slider.addEventListener('input',render);language.addEventListener('change',()=>{window.speechSynthesis?.cancel();render();});
+  hint.addEventListener('click',()=>{explanation.hidden=!explanation.hidden;hint.setAttribute('aria-expanded',String(!explanation.hidden));hint.textContent=explanation.hidden?'Why does it work? +':'Hide explanation −';});
+  playground.querySelector('.play-listen')?.addEventListener('click',()=>{
+   if(!('speechSynthesis' in window)){status.textContent='Read-aloud is unavailable in this browser.';return;}
+   const e=examples[interest],n=Number(slider.value);window.speechSynthesis.cancel();
+   const utterance=new SpeechSynthesisUtterance(language.value==='zh'?e.zh(n):language.value==='es'?e.es(n):e.en(n));utterance.lang=language.value==='zh'?'zh-CN':language.value==='es'?'es-ES':'en-US';utterance.rate=.9;utterance.onerror=()=>{status.textContent='Audio could not play. Try another browser or voice.';};window.speechSynthesis.speak(utterance);
+  });render();
+ }
+</script>
+<style>
+.math-playground{background:#f8e5d5;padding:28px;border-radius:24px;box-shadow:10px 12px 0 #edcfba;position:relative;min-width:0;transition:background .25s}.math-playground[data-context=music]{background:#ece6f8;box-shadow:10px 12px 0 #dad0ed}.math-playground[data-context=cooking]{background:#e6efdc;box-shadow:10px 12px 0 #cfddbe}.play-heading{display:flex;justify-content:space-between;align-items:center;font-size:10px;font-weight:700;letter-spacing:.13em;color:#684f3d}.play-heading span:last-child{font-size:29px;color:#ba6a44}.math-playground h4{font-size:27px;font-weight:600;margin:8px 0}.play-caption{font-size:12px;line-height:1.7;color:#655f59}.play-interests{display:flex;flex-wrap:wrap;gap:6px;margin:20px 0 14px}.math-playground button{cursor:pointer;font:inherit}.play-interests button{border:1px solid #b6a895;background:#fff8;padding:7px 11px;border-radius:24px;font-size:11px}.play-interests button[aria-pressed=true]{background:#254f4c;border-color:#254f4c;color:white}.play-language{display:flex;align-items:center;gap:10px;font-size:11px}.play-language select{padding:7px;border:1px solid #b6a895;border-radius:6px;background:#fff9;max-width:100%}.play-scene{display:flex;align-items:center;gap:16px;margin:25px 0;min-height:108px}.play-symbol{width:64px;height:64px;flex-shrink:0;border-radius:50%;background:#d98554;color:#fff7ea;font-size:47px;display:grid;place-items:center}.play-topic{font-size:9px;letter-spacing:.12em;color:#665849;font-weight:700}.play-question{font-size:15px;line-height:1.6;margin:6px 0}.play-translation{font-size:12px;line-height:1.6;color:#655f59}.play-slider-label{display:flex;justify-content:space-between;align-items:center;font-size:12px}.play-slider-label output{font-weight:750;font-size:20px}.math-playground input[type=range]{width:100%;accent-color:#245d56;margin:14px 0;cursor:pointer}.play-equation{display:flex;justify-content:space-between;gap:12px;align-items:center;background:#fffc;border-radius:12px;padding:15px}.play-equation strong{font-size:23px;white-space:nowrap}.play-equation span{font-size:10px;max-width:95px;line-height:1.6}.play-controls{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin:20px 0 12px}.play-controls button{border:0;background:transparent;color:#254f4c;font-size:11px;font-weight:600;padding:4px 0}.play-explanation,.play-audio-status{font-size:12px;line-height:1.7;margin-bottom:12px}.math-playground small{display:block;font-size:9px;line-height:1.6;color:#71665d}.math-playground :focus-visible{outline:3px solid #346765;outline-offset:3px}@media(prefers-reduced-motion:reduce){.math-playground{transition:none}}@media(max-width:600px){.math-playground{padding:22px;box-shadow:5px 7px 0 #edcfba}.play-scene{gap:10px}.play-symbol{width:47px;height:47px;font-size:34px}}
+</style>
