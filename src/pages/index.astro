@@ -1,1001 +1,268 @@
 ---
 import { Font } from "astro:assets";
-import RoleExperience from "../components/RoleExperience.astro";
-import LearningCycle from "../components/LearningCycle.astro";
-import InterestPicker from "../components/InterestPicker.astro";
+import AcademicHeader from "../components/AcademicHeader.astro";
 import "../styles/global.css";
-import "../styles/mathbridge.css";
-
-const base = import.meta.env.BASE_URL.endsWith("/")
-  ? import.meta.env.BASE_URL
-  : `${import.meta.env.BASE_URL}/`;
-const utsaLogo = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTcyIiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMTcyIDI0IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8ZyBjbGlwLXBhdGg9InVybCgjY2xpcDBfODk3XzMxNDUpIj4KPHBhdGggZD0iTTE2Ny42MDEgNy4wMDE1SDE2Ni43MTVWNi42ODM1NEgxNjguODU3VjcuMDAxNUgxNjcuOTc1VjkuMjc0ODVIMTY3LjYwMlY3LjAwMTVIMTY3LjYwMVpNMTY5LjYgNi45NTNWOS4yNzQ4NUgxNjkuMjQ1VjYuNjgzNTRIMTY5Ljg1OEwxNzAuNjM0IDguODYwNzhMMTcxLjQwNiA2LjY4MzU0SDE3Mi4wMDFWOS4yNzQ4NUgxNzEuNjQ2VjYuOTQyMjJMMTcwLjgxMSA5LjI3NDg1SDE3MC40MzVMMTY5LjYgNi45NTNaTTc3LjU4NDUgNy43Nzg0NUM3Ni44ODEyIDYuODg4MzMgNzUuNjUwNCA2LjM5NTIxIDc0LjQ2MTYgNi4zOTUyMUM3MS4yNTM2IDYuMzk1MjEgNjkuMzYzNCA4Ljk2MzE4IDY5LjM2MzQgMTIuMDgzNUM2OS4zNjM0IDE1LjIwMzkgNzEuMTU4NyAxNy43NzE5IDc0LjQzODMgMTcuNzcxOUM3NS42MjggMTcuNzcxOSA3Ni44NzUgMTcuMjc3IDc3LjU4NDUgMTYuMzg1TDc3LjY2OTYgMTcuNTMySDgwLjIzMDhWNi42MzU5M0g3Ny42Njk2TDc3LjU4NDUgNy43NzkzNVY3Ljc3ODQ1Wk03NC44OTI1IDE1LjUzODlDNzMuMTY4OSAxNS41Mzg5IDcyLjA5MjEgMTQuMDAzIDcyLjA5MjEgMTIuMDgyNkM3Mi4wOTIxIDEwLjE2MjMgNzMuMTY4OSA4LjYyNjM1IDc0Ljg5MjUgOC42MjYzNUM3Ni4yMjU1IDguNjI2MzUgNzcuMDcwMyA5LjQ4MjM0IDc3LjU0OTUgMTAuNDQ3OVYxMy43MTY1Qzc3LjA3MDMgMTQuNjgyIDc2LjIyNTUgMTUuNTM4IDc0Ljg5MjUgMTUuNTM4VjE1LjUzODlaTTkxLjk1OTkgMTAuNTk1MlYxNy41MzExSDg5LjI3ODdWMTAuODM1Qzg5LjI3ODcgOS43MDY4OSA4OC42MzI4IDguNzcwOTYgODcuNDExOCA4Ljc3MDk2Qzg2LjExODIgOC43NzA5NiA4NS4wMzg3IDkuODQxNjIgODQuNTM5NyAxMC45MTQxVjE3LjUzMTFIODEuODU4NVY2LjY4MjY0SDg0LjQ0MzlMODQuNTE5MSA4LjE4OTgyQzg1LjM0ODcgNi45OTA3MiA4Ni42NzYzIDYuNDY3MDcgODcuOTg2OSA2LjQ2NzA3QzkwLjUyMzkgNi40NjcwNyA5MS45NjA4IDguMTIzMzYgOTEuOTYwOCAxMC41OTUySDkxLjk1OTlaTTM4Ljg5MTYgMy44MjYzNUg0MS43MTYyVjEyLjI5ODJDNDEuNzE2MiAxNS45OTQzIDM5LjI1MDkgMTcuNzcwMSAzNS44NTEyIDE3Ljc3MDFDMzIuMjYwNyAxNy43NzAxIDMwLjEwNjIgMTUuODI2NCAzMC4xMDYyIDEyLjM5NDNWMy44MjYzNUgzMi45MzA4VjEyLjEwNjlDMzIuOTMwOCAxNC4yNDI4IDM0LjE3NTEgMTUuMzIzNCAzNS45MjI4IDE1LjMyMzRDMzcuNjcwNiAxNS4zMjM0IDM4Ljg5MDcgMTQuMjQzNyAzOC44OTA3IDEyLjEwNjlWMy44MjYzNUgzOC44OTE2Wk02MS4wMDk4IDcuNTIyNDZDNjEuMDA5OCA4LjU1NDQ5IDYyLjA2MzMgOC45NjIyOCA2My41NzEgOS4yMjYzNUM2Ni4yMjggOS42ODI2NCA2OC42NDU5IDEwLjUyMjUgNjguNjQ1OSAxMy41OTQzQzY4LjY0NTkgMTYuNDAyMSA2Ni4zOTU1IDE3Ljc3MDEgNjMuMjg0MyAxNy43NzAxQzU5LjY5MzggMTcuNzcwMSA1Ny41NjM1IDE1LjgwMjEgNTcuNjU5MyAxMi42MDk5SDYwLjUzMTRDNjAuNTU1NiAxNC40MDk5IDYxLjU2MDcgMTUuNDE3NyA2My4yODQzIDE1LjQxNzdDNjQuNjk3IDE1LjQxNzcgNjUuNjMwNSAxNC45ODU2IDY1LjYzMDUgMTMuODMzMkM2NS42MzA1IDEyLjY4MDggNjQuNzQ0NSAxMi4xNzcgNjIuODc3NiAxMS44NjUzQzYwLjYyNzIgMTEuNDgwOCA1Ny45OTQ0IDEwLjc4NTYgNTcuOTk0NCA3Ljc2MTM4QzU3Ljk5NDQgNS4wOTczMSA2MC4yNDQ3IDMuNTg1NjMgNjMuMTY1MSAzLjU4NTYzQzY2LjMyNDcgMy41ODU2MyA2OC41OTkzIDUuMjg5NTMgNjguNjQ2NyA4LjA5NzMxSDY1Ljc3NDdDNjUuNzI3MiA2Ljg0OTcgNjQuNzY5NiA1LjkzNzEzIDYzLjE2NTEgNS45MzcxM0M2MS45MjA4IDUuOTM3MTMgNjEuMDEwNyA2LjUxMjg4IDYxLjAxMDcgNy41MjE1Nkw2MS4wMDk4IDcuNTIyNDZaTTQyLjkxMyAzLjgyNjM1SDU0LjU0NjNWNi43MzAyNEw1MC4xNDE1IDUuNjI2MzVWMTcuNTMwMkg0Ny4zMTdWNS42MjYzNUw0Mi45MTIxIDYuNzMwMjRWMy44MjYzNUg0Mi45MTNaTTEzMi45NCA2LjQ0MjgyQzEyOS41ODggNi40NDI4MiAxMjcuNTA2IDguNzIyNDYgMTI3LjUwNiAxMi4xMDY5QzEyNy41MDYgMTUuNDkxMyAxMjkuNTg4IDE3Ljc3MSAxMzIuOTQgMTcuNzcxQzEzNi4yOTEgMTcuNzcxIDEzOC4zNzQgMTUuNDkxMyAxMzguMzc0IDEyLjEwNjlDMTM4LjM3NCA4LjcyMjQ2IDEzNi4yOTEgNi40NDI4MiAxMzIuOTQgNi40NDI4MlpNMTMyLjk0IDE1LjU4NjVDMTMxLjE5MiAxNS41ODY1IDEzMC4yMTEgMTQuMDc0OSAxMzAuMjExIDEyLjEwNjlDMTMwLjIxMSAxMC4xMzg5IDEzMS4xOTMgOC42MjcyNSAxMzIuOTQgOC42MjcyNUMxMzQuNjg3IDguNjI3MjUgMTM1LjY2OSAxMC4xMzg5IDEzNS42NjkgMTIuMTA2OUMxMzUuNjY5IDE0LjA3NDkgMTM0LjY4NyAxNS41ODY1IDEzMi45NCAxNS41ODY1Wk0xNTAuODY5IDMuMDM1MDNIMTUzLjc0MVY1LjYyNzI1SDE1MC44NjlWMy4wMzUwM1pNMTYwLjA4NCA2LjQ0MjgyQzE1Ni43MzMgNi40NDI4MiAxNTQuNjUgOC43MjI0NiAxNTQuNjUgMTIuMTA2OUMxNTQuNjUgMTUuNDkxMyAxNTYuNzMzIDE3Ljc3MSAxNjAuMDg0IDE3Ljc3MUMxNjMuNDM2IDE3Ljc3MSAxNjUuNTE5IDE1LjQ5MTMgMTY1LjUxOSAxMi4xMDY5QzE2NS41MTkgOC43MjI0NiAxNjMuNDM2IDYuNDQyODIgMTYwLjA4NCA2LjQ0MjgyWk0xNjAuMDg0IDE1LjU4NjVDMTU4LjMzNyAxNS41ODY1IDE1Ny4zNTYgMTQuMDc0OSAxNTcuMzU2IDEyLjEwNjlDMTU3LjM1NiAxMC4xMzg5IDE1OC4zMzggOC42MjcyNSAxNjAuMDg0IDguNjI3MjVDMTYxLjgzMSA4LjYyNzI1IDE2Mi44MTMgMTAuMTM4OSAxNjIuODEzIDEyLjEwNjlDMTYyLjgxMyAxNC4wNzQ5IDE2MS44MzEgMTUuNTg2NSAxNjAuMDg0IDE1LjU4NjVaTTE1MC45NjUgNi42ODI2NEgxNTMuNjQ2VjE3LjUzMTFIMTUwLjk2NVY2LjY4MjY0Wk0xMTkuNTExIDEwLjU5NTJWMTcuNTMxMUgxMTYuODNWMTAuODM1QzExNi44MyA5LjcwNjg5IDExNi4xODQgOC43NzA5NiAxMTQuOTYzIDguNzcwOTZDMTEzLjY3IDguNzcwOTYgMTEyLjU5IDkuODQxNjIgMTEyLjA5MSAxMC45MTQxVjE3LjUzMTFIMTA5LjQxVjYuNjgyNjRIMTExLjk5NUwxMTIuMDcgOC4xODk4MkMxMTIuOSA2Ljk5MDcyIDExNC4yMjggNi40NjcwNyAxMTUuNTM4IDYuNDY3MDdDMTE4LjA3NSA2LjQ2NzA3IDExOS41MTIgOC4xMjMzNiAxMTkuNTEyIDEwLjU5NTJIMTE5LjUxMVpNMTQ5LjQ4IDEwLjU5NTJWMTcuNTMxMUgxNDYuNzk5VjEwLjgzNUMxNDYuNzk5IDkuNzA2ODkgMTQ2LjE1MyA4Ljc3MDk2IDE0NC45MzIgOC43NzA5NkMxNDMuNjM5IDguNzcwOTYgMTQyLjU1OSA5Ljg0MTYyIDE0Mi4wNiAxMC45MTQxVjE3LjUzMTFIMTM5LjM3OVY2LjY4MjY0SDE0MS45NjRMMTQyLjA0IDguMTg5ODJDMTQyLjg2OSA2Ljk5MDcyIDE0NC4xOTcgNi40NjcwNyAxNDUuNTA3IDYuNDY3MDdDMTQ4LjA0NCA2LjQ2NzA3IDE0OS40ODEgOC4xMjMzNiAxNDkuNDgxIDEwLjU5NTJIMTQ5LjQ4Wk05Ny44OTY2IDMuODI2MzVMOTkuNDE4NiA1LjgzOTIzTDk1LjI4NzkgMTcuNTMwMkg5OC4xMTI1TDk5LjIzMzIgMTQuMjY2MkgxMDQuNzQyTDEwNS44NDQgMTcuNTMwMkgxMDguNzY1TDEwNC4wNDkgMy44MjYzNUg5Ny44OTc1SDk3Ljg5NjZaTTEwMC4wMzkgMTEuOTE0N0wxMDEuMTUyIDguNjc0ODVMMTAxLjk5MyA1Ljg5OTQxTDEwMi44NTEgOC42NzQ4NUwxMDMuOTQ2IDExLjkxNDdIMTAwLjAzOVpNMTI0LjQxOSA2LjY4MjY0SDEyNy4yNjdWOC44NjcwN0gxMjQuNDE5VjEzLjcxNTZDMTI0LjQxOSAxNC45MTU2IDEyNC43NTQgMTUuMzQ3NiAxMjUuOTc1IDE1LjM0NzZIMTI3LjI2N1YxNy41MzJIMTI1LjMyOUMxMjIuNjI0IDE3LjUzMiAxMjEuNzM4IDE2LjEzOTggMTIxLjczOCAxNC4wMjgxVjguODY3OTdIMTIwLjAxNVY2LjY4MzU0SDEyMS43MzhWNC43MTU1N0wxMjQuNDIgMy4zNzE4NlY2LjY4MzU0TDEyNC40MTkgNi42ODI2NFoiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik0xMS41Mjk0IDUuMTQwNDJDMTEuNTY5NyA1LjUyMDM2IDExLjY2OTEgNiAxMS43NDg5IDYuMzQwNDJDMTIuNzg2MiAxMC4zODA1IDE3LjE3NDkgMTEuOTQwNyAyMi43ODAxIDEwLjc4MDJWNi42NDA0MkMxOC4zMzE0IDcuNTYwMTggMTIuODI2NSA3LjA0MDEyIDExLjU2OTcgMS45NjA3OEgxMS4yMTA1QzkuOTUzNiA3LjA0MDEyIDQuNDQ4NzEgNy41NjAxOCAwIDYuNjQwNDJWMTAuNzgwMkM1LjYwNTIzIDExLjkzOTggOS45OTM5MiAxMC4zODA1IDExLjAzMTMgNi4zNDA0MkMxMS4xMTEgNiAxMS4yMTA1IDUuNTIwMzYgMTEuMjUwOCA1LjE0MDQySDExLjUzMDNIMTEuNTI5NFpNMTEuNTY5NyA4LjkzOTgyQzEyLjYyNjggMTMuNDIwMSAxNy4zMTQ3IDE0LjY4MDIgMjIuNjgwNyAxMy42MTk1QzIyLjM4MTUgMTUuMjU5NiAyMS43MjMxIDE2LjgxOTggMjAuNzA2MyAxOC4wOTk3QzE0LjcyMjEgMTguNDE5NSAxMi4wNDkgMTYuMTIwMSAxMS41MzAzIDEyLjExOTVIMTEuMjUwOEMxMC43MzIxIDE2LjExOTIgOC4wNTg5MiAxOC40MTk1IDIuMDc0NzUgMTguMDk5N0MxLjA1NzA4IDE2LjgxOTggMC4zOTk1NDIgMTUuMjU5NiAwLjEwMDMzMyAxMy42MTk1QzUuNDY2MzcgMTQuNjc5MyAxMC4xNTQzIDEzLjQxOTIgMTEuMjExNCA4LjkzOTgySDExLjU3MDZIMTEuNTY5N1pNMTEuNjQ5NCAwQzEzLjM0NTIgNC4zNzk2NCAxOS4wNDk5IDQuNTYwMTggMjIuNzgwMSAzLjgwMDNWMEgxMS42NDk0Wk0xMS4xMzA3IDBIMFYzLjgwMDNDMy43MzAyNSA0LjU2MDE4IDkuNDM0OTIgNC4zNzk2NCAxMS4xMzA3IDBaTTExLjIzMDIgMTUuOTIwN0MxMC40NTI2IDE4LjkyMDcgNy44OTg1NiAyMC40ODA4IDUuNTA0OSAyMC44MDA2TDExLjM4OTYgMjQuMDAwOUwxNy4yNzQ0IDIwLjgwMDZDMTQuODgwNyAyMC40ODA4IDEyLjMyNzYgMTguOTIwNyAxMS41NDkxIDE1LjkyMDdIMTEuMjMwMloiIGZpbGw9IndoaXRlIi8+CjwvZz4KPGRlZnM+CjxjbGlwUGF0aCBpZD0iY2xpcDBfODk3XzMxNDUiPgo8cmVjdCB3aWR0aD0iMTcyIiBoZWlnaHQ9IjI0IiBmaWxsPSJ3aGl0ZSIvPgo8L2NsaXBQYXRoPgo8L2RlZnM+Cjwvc3ZnPgo=";
-const ufLogo = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAW8AAABECAYAAABOILRVAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAylpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDkuMC1jMDAxIDc5LjE0ZWNiNDJmMmMsIDIwMjMvMDEvMTMtMTI6MjU6NDQgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCAyNC4yIChNYWNpbnRvc2gpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjJGMzExRDNDMjNFRDExRUU5Q0UwRjg5NzlCNkZBMThBIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjJGMzExRDNEMjNFRDExRUU5Q0UwRjg5NzlCNkZBMThBIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MkYzMTFEM0EyM0VEMTFFRTlDRTBGODk3OUI2RkExOEEiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MkYzMTFEM0IyM0VEMTFFRTlDRTBGODk3OUI2RkExOEEiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5I7q2xAAAjMklEQVR4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";
-const live = "https://mathbridge-ai.duckdns.org/";
-const projectRepo =
-  "https://github.com/jovian-2wang/mathbridge-ai-project-page";
-const appRepo = "https://github.com/jovian-2wang/mathbridge-AI";
-const award = "https://www.nsf.gov/awardsearch/show-award/?AWD_ID=2627693";
+const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+const team = [
+  ["Jiannan Cai", "1"], ["Emily Bonner", "1"], ["Claudia Cabrera", "1, 2"],
+  ["Priscilla Rubio", "3"], ["Brenda Hinojosa-Bolaños", "3"],
+  ["Shuai Li", "4"], ["Yuanyuan Lei", "4"], ["Jiangwei Wang", "4"],
+];
 ---
-
 <!doctype html>
 <html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <meta
-      name="description"
-      content="MathBridge AI helps sixth graders learn mathematics through daily courses, their own questions, step-by-step hints, bilingual explanations, and read-aloud support."
-    />
-    <meta
-      property="og:title"
-      content="MathBridge AI | Math support for sixth graders"
-    />
-    <meta
-      property="og:description"
-      content="Interactive research project page and live MathBridge AI demonstration."
-    />
-    <meta property="og:type" content="website" />
-    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
-    <Font
-      cssVariable="--font-noto-sans"
-      preload={[{ subset: "latin", style: "normal" }]}
-    />
-    <title>MathBridge AI | Math support for sixth graders</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="MathBridge AI: a student-aware platform connecting curriculum-grounded math learning, personalized support, and teacher and family insights." />
+    <meta property="og:title" content="MathBridge AI | Connected and Contextualized Mathematics Support" />
+    <meta property="og:description" content="Curriculum-grounded learning. Support that adapts to students. Insights that connect school and home." />
+    <title>MathBridge AI | Connected Mathematics Support</title>
+    <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
+    <Font cssVariable="--font-noto-sans" preload={[{ subset: "latin", style: "normal" }]} />
   </head>
-
-  <body class="site-page font-(family-name:--font-noto-sans)">
-    <header id="top">
-      <div class="topbar shell">
-        <a class="brand" href="#top">MathBridge <b>AI</b></a>
-        <nav aria-label="Page navigation">
-          <a href="#why">Student · Teacher · Parent</a><a href="#demo">Live demo</a><a
-            href="#preferences">Preferences</a
-          ><a href="#system">System design</a>
-        </nav>
+  <body>
+    <header class="project-header" id="top">
+      <div class="logo-row wrap" aria-label="Project institutions, school partners, and funder">
+        <img class="utsa-logo" src={`${base}brands/ut-san-antonio-logo.svg`} alt="UT San Antonio" width="172" height="24" />
+        <img class="uf-logo" src={`${base}brands/uf-workshop.png`} alt="University of Florida" width="367" height="205" />
+        <img class="school-logo" src={`${base}brands/bonham-academy.png`} alt="Bonham Academy" width="100" height="100" />
+        <img class="dual-logo" src={`${base}brands/dual-language-lab.png`} alt="1882 Dual Language Lab School — Lenguaje Dual Asociación 1882" width="280" height="80" />
+        <img class="nsf-logo" src={`${base}brands/nsf-workshop.jpg`} alt="National Science Foundation" width="100" height="100" />
       </div>
-
-      <div class="institution-band">
-        <div class="institutions shell" aria-label="Research institutions">
-          <div class="institution">
-            <span>LEAD ORGANIZATION</span><a
-              href="https://www.utsa.edu/"
-              target="_blank"
-              rel="noopener noreferrer"
-              ><img
-                src={utsaLogo} width="344" height="48"
-                alt="The University of Texas at San Antonio"
-              /></a>
-          </div>
-          <i aria-hidden="true"></i>
-          <div class="institution uf">
-            <span>SUB-AWARDEE ORGANIZATION</span><a
-              href="https://www.ufl.edu/"
-              target="_blank"
-              rel="noopener noreferrer"
-              ><img
-                src={ufLogo} width="367" height="68"
-                alt="University of Florida"
-              /></a>
-          </div>
-          <a
-            class="award-chip"
-            href={award}
-            target="_blank"
-            rel="noopener noreferrer">NSF Award #2627693 ↗</a
-          >
-        </div>
-      </div>
-
-      <div class="hero shell">
-        <div>
-          <p class="eyebrow">INTERACTIVE RESEARCH PROJECT</p>
-          <h1>MathBridge AI</h1>
-          <p class="subtitle">Helping sixth graders learn mathematics</p>
-          <p class="lede">
-            MathBridge AI helps sixth graders understand mathematics, one step at a time.
-            Students can learn today’s course or ask their own math questions,
-            with guided hints, helpful visuals, bilingual explanations, and audio.
-          </p>
-          <div class="links" aria-label="Project resources">
-            <a class="primary" href="#demo">Live demo</a>
-            <a href={appRepo} target="_blank" rel="noopener noreferrer">Code (private) ↗</a>
-            <a href={award} target="_blank" rel="noopener noreferrer">NSF award ↗</a>
-            <a href={live} target="_blank" rel="noopener noreferrer">Open platform ↗</a>
-          </div>
-          <p class="repo-note">
-            Application source: <a
-              href={appRepo}
-              target="_blank"
-              rel="noopener noreferrer">private GitHub repository ↗</a>
-          </p>
-        </div>
-
-        <aside class="profile-card">
-          <p class="card-label">STUDENT LEARNING PROFILE</p>
-          <h2>Learn in the language that helps you.</h2>
-          <dl>
-            <div><dt>Language</dt><dd>English · English + 中文 · English + Español</dd></div><div>
-              <dt>Interests</dt><dd><InterestPicker /></dd>
-            </div><div>
-              <dt>Reading support</dt><dd>Click to hear the question or hint</dd>
-            </div>
-          </dl>
-          <div class="change">
-            <b>FREE MATH HELP</b><span>Ask any Grade 6 math question. Bring a problem, explore an idea, or ask about something you do not understand.</span>
-          </div>
-          <div class="constant">
-            <b>COURSE MODE</b><span>Review what your teacher taught in class today. Work through explanations, guided practice, and independent checks to build a solid understanding of each classroom concept.</span>
-          </div>
-        </aside>
+      <div class="template-heading">
+        <p class="kicker">MATHBRIDGE AI</p>
+        <AcademicHeader
+          title="A Student-Aware AI Platform for Connected and Contextualized K‑12 Mathematics Support"
+          authors={team.map(([name, affiliations]) => ({ name, notes: affiliations.split(", ") }))}
+          notes={[
+            { symbol: "1", text: " UT San Antonio" },
+            { symbol: "2", text: " 1882 Dual Language Lab School" },
+            { symbol: "3", text: " Bonham Academy" },
+            { symbol: "4", text: " University of Florida" },
+          ]}
+          links={[
+            { name: "Try MathBridge AI", url: "https://mathbridge-ai.duckdns.org/", icon: "ri:external-link-line" },
+            { name: "Code (private)", url: "https://github.com/jovian-2wang/mathbridge-AI", icon: "ri:github-fill" },
+            { name: "NSF project", url: "https://www.nsf.gov/awardsearch/show-award/?AWD_ID=2627693", icon: "ri:article-line" },
+          ]}
+        />
       </div>
     </header>
-
     <main>
-      <RoleExperience />
+      <section class="overview wrap" id="overview">
+        <div class="section-intro"><h2>Project Overview</h2></div>
+        <div class="overview-copy"><p>MathBridge AI connects curriculum-grounded tutoring with an evolving picture of each student’s learning needs, misconceptions, and preferences. The research spans K‑12 mathematics, with a current Grade 6 prototype.</p><p>The platform design combines retrieval from instructional materials, coordinated AI agents, and learning memory. It makes mathematics relevant to students’ interests and turns learning interactions into actionable support for teachers and families.</p></div>
+      </section>
+      <figure class="overview-figure wrap" aria-labelledby="figure-title">
+        <div class="figure-head"><span class="kicker">CONNECTED LEARNING</span><h3 id="figure-title">One learning journey. Shared understanding.</h3></div>
+        <div class="knowledge-input"><div><span class="visual-label">CURRICULUM KNOWLEDGE</span><p>Textbooks · Teacher materials · Standards · Trusted resources</p></div><span class="retrieval-label">Retrieval-grounded support ↓</span></div>
+        <div class="connection-map">
+          <div class="map-person student"><span class="person-icon" aria-hidden="true">✎</span><h4>Student</h4><p>Ask. Reason. Practice.</p><span class="map-tag">Course + Free Math Help</span></div>
+          <div class="map-connector"><span>Questions &amp; attempts</span><b aria-hidden="true">⇄</b><span>Guidance &amp; feedback</span></div>
+          <div class="map-core"><span class="core-kicker">MATHBRIDGE AI</span><h4>Understand.<br />Reason.<br />Adapt.</h4><p>Question understanding<br />Reasoning · Student model</p></div>
+          <div class="map-branches" aria-hidden="true"><span>Insights<br />&amp; suggestions</span><svg viewBox="0 0 100 240"><path d="M0 120 H35 V45 H92 M35 120 V195 H92"/><path d="M84 37 L92 45 L84 53 M84 187 L92 195 L84 203"/></svg></div>
+          <div class="map-adults"><div class="map-person"><span class="role-label">IN THE CLASSROOM</span><h4>Teacher</h4><p>Understand gaps.<br />Plan teaching &amp; practice.</p></div><div class="map-person"><span class="role-label">AT HOME</span><h4>Parent</h4><p>See progress.<br />Know how to help.</p></div></div>
+        </div>
+        <div class="return-loop"><span aria-hidden="true">↶</span> Better support in class and at home <span aria-hidden="true">↵</span></div>
+        <div class="platform-foundation"><div><strong>Learning memory</strong><span>Interactions · learner profiles · progress over time</span></div><div><strong>Privacy &amp; security by design</strong><span>Planned access controls · data protection · auditability</span></div></div>
+        <figcaption>Platform design concept, redrawn from proposal Fig. 1. The prototype implements a focused subset of this architecture.</figcaption>
+      </figure>
 
-      <section id="system" class="section system">
-        <div class="shell">
-          <div class="heading">
-            <p class="eyebrow">02 / THE ADAPTIVE LEARNING CYCLE</p>
-            <h2>Find the gap. Build understanding. Bring the student back.</h2>
-            <p>MathBridge AI connects questions, diagnosis, targeted teaching, and independent checks
-              in a continuous learning cycle. Support can reach back to Grade 5 or Grade 4 foundations,
-              then move forward through each prerequisite to the original Grade 6 goal.</p>
-          </div>
-          <LearningCycle />
-          <p class="caption"><b>Evidence guides the route.</b> A single incorrect answer does not establish a prerequisite gap.
-            The mapped Grade 5 skill is checked first; Grade 4 is probed only when the Grade 5 independent check still fails.
-            Passing a check shows evidence for that skill, not mastery of an entire grade.</p>
+      <section class="features wrap" id="features">
+        <div class="features-heading"><h2>Platform Features</h2></div>
+        <article class="feature-row">
+          <div class="feature-copy"><p class="module-label">01 / CURRICULUM</p><h3>Keep learning connected to class.</h3><p>Connect today’s Grade 6 concepts to official course tasks and instructional materials, or bring a question to Free Math Help. Vocabulary and skill checks help identify where support is needed.</p></div>
+          <div class="curriculum-visual feature-visual"><div class="lesson-spine" aria-hidden="true"></div><span class="visual-label">TODAY’S MATH</span><h4>Ratios &amp; relationships</h4><div class="ratio-pair" aria-label="Two blue quantities and five yellow quantities"><span>● ●</span><span>● ● ● ● ●</span></div><p>Understand the quantities.<br />Explain the relationship.</p><div class="visual-footer">Official materials · Focused skills</div></div>
+        </article>
+        <article class="feature-row reverse">
+          <div class="feature-copy"><p class="module-label">02 / LANGUAGE &amp; INTERESTS</p><h3>A familiar way into the mathematics.</h3><p>Learn in English or bilingual mode, listen to questions and hints, and choose up to three interests. Familiar contexts make the same mathematical idea easier to approach.</p></div>
+          <div class="language-visual feature-visual"><span class="visual-label">MORE WAYS TO UNDERSTAND</span><div class="language-lines"><strong>English</strong><strong>English + 中文</strong><strong>English + Español</strong></div><div class="interest-line"><span>Sports</span><span>Music</span><span>Cooking</span><span>+ more</span></div><p>Read it. Hear it. Make a connection.</p></div>
+        </article>
+        <article class="feature-row">
+          <div class="feature-copy"><p class="module-label">03 / HINT DESIGN</p><h3>Guide the thinking, one step at a time.</h3><p>A short explanation, a guiding question, or a useful visual helps students reason. When prerequisite knowledge is missing, targeted support and independent checks lead back to the Grade 6 goal.</p></div>
+          <div class="hint-visual feature-visual"><span class="visual-label">SOCRATIC SUPPORT</span><p class="sample-hint">“A unit rate tells us the amount for one. Which quantity should become 1?”</p><div class="hint-path"><span>Explain</span><b>→</b><span>Try</span><b>→</b><span>Check</span></div><div class="grade-return"><span>Build foundations</span><strong>Grade 4 → Grade 5 → Grade 6</strong></div></div>
+        </article>
+        <div class="insight-pair">
+          <article><p class="module-label">04 / TEACHER INSIGHTS</p><h3>See the gap.<br />Plan the next lesson.</h3><p>Turn saved learning evidence into what to teach, ask, and practice next. Find approved STAAR questions matched to the student’s recorded skill.</p><div class="insight-strip"><span>Teach next</span><span>Ask next</span><span>Matched practice</span></div></article>
+          <article><p class="module-label">05 / PARENT SUMMARY</p><h3>Understand progress.<br />Help with confidence.</h3><p>See what your child has been learning and where support is needed. Get a question to ask, reasoning to listen for, and a short home-practice set with a separate answer key.</p><div class="insight-strip"><span>Recent learning</span><span>Home guidance</span><span>Focused practice</span></div></article>
         </div>
       </section>
-
-      <section class="award section">
-        <div class="shell award-grid">
-          <div>
-            <p class="eyebrow">RESEARCH CONTEXT</p><h2>NSF Award #2627693</h2><p
-            >
-              MathBridge AI is presented as an academic research prototype
-              involving UT San Antonio and the University of Florida. The public
-              NSF record provides the official award information.
-            </p>
-          </div><a href={award} target="_blank" rel="noopener noreferrer"
-            >View the official award record ↗</a>
-        </div>
-      </section>
+      <section class="closing wrap"><p class="kicker">BUILT WITH EDUCATORS &amp; FAMILIES</p><h2>Connecting learning<br />across school and home.</h2><p>An early research prototype shaped through interdisciplinary co-design.</p></section>
     </main>
-
-    <footer>
-      <div class="shell">
-        <strong>MathBridge AI</strong><span
-          >Math support for sixth graders</span
-        ><a href={projectRepo} target="_blank" rel="noopener noreferrer"
-          >GitHub project page ↗</a>
-      </div>
-    </footer>
+    <footer class="wrap"><strong>MathBridge AI</strong><p>Supported by the U.S. National Science Foundation · Award #2627693</p><small>Any opinions, findings, and conclusions or recommendations expressed in this material are those of the authors and do not necessarily reflect the views of the National Science Foundation.</small><small class="template-credit">Adapted from Roman Hauksson-Neill’s Academic Project Page Template · CC BY-SA 4.0. Layout modified for MathBridge AI.</small></footer>
   </body>
 </html>
-
 <style is:global>
-  :root {
-    --ink: #142d3e;
-    --muted: #536879;
-    --blue: #155f74;
-    --dark: #173c51;
-    --orange: #b65736;
-    --line: #d2dfe4;
-    --pale: #f3f7f8;
-  }
-  html {
-    scroll-behavior: smooth;
-  }
-  .site-page {
-    margin: 0;
-    background: #fff;
-    color: var(--ink);
-    font-family: var(--font-noto-sans), Arial, sans-serif;
-  }
-  .site-page * {
-    box-sizing: border-box;
-  }
-  .site-page :is(h1, h2, h3, p, dl, dd, ul) {
-    margin-block-start: 0;
-  }
-  .site-page :is(a, button, input):focus-visible {
-    outline: 3px solid #e6983e;
-    outline-offset: 3px;
-  }
-  .shell {
-    width: min(1160px, calc(100% - 3rem));
-    margin-inline: auto;
-  }
-  .topbar {
-    min-height: 68px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 2rem;
-  }
-  .brand {
-    color: var(--ink) !important;
-    font-weight: 900 !important;
-    text-decoration: none !important;
-  }
-  .brand b {
-    color: var(--orange);
-  }
-  .topbar nav {
-    display: flex;
-    gap: clamp(0.8rem, 2.5vw, 2rem);
-  }
-  .topbar nav a {
-    color: #526574 !important;
-    font-size: 0.78rem;
-    font-weight: 700 !important;
-    text-decoration: none !important;
-  }
-  .institution-band {
-    background: var(--dark);
-    color: #fff;
-  }
-  .institutions {
-    min-height: 112px;
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-  }
-  .institution {
-    display: grid;
-    gap: 0.55rem;
-  }
-  .institution > span {
-    color: #adc7d0;
-    font-size: 0.62rem;
-    font-weight: 850;
-    letter-spacing: 0.14em;
-  }
-  .institution a {
-    line-height: 0;
-  }
-  .institution img {
-    display: block;
-    width: auto;
-    max-width: 225px;
-    height: auto;
-    max-height: 45px;
-    object-fit: contain;
-    margin: 0;
-    filter: brightness(0) invert(1);
-  }
-  .institution.uf img {
-    max-width: 235px;
-    max-height: 49px;
-    filter: none;
-  }
-  .institutions > i {
-    height: 58px;
-    border-left: 1px solid #5b7887;
-  }
-  .award-chip {
-    margin-left: auto;
-    color: #fff !important;
-    border: 1px solid #668493;
-    padding: 0.7rem 0.9rem;
-    font-size: 0.73rem;
-    font-weight: 800 !important;
-    text-decoration: none !important;
-  }
-  .hero {
-    display: grid;
-    grid-template-columns: minmax(0, 1.18fr) minmax(350px, 0.82fr);
-    gap: clamp(3rem, 7vw, 7rem);
-    align-items: center;
-    padding: 5.5rem 0;
-  }
-  .eyebrow {
-    color: var(--orange);
-    font-size: 0.7rem;
-    font-weight: 900;
-    letter-spacing: 0.16em;
-    line-height: 1.4;
-    margin-bottom: 0.9rem;
-  }
-  .hero h1 {
-    font-size: clamp(4.2rem, 8vw, 7.2rem);
-    line-height: 0.95;
-    letter-spacing: -0.07em;
-    font-weight: 780;
-    margin: 0 0 1.2rem;
-  }
-  .subtitle {
-    color: #27546a;
-    font:
-      400 clamp(1.25rem, 2.1vw, 1.75rem)/1.3 Georgia,
-      serif;
-  }
-  .lede {
-    color: #465f70;
-    font-size: 1.02rem;
-    line-height: 1.72;
-    max-width: 730px;
-  }
-  .links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.55rem;
-  }
-  .links a {
-    display: inline-flex;
-    align-items: center;
-    min-height: 42px;
-    color: var(--dark) !important;
-    border: 1px solid #b7cad2;
-    padding: 0.58rem 0.85rem;
-    font-size: 0.75rem;
-    font-weight: 800 !important;
-    text-decoration: none !important;
-  }
-  .links a.primary {
-    background: var(--orange);
-    border-color: var(--orange);
-    color: #fff !important;
-  }
-  .repo-note {
-    color: #72828d;
-    font-size: 0.7rem;
-    margin: 0.8rem 0 0;
-  }
-  .profile-card {
-    border: 1px solid #b8ced6;
-    background: #f5f9fa;
-    box-shadow: 18px 18px 0 #e7eef0;
-    padding: 1.6rem;
-  }
-  .card-label {
-    color: var(--blue);
-    font-size: 0.62rem;
-    font-weight: 900;
-    letter-spacing: 0.13em;
-  }
-  .profile-card h2 {
-    font-size: 1.55rem;
-    line-height: 1.25;
-    letter-spacing: -0.035em;
-    margin: 1rem 0;
-  }
-  .profile-card dl > div {
-    display: grid;
-    grid-template-columns: 7.2rem 1fr;
-    gap: 0.8rem;
-    border-top: 1px solid #d6e2e5;
-    padding: 0.62rem 0;
-  }
-  .profile-card dt {
-    color: #687c88;
-    font-size: 0.7rem;
-  }
-  .profile-card dd {
-    color: #264b5d;
-    font-size: 0.76rem;
-    font-weight: 800;
-  }
-  .change,
-  .constant {
-    display: grid;
-    border-left: 3px solid #78aebb;
-    background: #fff;
-    padding: 0.7rem 0.8rem;
-    margin-top: 0.55rem;
-  }
-  .constant {
-    border-left-color: var(--orange);
-  }
-  .change b,
-  .constant b {
-    color: #587987;
-    font-size: 0.57rem;
-    letter-spacing: 0.11em;
-  }
-  .change span,
-  .constant span {
-    color: #3f5a68;
-    font-size: 0.72rem;
-    line-height: 1.45;
-  }
-  .section {
-    padding: 5rem 0;
-  }
-  .soft {
-    background: #f2f6f7;
-  }
-  .pale {
-    background: #f7f9fa;
-  }
-  .heading {
-    max-width: 890px;
-    margin-bottom: 2rem;
-  }
-  .heading h2,
-  .split-heading h2,
-  .award h2 {
-    font-size: clamp(2.3rem, 4vw, 3.7rem);
-    line-height: 1.12;
-    letter-spacing: -0.05em;
-    font-weight: 740;
-    margin: 0 0 1rem;
-  }
-  .heading > p:last-child,
-  .split-heading > p {
-    color: var(--muted);
-    font-size: 0.94rem;
-    line-height: 1.68;
-  }
-  .split-heading {
-    display: grid;
-    grid-template-columns: 1.15fr 0.85fr;
-    gap: 4rem;
-    align-items: end;
-    margin-bottom: 2rem;
-  }
-  .split-heading h2 {
-    margin-bottom: 0;
-  }
-  .learning-cycle {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 30px minmax(0, 1fr) 30px minmax(0, 1fr) 30px minmax(0, 1fr);
-    align-items: stretch;
-  }
-  .learning-cycle article {
-    border-top: 4px solid #79aebb;
-    background: #fff;
-    padding: 1.2rem;
-  }
-  .learning-cycle article:nth-of-type(2) {
-    border-color: #c38262;
-  }
-  .learning-cycle article:nth-of-type(3) {
-    border-color: #4f8b84;
-  }
-  .learning-cycle article:nth-of-type(4) {
-    border-color: #547894;
-  }
-  .learning-cycle article > span,
-  .roles article > span {
-    color: var(--orange);
-    font-size: 0.64rem;
-    font-weight: 900;
-    letter-spacing: 0.12em;
-  }
-  .learning-cycle h3 {
-    font-size: 1rem;
-    line-height: 1.25;
-    margin: 0.55rem 0;
-  }
-  .learning-cycle p {
-    color: #586c78;
-    font-size: 0.74rem;
-    line-height: 1.55;
-    margin: 0;
-  }
-  .learning-cycle > i {
-    display: grid;
-    place-items: center;
-    width: 30px;
-    color: var(--orange);
-    font-style: normal;
-    font-size: 1.25rem;
-  }
-  .preference-bridge {
-    display: grid;
-    grid-template-columns: auto 45px 1fr;
-    align-items: center;
-    gap: 0.8rem;
-    margin-top: 1.2rem;
-    border: 1px solid #b9d2d8;
-    background: #e9f2f4;
-    padding: 1rem 1.2rem;
-  }
-  .preference-bridge > div {
-    display: grid;
-  }
-  .preference-bridge small {
-    color: var(--blue);
-    font-size: 0.59rem;
-    font-weight: 900;
-    letter-spacing: 0.12em;
-  }
-  .preference-bridge strong {
-    font-size: 0.82rem;
-  }
-  .preference-bridge > b {
-    color: var(--orange);
-    font-size: 1.5rem;
-    text-align: center;
-  }
-  .preference-bridge p {
-    color: #46616e;
-    font-size: 0.77rem;
-    line-height: 1.52;
-    margin: 0;
-  }
-  .caption {
-    color: #697b88;
-    font-size: 0.72rem;
-    line-height: 1.5;
-    margin: 1rem 0 0;
-  }
-  .caption b {
-    color: #2c4655;
-  }
-  .roles {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1.2rem;
-  }
-  .roles article {
-    border: 1px solid #d3e0e4;
-    border-top: 4px solid #67a1af;
-    background: #f8fafb;
-    padding: 1.4rem;
-  }
-  .roles article:nth-child(2) {
-    border-top-color: #bf7653;
-  }
-  .roles article:nth-child(3) {
-    border-top-color: #759b8d;
-  }
-  .roles h3 {
-    font-size: 1.25rem;
-    margin: 0.55rem 0;
-  }
-  .roles ul {
-    padding-left: 1rem;
-    margin-bottom: 0;
-  }
-  .roles li {
-    color: #526775;
-    font-size: 0.78rem;
-    line-height: 1.55;
-    margin: 0.38rem 0;
-  }
-  .system {
-    background: #eaf1f3;
-  }
-  .key {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    color: #516976;
-    font-size: 0.71rem;
-    margin-bottom: 1rem;
-  }
-  .key span {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  .key i {
-    width: 1.6rem;
-    border-top: 2px solid #3f8294;
-  }
-  .key i.proposed-line {
-    border-top-style: dashed;
-    border-color: #bc714b;
-  }
-  .architecture {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-  }
-  .arch-panel {
-    min-width: 0;
-    border: 1px solid #bdd0d6;
-    background: #fff;
-    padding: 1.35rem;
-  }
-  .arch-panel > header {
-    border-bottom: 1px solid #d7e3e6;
-    padding-bottom: 1rem;
-    margin-bottom: 1.1rem;
-  }
-  .arch-panel > header span {
-    color: var(--blue);
-    font-size: 0.62rem;
-    font-weight: 900;
-    letter-spacing: 0.14em;
-  }
-  .arch-panel > header h3 {
-    font-size: 1.35rem;
-    line-height: 1.26;
-    letter-spacing: -0.03em;
-    margin: 0.45rem 0 0;
-  }
-  .offline-paths {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.75rem;
-  }
-  .path {
-    display: flex;
-    flex-direction: column;
-  }
-  .node,
-  .support-db {
-    border: 1.5px solid #7faeb9;
-    background: #f0f7f8;
-    text-align: center;
-    padding: 0.72rem;
-  }
-  .node.proposed,
-  .support-db.proposed {
-    border-color: #bd7650;
-    border-style: dashed;
-    background: #fff5ed;
-  }
-  .node small,
-  .support-db small,
-  .runtime-row aside small,
-  .runtime-core small {
-    display: block;
-    color: #667d87;
-    font-size: 0.54rem;
-    font-weight: 900;
-    letter-spacing: 0.1em;
-    margin-bottom: 0.25rem;
-  }
-  .node strong,
-  .support-db strong {
-    display: block;
-    color: #244b5c;
-    font-size: 0.75rem;
-    line-height: 1.4;
-  }
-  .path > b,
-  .runtime-start > b,
-  .down {
-    color: #3f8294;
-    text-align: center;
-    font-size: 1.2rem;
-    line-height: 1;
-    padding: 0.22rem;
-  }
-  .path > b.orange,
-  .lookup-arrow {
-    color: #b76843;
-  }
-  .path > b.merge {
-    min-height: 29px;
-    font-size: 1.45rem;
-  }
-  .database {
-    border: 2px solid #447d90;
-    background: #e7f1f3;
-    padding: 0.85rem;
-  }
-  .db-head {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    border-bottom: 1px solid #b7d1d7;
-    padding-bottom: 0.55rem;
-  }
-  .db-head span {
-    color: var(--blue);
-    font-size: 0.61rem;
-    font-weight: 950;
-    letter-spacing: 0.14em;
-  }
-  .db-head strong {
-    font-size: 0.67rem;
-  }
-  .db-records {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.7rem;
-    padding-top: 0.65rem;
-  }
-  .db-records > div {
-    display: grid;
-    align-content: start;
-    gap: 0.25rem;
-    min-width: 0;
-  }
-  .db-records .new {
-    border-left: 1px dashed #bf7a56;
-    padding-left: 0.7rem;
-  }
-  .db-records small {
-    color: #4d7180;
-    font-size: 0.53rem;
-    font-weight: 900;
-    letter-spacing: 0.1em;
-  }
-  .db-records code {
-    color: #385965;
-    background: #fff9;
-    font-size: 0.59rem;
-    overflow-wrap: anywhere;
-    padding: 0.16rem 0.25rem;
-  }
-  .runtime-start {
-    width: 72%;
-    margin: auto;
-  }
-  .runtime-row {
-    display: grid;
-    grid-template-columns: 0.8fr 28px 1.2fr;
-    align-items: center;
-    gap: 0.3rem;
-    margin: 0.9rem 0;
-  }
-  .runtime-row aside {
-    border: 1px solid #9fbec7;
-    background: #eef6f7;
-    padding: 0.65rem;
-  }
-  .runtime-row aside strong {
-    display: block;
-    color: #315968;
-    font-size: 0.65rem;
-  }
-  .runtime-row aside p {
-    color: #667b84;
-    font-size: 0.56rem;
-    line-height: 1.4;
-    margin: 0.35rem 0 0;
-  }
-  .runtime-row > b {
-    color: var(--orange);
-    text-align: center;
-  }
-  .runtime-core {
-    display: grid;
-    text-align: center;
-    border: 1.5px solid #679aaa;
-    background: #e8f2f4;
-    padding: 0.7rem;
-  }
-  .runtime-core strong {
-    font-size: 0.72rem;
-  }
-  .runtime-core i {
-    color: #568a98;
-    font-style: normal;
-    line-height: 1;
-  }
-  .lookup-arrow {
-    text-align: center;
-    font-size: 1.2rem;
-    padding: 0.25rem;
-  }
-  .lookup-arrow small {
-    font-size: 0.5rem;
-    font-weight: 900;
-    letter-spacing: 0.08em;
-  }
-  .support-db > div {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    gap: 0.4rem;
-  }
-  .support-db span {
-    color: #a46b50;
-    font-size: 0.62rem;
-  }
-  .node.output {
-    text-align: left;
-  }
-  .student-hint {
-    display: flex;
-    justify-content: center;
-    gap: 0.75rem;
-    border: 2px solid #3e7c8e;
-    background: #dcecef;
-    padding: 0.75rem;
-    color: #204758;
-  }
-  .student-hint span {
-    color: #57717d;
-    font-size: 0.65rem;
-  }
-  .award {
-    background: var(--dark);
-    color: #fff;
-  }
-  .award-grid {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 4rem;
-    align-items: center;
-  }
-  .award h2 {
-    color: #fff;
-  }
-  .award-grid p:last-child {
-    color: #bed0d8;
-    font-size: 0.9rem;
-    line-height: 1.65;
-    max-width: 720px;
-  }
-  .award-grid > a {
-    color: #fff !important;
-    border: 1px solid #6f8c9b;
-    padding: 0.85rem 1rem;
-    font-size: 0.77rem;
-    font-weight: 800 !important;
-    text-decoration: none !important;
-    white-space: nowrap;
-  }
-  footer {
-    background: #102635;
-    color: #fff;
-  }
-  footer > div {
-    min-height: 88px;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-  footer span {
-    color: #91a9b4;
-    font-size: 0.69rem;
-  }
-  footer a {
-    margin-left: auto;
-    color: #c4d9df !important;
-    font-size: 0.7rem;
-  }
-  @media (max-width: 940px) {
-    .hero {
-      grid-template-columns: 1fr;
-    }
-    .profile-card {
-      max-width: 650px;
-    }
-    .institutions {
-      flex-wrap: wrap;
-      padding-block: 1.2rem;
-    }
-    .award-chip {
-      width: 100%;
-      margin-left: 0;
-      text-align: center;
-    }
-    .learning-cycle {
-      grid-template-columns: 1fr;
-      gap: 0.5rem;
-    }
-    .learning-cycle > i {
-      width: auto;
-      transform: rotate(90deg);
-    }
-    .architecture {
-      grid-template-columns: 1fr;
-    }
-  }
-  @media (max-width: 740px) {
-    .shell {
-      width: min(1160px, calc(100% - 2rem));
-    }
-    .topbar {
-      align-items: flex-start;
-      flex-direction: column;
-      justify-content: center;
-      padding-block: 0.8rem;
-      gap: 0.45rem;
-    }
-    .topbar nav {
-      width: 100%;
-      overflow-x: auto;
-    }
-    .topbar nav a {
-      white-space: nowrap;
-    }
-    .institution {
-      width: calc(50% - 1rem);
-    }
-    .institution img,
-    .institution.uf img {
-      max-width: 150px;
-      max-height: 34px;
-    }
-    .hero {
-      padding: 4rem 0;
-    }
-    .section {
-      padding: 3.8rem 0;
-    }
-    .split-heading,
-    .roles,
-    .award-grid {
-      grid-template-columns: 1fr;
-      gap: 1.1rem;
-    }
-    .preference-bridge {
-      grid-template-columns: 1fr;
-    }
-    .preference-bridge > b {
-      transform: rotate(90deg);
-      text-align: left;
-    }
-    .award-grid > a {
-      justify-self: start;
-    }
-  }
-  @media (max-width: 520px) {
-    .institution {
-      width: 100%;
-    }
-    .institutions > i {
-      display: none;
-    }
-    .links {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-    }
-    .links a {
-      justify-content: center;
-      text-align: center;
-      font-size: 0.68rem;
-    }
-    .links a.primary {
-      grid-column: 1/-1;
-    }
-    .profile-card {
-      padding: 1.15rem;
-      box-shadow: 10px 10px 0 #e7eef0;
-    }
-    .profile-card dl > div {
-      grid-template-columns: 1fr;
-    }
-    .offline-paths {
-      grid-template-columns: 1fr;
-    }
-    .db-records {
-      grid-template-columns: 1fr;
-    }
-    .db-records .new {
-      border-left: 0;
-      border-top: 1px dashed #bf7a56;
-      padding: 0.6rem 0 0;
-    }
-    .runtime-start {
-      width: 100%;
-    }
-    .runtime-row {
-      grid-template-columns: 1fr;
-    }
-    .runtime-row > b {
-      transform: rotate(90deg);
-    }
-    .support-db > div {
-      grid-template-columns: 1fr;
-    }
-    .student-hint {
-      align-items: flex-start;
-      flex-direction: column;
-      gap: 0.2rem;
-    }
-    footer > div {
-      align-items: flex-start;
-      flex-direction: column;
-      justify-content: center;
-      padding-block: 1rem;
-    }
-    footer a {
-      margin-left: 0;
-    }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
-  }
+  :root { color-scheme: light; --mb-ink: #173a49; --mb-muted: #546c76; --mb-teal: #176d73; --mb-line: #d7e3e5; }
+  html { scroll-behavior: smooth; background: #fff; }
+  body { margin: 0; font-family: var(--font-noto-sans), Arial, sans-serif; color: var(--mb-ink); background: #fff; }
+  * { box-sizing: border-box; }
+  main { margin: 0; }
+  .wrap { width: min(1120px, calc(100% - 64px)); margin-inline: auto; }
+  h1,h2,h3,h4,p { margin: 0; }
+  a { color: inherit; }
+  .kicker,.module-label,.visual-label,.role-label,.core-kicker { font-size: 11px; font-weight: 750; letter-spacing: .14em; line-height: 1.6; }
+  .kicker { color: var(--mb-teal); }
+  .logo-row { display: flex; align-items: center; justify-content: center; gap: 44px; padding: 28px 0; border-bottom: 1px solid var(--mb-line); min-height: 128px; }
+  .logo-row img { object-fit: contain; height: auto; flex-shrink: 1; margin: 0; }
+  .utsa-logo { width: 185px; filter: brightness(0) saturate(100%) invert(17%) sepia(20%) saturate(1489%) hue-rotate(154deg) brightness(92%) contrast(91%); }
+  .logo-row .uf-logo { width: 176px; max-height: 80px; }
+  .school-logo,.nsf-logo { width: 70px; }
+  .dual-logo { width: 166px; }
+  .project-title { text-align: center; padding: 55px 0 60px; }
+  .project-title > .kicker { font-size: 17px; letter-spacing: .18em; margin-bottom: 18px; }
+  h1 { max-width: 1000px; margin: auto; font-size: clamp(30px, 4.1vw, 52px); line-height: 1.16; letter-spacing: -.042em; font-weight: 650; }
+  .team { margin: 30px auto 14px; display: flex; gap: 9px 22px; justify-content: center; flex-wrap: wrap; max-width: 900px; font-size: 15px; font-weight: 550; }
+  sup { font-size: 9px; color: var(--mb-teal); margin-left: 3px; }
+  .affiliations { display: flex; justify-content: center; gap: 8px 18px; flex-wrap: wrap; font-size: 12px; color: var(--mb-muted); }
+  .project-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+  .project-links a { display: inline-flex; align-items: center; gap: 12px; padding: 12px 20px; border: 1px solid #bbced2; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 650; transition: transform .15s; }
+  .project-links a:hover { transform: translateY(-2px); border-color: var(--mb-teal); }
+  .project-links .primary { background: var(--mb-teal); color: white; border-color: var(--mb-teal); }
+  .project-links small { font-size: 10px; font-weight: 400; }
+  a:focus-visible { outline: 3px solid #c17746; outline-offset: 4px; }
+  .overview { display: grid; grid-template-columns: 1fr 1fr; gap: 65px; padding: 64px 0 42px; border-top: 1px solid var(--mb-line); }
+  h2 { font-size: clamp(27px, 3.2vw, 40px); line-height: 1.17; letter-spacing: -.035em; font-weight: 600; }
+  .section-intro h2 { margin-top: 15px; }
+  .overview-copy { color: var(--mb-muted); font-size: 15px; line-height: 1.8; }
+  .overview-copy p + p { margin-top: 14px; }
+  .overview-figure { background: #f0f6f5; border-radius: 14px; padding: 30px 34px 22px; }
+  .figure-head h3 { font-size: 22px; font-weight: 550; letter-spacing: -.02em; margin-top: 5px; }
+  .knowledge-input { display: flex; align-items: center; justify-content: space-between; gap: 20px; border-block: 1px solid #ccddda; padding: 15px 0; margin-top: 24px; }
+  .knowledge-input p { font-size: 12px; color: var(--mb-muted); margin-top: 4px; line-height: 1.6; }
+  .retrieval-label { font-size: 11px; color: var(--mb-teal); white-space: nowrap; }
+  .platform-foundation { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px; }
+  .platform-foundation > div { display: grid; gap: 6px; }
+  .platform-foundation strong { font-size: 12px; font-weight: 600; }
+  .platform-foundation span { font-size: 10px; color: var(--mb-muted); line-height: 1.6; }
+  .connection-map { display: grid; grid-template-columns: 1.05fr .9fr 1.2fr .7fr 1.15fr; align-items: center; gap: 10px; margin-top: 30px; }
+  .map-person { text-align: center; }
+  .person-icon { display: grid; place-items: center; font-size: 36px; margin: 0 auto 12px; border: 1px solid #b5cdca; border-radius: 50%; width: 66px; height: 66px; }
+  .map-person h4 { font-size: 21px; font-weight: 650; }
+  .map-person p { font-size: 12px; line-height: 1.7; color: var(--mb-muted); margin-top: 6px; }
+  .map-tag { display: inline-block; margin-top: 13px; font-size: 10px; color: var(--mb-teal); }
+  .map-connector { display: grid; text-align: center; color: var(--mb-teal); font-size: 10px; gap: 2px; }
+  .map-connector b { font-size: 40px; font-weight: 400; }
+  .map-core { width: 210px; height: 210px; max-width: 100%; border-radius: 50%; background: #1c5960; color: white; display: flex; align-items: center; justify-content: center; flex-direction: column; margin: auto; box-shadow: 0 0 0 10px #dfebe8; text-align: center; }
+  .core-kicker { font-size: 9px; color: #d3e8e3; }
+  .map-core h4 { font-size: 25px; font-weight: 600; line-height: 1.15; margin: 8px 0; }
+  .map-core p { font-size: 10px; line-height: 1.5; color: #d3e8e3; }
+  .map-branches { position: relative; height: 240px; }
+  .map-branches svg { width: 100%; height: 100%; fill: none; stroke: #759d9a; stroke-width: 1.5; }
+  .map-branches > span { position: absolute; font-size: 10px; color: var(--mb-teal); top: 93px; left: 40%; padding-left: 7px; background: #f0f6f5; }
+  .map-adults { display: grid; gap: 40px; }
+  .role-label { font-size: 8px; color: var(--mb-teal); }
+  .return-loop { width: 90%; margin: 24px auto 0; border-bottom: 1px solid #9ebeba; padding: 0 0 9px; text-align: center; font-size: 11px; color: #537c77; display: flex; justify-content: space-between; }
+  .return-loop span { font-size: 20px; }
+  figcaption { text-align: center; font-size: 11px; line-height: 1.7; color: var(--mb-muted); margin-top: 18px; }
+  .features { padding-top: 85px; }
+  .features-heading h2 { margin-top: 12px; }
+  .feature-row { display: grid; grid-template-columns: 1fr 1fr; gap: 85px; align-items: center; padding: 52px 0; border-bottom: 1px solid var(--mb-line); }
+  .feature-row.reverse .feature-copy { order: 2; }
+  .module-label { color: #b16643; }
+  .feature-copy h3,.insight-pair h3 { font-size: 31px; line-height: 1.2; letter-spacing: -.025em; font-weight: 600; margin: 14px 0; }
+  .feature-copy p:last-child,.insight-pair article > p:not(.module-label) { font-size: 15px; line-height: 1.8; color: var(--mb-muted); }
+  .feature-visual { min-height: 235px; border-radius: 10px; padding: 28px 34px; position: relative; overflow: hidden; }
+  .visual-label { font-size: 9px; color: #4e756f; }
+  .curriculum-visual { background: #f1f5ee; padding-left: 48px; }
+  .lesson-spine { position: absolute; left: 14px; top: 0; bottom: 0; border-left: 2px solid #c0d0b8; }
+  .curriculum-visual h4 { font-size: 23px; margin: 10px 0 13px; letter-spacing: -.02em; }
+  .ratio-pair { display: flex; flex-wrap: wrap; gap: 16px; font-size: 23px; }
+  .ratio-pair span:first-child { color: #3983a0; }
+  .ratio-pair span:last-child { color: #c59539; }
+  .feature-visual p { color: var(--mb-muted); font-size: 12px; line-height: 1.7; margin-top: 12px; }
+  .visual-footer { font-size: 10px; margin-top: 18px; border-top: 1px solid #cfdbca; padding-top: 10px; color: #507148; }
+  .language-visual { background: #eef3f8; }
+  .language-lines { display: grid; gap: 9px; margin-top: 16px; }
+  .language-lines strong { font-size: 19px; font-weight: 500; }
+  .interest-line { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 18px; }
+  .interest-line span { padding: 4px 10px; border: 1px solid #c0d0db; border-radius: 20px; font-size: 10px; }
+  .hint-visual { background: #fbf3ed; }
+  .hint-visual .sample-hint { font-size: 18px; color: #704a34; line-height: 1.6; margin-top: 16px; }
+  .hint-path { display: flex; gap: 15px; align-items: center; font-size: 11px; margin-top: 20px; color: #9b6447; }
+  .hint-path b { font-weight: 400; }
+  .grade-return { margin-top: 20px; border-top: 1px solid #e5cdbd; padding-top: 13px; display: grid; gap: 4px; font-size: 10px; color: #8d6148; }
+  .grade-return strong { font-size: 13px; font-weight: 550; }
+  .insight-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 85px; padding-top: 50px; }
+  .insight-strip { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px; font-size: 10px; color: var(--mb-teal); }
+  .insight-strip span + span { border-left: 1px solid #b6cecb; padding-left: 12px; }
+  .closing { margin-top: 75px; padding: 48px 0; border-top: 1px solid var(--mb-line); text-align: center; }
+  .closing h2 { margin: 12px 0 15px; }
+  .closing > p:last-child { color: var(--mb-muted); font-size: 13px; }
+  footer { border-top: 1px solid var(--mb-line); padding-block: 25px 30px; display: grid; grid-template-columns: auto 1fr; gap: 12px 30px; align-items: center; }
+  footer strong { font-size: 16px; } footer p { text-align: right; font-size: 11px; color: var(--mb-muted); }
+  footer small { grid-column: 1/-1; font-size: 9px; line-height: 1.7; color: #74868b; }
+  @media (max-width: 850px) {
+    .logo-row { gap: 22px; flex-wrap: wrap; }
+    .logo-row .utsa-logo { width: 150px; } .logo-row .uf-logo { width: 140px; }
+    .dual-logo { width: 145px; } .school-logo,.nsf-logo { width: 55px; }
+    .overview { gap: 30px; } .feature-row,.insight-pair { gap: 35px; }
+    .connection-map { grid-template-columns: 1fr .6fr 1.2fr; gap: 12px; }
+    .map-core { width: 200px; height: 200px; }
+    .map-branches { display: none; }
+    .map-adults { grid-column: 1/-1; display: flex; justify-content: space-around; margin-top: 25px; padding-top: 22px; border-top: 1px solid #b5cdca; }
+  }
+  @media (max-width: 560px) {
+    .wrap { width: calc(100% - 36px); }
+    .logo-row { gap: 18px 23px; padding-block: 20px; }
+    .logo-row .utsa-logo { width: 133px; } .logo-row .uf-logo { width: 128px; }
+    .logo-row .dual-logo { width: 118px; } .school-logo,.nsf-logo { width: 47px; }
+    .project-title { padding-block: 35px 40px; }
+    h1 { font-size: 31px; }
+    .team { font-size: 12px; gap: 8px 14px; margin-top: 24px; }
+    .affiliations { font-size: 10px; gap: 6px 12px; }
+    .project-links { gap: 8px; } .project-links a { font-size: 11px; padding: 10px 12px; gap: 6px; }
+    .overview { grid-template-columns: 1fr; gap: 20px; padding-top: 38px; }
+    .overview-copy { font-size: 14px; }
+    .overview-figure { padding: 22px 17px; }
+    .figure-head h3 { font-size: 21px; }
+    .knowledge-input { align-items: flex-start; flex-direction: column; gap: 10px; }
+    .platform-foundation { grid-template-columns: 1fr; gap: 14px; }
+    .connection-map { grid-template-columns: 1fr; gap: 15px; }
+    .map-connector b { transform: rotate(90deg); height: 44px; }
+    .map-core { width: 200px; height: 200px; }
+    .map-adults { width: 100%; gap: 12px; } .map-person h4 { font-size: 19px; }
+    .return-loop { width: 100%; font-size: 10px; align-items: center; gap: 8px; }
+    .features { padding-top: 48px; }
+    .feature-row { grid-template-columns: 1fr; gap: 22px; padding-block: 32px; }
+    .feature-row.reverse .feature-copy { order: 0; }
+    .feature-copy h3,.insight-pair h3 { font-size: 27px; }
+    .feature-copy p:last-child,.insight-pair article > p:not(.module-label) { font-size: 14px; }
+    .feature-visual { padding: 24px; } .curriculum-visual { padding-left: 36px; }
+    .insight-pair { grid-template-columns: 1fr; gap: 35px; padding-top: 35px; }
+    .closing { margin-top: 42px; }
+    footer { grid-template-columns: 1fr; } footer p { text-align: left; } footer small { grid-column: 1; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .project-links a { transition: none; } }
 </style>
 
-<style>
-  #system { width: 100vw; margin-left: calc((100% - 100vw) / 2); background: #edf4f5; }
-  #system > .shell { max-width: 1180px; }
-  #system .heading { max-width: 820px; }
+<style is:global>
+  /* Academic project layout based on the supplied upstream template. */
+  .template-heading { padding: 48px 0 12px; }
+  .template-heading > .kicker { text-align: center; margin-bottom: 20px; }
+  .template-heading .full-bleed { margin-inline: 0; }
+  .template-heading h1 { font-size: 48px; font-weight: 500; letter-spacing: -.035em; line-height: 1.14; }
+  .template-heading sup { font-size: 12px; margin-left: 4px; }
+  .template-heading a { text-decoration: none; font-size: 16px; color: #fff; }
+  .template-heading .text-center.text-sm { color: var(--mb-muted); line-height: 1.9; }
+  .logo-row { border-bottom: 0; max-width: 1050px; }
+  .overview { display: block; max-width: 800px; border: 0; padding-top: 40px; }
+  .section-intro h2, .features-heading h2 { text-align: center; font-size: 32px; margin: 0 0 24px; }
+  .overview-copy { font-size: 17px; line-height: 1.8; }
+  .overview-figure { max-width: 1050px; border-radius: 4px; }
+  .features { max-width: 1000px; padding-top: 65px; }
+  .feature-row { gap: 55px; }
+  .feature-copy h3, .insight-pair h3 { font-size: 27px; }
+  .closing { max-width: 800px; }
+  .template-credit { text-align: center; margin-top: 10px; }
+  @media (max-width: 560px) {
+    .template-heading { padding-top: 26px; }
+    .template-heading h1 { font-size: 31px; }
+    .template-heading .text-xl { font-size: 15px; }
+    .template-heading a { font-size: 13px; }
+    .template-heading .text-center.text-sm { font-size: 11px; }
+    .overview-copy { font-size: 15px; }
+    .feature-row { gap: 24px; }
+  }
 </style>
