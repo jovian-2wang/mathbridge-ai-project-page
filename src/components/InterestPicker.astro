@@ -1,0 +1,37 @@
+---
+const interests = ["Basketball", "Soccer", "Games", "Baking", "Food & Cooking", "Music", "Animals", "Technology", "Shopping", "Travel", "Art & Design", "Building Things"];
+---
+<fieldset class="interest-picker">
+  <legend>Choose up to 3 interests</legend>
+  <div class="interest-options">
+    {interests.map(interest => <button type="button" aria-pressed="false">{interest}</button>)}
+  </div>
+  <p class="interest-status" role="status" aria-live="polite">0 / 3 selected</p>
+</fieldset>
+<script>
+  document.querySelectorAll<HTMLElement>(".interest-picker").forEach(picker => {
+    const buttons = [...picker.querySelectorAll<HTMLButtonElement>("button")];
+    const status = picker.querySelector<HTMLElement>(".interest-status")!;
+    buttons.forEach(button => button.addEventListener("click", () => {
+      const selected = buttons.filter(item => item.getAttribute("aria-pressed") === "true");
+      if (button.getAttribute("aria-pressed") === "true") {
+        button.setAttribute("aria-pressed", "false");
+      } else if (selected.length < 3) {
+        button.setAttribute("aria-pressed", "true");
+      } else {
+        status.textContent = "3 / 3 selected — deselect one to choose another.";
+        return;
+      }
+      status.textContent = `${buttons.filter(item => item.getAttribute("aria-pressed") === "true").length} / 3 selected`;
+    }));
+  });
+</script>
+<style>
+  .interest-picker { border: 0; padding: 0; margin: 0; min-width: 0; }
+  .interest-picker legend { font-size: .76rem; font-weight: 600; padding: 0; margin-bottom: .6rem; }
+  .interest-options { display: flex; flex-wrap: wrap; gap: .4rem; }
+  .interest-options button { border: 1px solid #adc7d0; background: #fff; color: #294c5d; border-radius: 999px; padding: .35rem .65rem; font: inherit; font-size: .7rem; line-height: 1.4; cursor: pointer; }
+  .interest-options button[aria-pressed="true"] { background: #155f74; border-color: #155f74; color: #fff; }
+  .interest-options button:focus-visible { outline: 2px solid #b65736; outline-offset: 3px; }
+  .interest-status { font-size: .7rem; line-height: 1.5; font-weight: 400; color: #536879; margin: .6rem 0 0; }
+</style>

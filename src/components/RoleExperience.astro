@@ -1,0 +1,213 @@
+---
+import LearningLab from "./LearningLab.astro";
+const live = "https://mathbridge-ai.duckdns.org/";
+---
+<section id="why" class="role-experience section">
+  <div class="shell">
+    <div class="heading">
+      <p class="eyebrow">01 / ONE PLATFORM, THREE CONNECTED EXPERIENCES</p>
+      <h2>Learning with the student.<br />Teaching with the evidence.</h2>
+      <p>A student’s questions, attempts, and use of support become a saved learning record.
+        Teachers use that evidence to plan instruction and find relevant STAAR practice.
+        Families receive a clear account of recent learning and concrete ways to help at home.</p>
+    </div>
+    <div class="evidence-connection" aria-label="How the three experiences connect">
+      <span>Student questions &amp; attempts</span><b aria-hidden="true">→</b>
+      <span>Saved learning evidence</span><b aria-hidden="true">→</b>
+      <span>Teacher instruction<br />Parent guidance</span>
+    </div>
+    <div class="experience-tabs" role="tablist" aria-label="Explore the platform by role">
+      <button type="button" id="experience-student" role="tab" aria-controls="panel-student" aria-selected="true" tabindex="0" data-experience="student"><small>01</small> Student <span>Build understanding</span></button>
+      <button type="button" id="experience-teacher" role="tab" aria-controls="panel-teacher" aria-selected="false" tabindex="-1" data-experience="teacher"><small>02</small> Teacher <span>Turn evidence into teaching</span></button>
+      <button type="button" id="experience-parent" role="tab" aria-controls="panel-parent" aria-selected="false" tabindex="-1" data-experience="parent"><small>03</small> Parent <span>Understand &amp; help at home</span></button>
+    </div>
+
+    <section class="experience-panel" id="panel-student" role="tabpanel" aria-labelledby="experience-student" tabindex="0">
+      <div class="experience-intro"><p class="eyebrow">THE STUDENT EXPERIENCE</p><h3>From “I’m stuck” to “I can do this myself.”</h3>
+        <p>Review the mathematics taught in class today, or bring a Grade 6 question of your own.
+          The goal is to understand the idea, explain the reasoning, and use it independently.</p></div>
+      <div class="experience-body">
+        <ol class="experience-steps">
+          <li><h4>Start with Course or Free Math Help</h4><p><strong>Course Mode</strong> supports today’s classroom concepts through selected official textbook tasks.
+            <strong>Free Math Help</strong> lets students ask about Grade 6 mathematics, revisit a concept, or work through a problem they bring.</p></li>
+          <li><h4>Find what is getting in the way</h4><p>The tutor uses the student’s response and reasoning to distinguish a vocabulary barrier, a difficulty with the current skill, and a possible prerequisite gap. A follow-up check gathers evidence before a gap is confirmed.</p></li>
+          <li><h4>Learn the missing idea, then try independently</h4><p>Socratic support combines a short explanation with a guiding question, a suitable visual, or a partially worked step. When mapped prerequisite checks call for it, revisit Grade 5 or Grade 4, then pass independent checks on the way back to the original Grade 6 task.</p></li>
+          <li><h4>Carry that learning forward</h4><p>Try a related problem to apply the idea. Saved topics, help requests, skill evidence, and learning history inform later support and the teacher and family views.</p></li>
+        </ol>
+        <aside class="experience-aside">
+          <p class="eyebrow">SUPPORT THAT FITS THE LEARNER</p>
+          <h4>Make the mathematics accessible.</h4>
+          <dl><div><dt>Language</dt><dd>English, English + 中文, or English + Español.</dd></div>
+            <div><dt>Interests</dt><dd>Choose up to three interests for familiar practice contexts.</dd></div>
+            <div><dt>Voice &amp; visuals</dt><dd>Listen to questions and hints; use representations that show the mathematical relationship.</dd></div>
+            <div><dt>Evidence of understanding</dt><dd>Distinguish an answer reached with help from a skill demonstrated independently.</dd></div></dl>
+          <a class="experience-link" href="#system">Explore the diagnosis &amp; recovery cycle ↓</a>
+        </aside>
+      </div>
+      <details id="preferences" class="experience-example" open>
+        <summary>Try the student experience: bilingual hints, audio, and guided practice</summary>
+        <p class="example-note">An interactive illustration of the learning support. The live platform provides the tutoring conversation and saved learning record.</p>
+        <LearningLab />
+      </details>
+      <p class="experience-sources"><strong>Course and question sources.</strong>
+        <a href="https://accessbluebonnet.tea.texas.gov/courses/bluebonnet-learning-secondary-mathematics-grade-6-edition-1" target="_blank" rel="noopener noreferrer">Official Bluebonnet Learning Grade 6 materials ↗</a>
+        ground course tasks. <a href="https://tea.texas.gov/data-reports/staar/staar-released-test-questions" target="_blank" rel="noopener noreferrer">TEA released STAAR questions ↗</a>
+        provide the assessment items used in the teacher’s matched practice recommendations.</p>
+    </section>
+
+    <section class="experience-panel" id="panel-teacher" role="tabpanel" aria-labelledby="experience-teacher" tabindex="0" hidden>
+      <div class="experience-intro"><p class="eyebrow">THE TEACHER EXPERIENCE</p><h3>See the difficulty. Decide what to teach next.</h3>
+        <p>Student questions and attempts provide evidence of what needs attention. The dashboard connects saved learning signals and skill progress to a teaching plan and approved STAAR practice.</p></div>
+      <div class="experience-body">
+        <ol class="experience-steps">
+          <li><h4>Understand the student’s learning pattern</h4><p>Select a student to review recent topics, hint use, skill progress, and available prerequisite or misconception evidence. Recent learning history adds context beyond the latest answer, while the diagnosis distinguishes an emerging concern from a confirmed pattern.</p></li>
+          <li><h4>Get a specific instructional plan</h4><p><strong>Teach Next</strong> identifies the mathematical idea and representation to emphasize.
+            <strong>Ask Next</strong> gives a concrete question to reveal understanding.
+            <strong>Mini Practice</strong> outlines a short sequence that moves from guided work toward independent application.</p></li>
+          <li><h4>Choose STAAR questions matched to the skill</h4><p>The Recommended STAAR Practice section uses the student’s recorded Grade 6 skill to retrieve approved question-bank matches. Review the recommendation reason, assessment year, question number, TEKS information, and official source to choose practice for that learning need.</p></li>
+          <li><h4>Plan for an individual or a group</h4><p>Use the student’s evidence to decide what to revisit and what reasoning to watch for next. Class Overview adds class priorities and small-group suggestions based on shared learning needs.</p></li>
+        </ol>
+        <aside class="experience-aside staar-aside">
+          <p class="eyebrow">FROM A GAP TO RELEVANT PRACTICE</p><h4>A traceable STAAR recommendation.</h4>
+          <ol class="matching-route"><li><strong>Recorded skill</strong><span>A specific skill supported by saved student evidence.</span></li>
+            <li><strong>Approved bank match</strong><span>A reviewed link between that skill and a released STAAR item.</span></li>
+            <li><strong>Teacher selects practice</strong><span>Question or item summary, recommendation reason, and an official source link.</span></li></ol>
+          <p class="aside-note">Recommendations depend on available approved matches. When no match exists, the dashboard reports that rather than inventing an item.</p>
+          <p class="aside-note">The instructional Mini Practice plan is separate from the sourced STAAR recommendations.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="experience-panel" id="panel-parent" role="tabpanel" aria-labelledby="experience-parent" tabindex="0" hidden>
+      <div class="experience-intro"><p class="eyebrow">THE PARENT EXPERIENCE</p><h3>Understand your child’s learning. Know how to help.</h3>
+        <p>A family view turns the linked child’s saved tutoring activity into an understandable learning summary, a useful conversation, and practice to do together.</p></div>
+      <div class="experience-body">
+        <ol class="experience-steps">
+          <li><h4>See what your child has been learning</h4><p>The summary covers topics across the recorded learning period, with a time range when available. <strong>Going well</strong>, <strong>Still practicing</strong>, and <strong>Recent focus</strong> explain the learning picture in everyday language.</p></li>
+          <li><h4>Know what to ask and listen for</h4><p><strong>How You Can Help Today</strong> supplies a concrete question and the reasoning to listen for. Invite your child to explain what the numbers mean or draw a picture, giving them space to think before supplying an operation.</p></li>
+          <li><h4>Practice the areas that need attention</h4><p>The 10-question home set draws on the topics in the learning-period summary. It begins with two warm-ups, continues with six focused questions, and ends with an understanding check and an independent check.</p></li>
+          <li><h4>Check the explanation as well as the answer</h4><p>Keep the parent answer key closed while the child works. Then use the answers and short explanations to discuss the reasoning. Parent guidance includes what to listen for and an encouraging prompt.</p></li>
+        </ol>
+        <aside class="experience-aside">
+          <p class="eyebrow">A SHORT ROUTINE AT HOME</p><h4>Read → ask → listen → practice.</h4>
+          <dl><div><dt>Based on your child’s activity</dt><dd>Topic coverage and saved learning signals across the available period.</dd></div>
+            <div><dt>About 10–15 minutes</dt><dd>A short set with everyday contexts, targeted practice, and a final independent check.</dd></div>
+            <div><dt>Answers kept separate</dt><dd>Parents receive an answer key with explanations after the child has tried.</dd></div>
+            <div><dt>Language support</dt><dd>Family guidance follows the child’s language preference, with bilingual and voice support.</dd></div></dl>
+          <p class="aside-note">Home questions are generated from the learning summary. They are not presented as released STAAR items.</p>
+        </aside>
+      </div>
+    </section>
+
+    <div id="demo" class="experience-live">
+      <div><p class="eyebrow">EXPLORE THE WORKING PLATFORM</p><h3 id="experience-live-title">Open the student experience.</h3><p id="experience-access">Sign in with a student account to learn today’s course or ask a math question.</p></div>
+      <a class="experience-open" href={live} target="_blank" rel="noopener noreferrer">Open full platform ↗</a>
+    </div>
+    <details class="experience-embed"><summary>Show the live platform here</summary>
+      <p>Sign in with an account for the selected role. If the embedded platform does not load, use “Open full platform” above.</p>
+      <iframe data-src={live} title="MathBridge AI live platform" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="clipboard-read; clipboard-write"></iframe>
+    </details>
+    <p class="experience-note">These views describe recorded tutoring activity and available evidence; they do not establish mastery from one answer or replace a formal assessment.</p>
+  </div>
+</section>
+<script>
+  const root = document.querySelector<HTMLElement>(".role-experience");
+  if (root) {
+    const tabs = [...root.querySelectorAll<HTMLButtonElement>("[data-experience]")];
+    const access = {
+      student: "Sign in with a student account to learn today’s course or ask a math question.",
+      teacher: "Sign in with a teacher account to review student evidence, teaching recommendations, and matched STAAR practice.",
+      parent: "Sign in with a parent account linked to your child to view the learning summary, guidance, and home practice.",
+    };
+    const select = (role: keyof typeof access) => {
+      tabs.forEach(tab => {
+        const active = tab.dataset.experience === role;
+        tab.setAttribute("aria-selected", String(active)); tab.tabIndex = active ? 0 : -1;
+        root.querySelector<HTMLElement>(`#panel-${tab.dataset.experience}`)!.hidden = !active;
+      });
+      root.querySelector("#experience-live-title")!.textContent = `Open the ${role} experience.`;
+      root.querySelector("#experience-access")!.textContent = access[role];
+      window.speechSynthesis?.cancel();
+    };
+    tabs.forEach((tab, index) => {
+      tab.addEventListener("click", () => select(tab.dataset.experience as keyof typeof access));
+      tab.addEventListener("keydown", event => {
+        if (!["ArrowRight", "ArrowLeft", "Home", "End"].includes(event.key)) return;
+        event.preventDefault();
+        const next = event.key === "Home" ? 0 : event.key === "End" ? tabs.length - 1 : (index + (event.key === "ArrowRight" ? 1 : -1) + tabs.length) % tabs.length;
+        tabs[next].click(); tabs[next].focus();
+      });
+    });
+    const revealHash = () => {
+      if (location.hash === "#preferences") {
+        select("student"); root.querySelector<HTMLDetailsElement>("#preferences")!.open = true;
+        root.querySelector("#preferences")!.scrollIntoView();
+      }
+    };
+    window.addEventListener("hashchange", revealHash); revealHash();
+    const embed = root.querySelector<HTMLDetailsElement>(".experience-embed")!;
+    embed.addEventListener("toggle", () => {
+      const frame = embed.querySelector<HTMLIFrameElement>("iframe")!;
+      if (embed.open && !frame.getAttribute("src")) frame.src = frame.dataset.src!;
+    });
+  }
+</script>
+<style>
+  .role-experience { width: 100vw; margin-left: calc((100% - 100vw) / 2); background: #f7fafb; }
+  .role-experience > .shell { max-width: 1180px; }
+  .role-experience .heading { max-width: 900px; }
+  .evidence-connection { display: flex; align-items: center; gap: 1.4rem; padding: 1.6rem 0 2.6rem; color: #365c6c; font-size: .92rem; font-weight: 600; }
+  .evidence-connection b { color: #ac6543; font-size: 1.4rem; }
+  .experience-tabs { display: flex; border-bottom: 1px solid #b6cbd3; gap: 2rem; }
+  .experience-tabs button { flex: 1; background: none; border: 0; border-bottom: 4px solid transparent; padding: 1rem 0 1.2rem; color: #597280; font-family: inherit; font-size: 1.5rem; font-weight: 700; cursor: pointer; text-align: left; }
+  .experience-tabs button[aria-selected="true"] { color: #155f74; border-color: #155f74; }
+  .experience-tabs small { font-size: .7rem; font-weight: 600; vertical-align: middle; margin-right: .45rem; }
+  .experience-tabs span { display: block; font-size: .8rem; font-weight: 400; margin-top: .4rem; }
+  .experience-tabs button:focus-visible, summary:focus-visible { outline: 2px solid #b65736; outline-offset: 4px; }
+  .experience-panel[hidden] { display: none; }
+  .experience-intro { padding: 2.8rem 0 1.5rem; max-width: 830px; }
+  .experience-intro h3 { font-size: clamp(1.7rem, 3vw, 2.5rem); letter-spacing: -.035em; line-height: 1.18; margin: .6rem 0 1rem; }
+  .experience-intro > p:last-child { color: #536879; font-size: 1.05rem; line-height: 1.7; }
+  .experience-body { display: grid; grid-template-columns: 1.55fr 1fr; gap: 4rem; align-items: start; }
+  .experience-steps { counter-reset: journey; padding: 0; margin: 0; list-style: none; }
+  .experience-steps li { counter-increment: journey; position: relative; padding: 0 0 1.8rem 2.8rem; }
+  .experience-steps li::before { content: "0" counter(journey); position: absolute; left: 0; top: .25rem; font-size: .75rem; font-weight: 800; color: #ad5d3b; }
+  .experience-steps h4 { margin: 0 0 .6rem; font-size: 1.1rem; color: #1b3e50; }
+  .experience-steps p { margin: 0; line-height: 1.8; font-size: .94rem; color: #536879; }
+  .experience-steps strong { color: #294d5e; }
+  .experience-aside { border-left: 1px solid #bfd2d9; padding-left: 2rem; }
+  .experience-aside h4 { font-size: 1.5rem; line-height: 1.3; margin: .5rem 0 1.4rem; }
+  .experience-aside dl { margin: 0; }
+  .experience-aside dl > div { margin-bottom: 1.3rem; }
+  .experience-aside dt { font-size: .87rem; font-weight: 750; color: #29586b; margin-bottom: .35rem; }
+  .experience-aside dd, .aside-note { font-size: .87rem; color: #536879; line-height: 1.7; margin: 0; }
+  .aside-note { margin-top: 1.5rem; }
+  .experience-link { display: inline-block; font-size: .85rem; margin-top: 1rem; }
+  .matching-route { list-style: none; margin: 0; padding: 0; }
+  .matching-route li + li::before { content: "↓"; display: block; color: #b65736; font-size: 1.4rem; margin: .6rem 0; }
+  .matching-route strong { display: block; font-size: 1rem; margin-bottom: .4rem; }
+  .matching-route span { font-size: .88rem; line-height: 1.6; color: #536879; }
+  .experience-example { margin-top: 1.5rem; border-top: 1px solid #bfd2d9; padding-top: 1.4rem; }
+  summary { cursor: pointer; color: #24566b; font-size: 1rem; font-weight: 700; }
+  .example-note, .experience-sources, .experience-embed p { font-size: .84rem; line-height: 1.7; color: #536879; margin: 1rem 0 1.5rem; }
+  .experience-sources { margin-top: 1.8rem; }
+  .experience-live { display: flex; justify-content: space-between; align-items: center; gap: 2rem; border-top: 1px solid #bfd2d9; padding-top: 2rem; margin-top: 2rem; scroll-margin-top: 2rem; }
+  .experience-live h3 { font-size: 1.5rem; margin: .5rem 0; }
+  .experience-live p:last-child { font-size: .9rem; color: #536879; max-width: 650px; line-height: 1.7; }
+  .experience-open { flex-shrink: 0; padding: .9rem 1.2rem; background: #173c51; color: #fff !important; text-decoration: none !important; font-size: .9rem; }
+  .experience-embed { margin-top: 1.4rem; }
+  .experience-embed iframe { display: block; width: 100%; height: 680px; border: 1px solid #c8d9df; margin-top: 1rem; background: white; }
+  .experience-note { font-size: .76rem; color: #687d89; margin-top: 1.8rem; line-height: 1.6; }
+  @media (max-width: 750px) {
+    .evidence-connection { gap: .6rem; font-size: .75rem; }
+    .experience-tabs { gap: .6rem; }
+    .experience-tabs button { font-size: 1.1rem; }
+    .experience-tabs small { display: block; margin-bottom: .3rem; }
+    .experience-tabs span { font-size: .68rem; line-height: 1.5; }
+    .experience-body { grid-template-columns: 1fr; gap: 1rem; }
+    .experience-aside { border-left: 0; border-top: 1px solid #bfd2d9; padding: 1.4rem 0; }
+    .experience-live { align-items: flex-start; flex-direction: column; gap: .7rem; }
+    .experience-steps li { padding-left: 2rem; }
+    .experience-embed iframe { height: 560px; }
+  }
+</style>

@@ -1,0 +1,155 @@
+---
+const stages = [
+  { name: "Start with a real question", lines: ["Today’s course or a student’s own question", "Keep the original Grade 6 goal in view."], title: "A question starts the cycle", detail: "Course Mode begins with the current lesson and its source task. Free Math Help begins with a student’s question, a topic to review, or a problem they bring. Identify the mathematical relationship and the relevant skill before choosing support." },
+  { name: "Listen to the reasoning", lines: ["Answer · strategy · vocabulary", "Evidence across multiple attempts"], title: "Understand more than right or wrong", detail: "Check the answer, quantity labels, comparison order, units, and the student’s explanation. A vocabulary check asks whether words such as ratio, equivalent, or per are blocking understanding. Language difficulty alone does not establish a mathematics gap." },
+  { name: "Diagnose the obstacle", lines: ["Language, skill, or prerequisite?", "Probe before confirming a gap."], title: "Separate three different learning needs", detail: "Clarify unfamiliar vocabulary and ask the student to use the meaning. For a current-skill difficulty, provide Grade 6 support. If evidence suggests missing prerequisite knowledge, probe the mapped Grade 5 skill first. One wrong answer is a hypothesis, not a confirmed misconception; collect a focused follow-up response." },
+  { name: "Teach the missing idea", lines: ["Explain → ask → visualize → guide", "Adapt the support to the actual gap."], title: "Socratic teaching with meaningful support", detail: "Teach one small concept or relationship, then ask a question the student can answer with it. Add a ratio table, double number line, fraction model, or other suitable visual when useful. Increase support from a short explanation to a guided or partially worked step while leaving meaningful reasoning to the student." },
+  { name: "Check independently", lines: ["A new attempt without the scaffold", "Not yet? Teach and check again."], title: "A supported answer is not yet independent learning", detail: "Ask for an independent response after remediation. If the Grade 5 check still fails, probe the mapped Grade 4 foundation. After Grade 4 is demonstrated independently, return to Grade 5 and test again; after Grade 5 is secure, return to the original Grade 6 task. If a check fails, remain at the relevant skill and adjust the support." },
+  { name: "Return, apply, and extend", lines: ["G4 → G5 → original G6 task", "Apply it; collect new evidence."], title: "Close the loop at the original learning goal", detail: "Passing a lower-grade check does not finish the Grade 6 task. Re-check each linked skill on the way back up, then ask the student to apply the Grade 6 idea to a related problem. Save the new learning evidence so the next course task or free question starts from a better understanding of the student." },
+];
+const point = (angle: number, radius = 355) => ({ x: 560 + radius * Math.cos(angle * Math.PI / 180), y: 490 + radius * Math.sin(angle * Math.PI / 180) });
+---
+<div class="learning-cycle-figure" id="adaptive-cycle">
+  <div class="cycle-entry" aria-label="Two entry points into the learning cycle">
+    <span>COURSE MODE <small>Today’s lesson &amp; textbook tasks</small></span>
+    <b aria-hidden="true">↘ &nbsp; ↙</b>
+    <span>FREE MATH HELP <small>A question, a topic, or a problem</small></span>
+  </div>
+  <p class="cycle-instruction">Follow the arrows. Select a numbered stage to explore the teaching decisions.<span class="mobile-cycle-note"> Swipe sideways to explore the full diagram.</span></p>
+  <div class="cycle-scroll" tabindex="0" role="region" aria-label="Adaptive learning cycle diagram. On small screens, scroll sideways to explore all stages.">
+    <svg viewBox="0 0 1120 1020" class="cycle-map" role="img" aria-labelledby="cycle-title cycle-desc">
+      <title id="cycle-title">MathBridge AI adaptive learning and prerequisite recovery cycle</title>
+      <desc id="cycle-desc">Course and Free Math Help feed a six-stage cycle: attempt, evidence, diagnosis, targeted teaching, independent check, and transfer. Vocabulary is checked separately from mathematical skill. Probe Grade 5 before Grade 4. Only after independent success, return from Grade 4 to Grade 5 and then to the original Grade 6 task. Failed checks repeat targeted support.</desc>
+      <defs>
+        <marker id="cycle-arrow" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="none" stroke="#387488" stroke-width="1.5" /></marker>
+        <marker id="probe-arrow" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="none" stroke="#ac6543" stroke-width="1.5" /></marker>
+        <marker id="return-arrow" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="none" stroke="#39786a" stroke-width="1.5" /></marker>
+      </defs>
+      <circle cx="560" cy="490" r="355" fill="none" stroke="#dce8eb" stroke-width="32" />
+      {stages.map((stage, i) => {
+        const angle = -90 + i * 60;
+        const p = point(angle);
+        const labelX = i === 1 || i === 2 ? 955 : i === 4 || i === 5 ? 165 : p.x;
+        const a = point(angle + 12), b = point(angle + 48);
+        return <g>
+          <path d={`M ${a.x} ${a.y} A 355 355 0 0 1 ${b.x} ${b.y}`} fill="none" stroke="#387488" stroke-width="2.5" marker-end="url(#cycle-arrow)" />
+          <g class="cycle-stage" data-stage={i} role="button" tabindex="0" aria-label={`${i + 1}. ${stage.name}`} aria-pressed={i === 0 ? "true" : "false"} aria-controls="cycle-detail">
+            <circle cx={p.x} cy={p.y} r="32" />
+            <text x={p.x} y={p.y + 7} class="stage-number">{String(i + 1).padStart(2,"0")}</text>
+            <text x={labelX} y={p.y + 61} class="stage-name">{stage.name}</text>
+            <text x={labelX} y={p.y + 85} class="stage-copy">{stage.lines[0]}</text>
+            <text x={labelX} y={p.y + 107} class="stage-copy">{stage.lines[1]}</text>
+          </g>
+        </g>;
+      })}
+      <circle cx="560" cy="490" r="218" fill="#f6faf9" stroke="#d9e5e2" stroke-width="1" />
+      <text x="560" y="307" class="inner-kicker">PREREQUISITE RECOVERY</text>
+      <text x="560" y="335" class="inner-title">Go back only as far as needed.</text>
+      <text x="560" y="359" class="stage-copy">Then verify every step back to Grade 6.</text>
+      <path d="M515 405 C445 405 445 466 515 466" class="probe-path" />
+      <path d="M515 501 C445 501 445 562 515 562" class="probe-path" />
+      <path d="M605 565 C675 565 675 504 605 504" class="return-path" />
+      <path d="M605 469 C675 469 675 408 605 408" class="return-path" />
+      <g class="grade"><circle cx="560" cy="405" r="31" /><text x="560" y="412">G6</text></g>
+      <g class="grade"><circle cx="560" cy="485" r="31" /><text x="560" y="492">G5</text></g>
+      <g class="grade"><circle cx="560" cy="565" r="31" /><text x="560" y="572">G4</text></g>
+      <text x="417" y="434" class="route-label probe-label">Probe</text>
+      <text x="417" y="455" class="route-label probe-label">G5 first</text>
+      <text x="417" y="527" class="route-label probe-label">If G5 check</text>
+      <text x="417" y="548" class="route-label probe-label">still fails</text>
+      <text x="704" y="434" class="route-label return-label">Pass G5</text>
+      <text x="704" y="455" class="route-label return-label">retry G6</text>
+      <text x="704" y="527" class="route-label return-label">Pass G4</text>
+      <text x="704" y="548" class="route-label return-label">re-check G5</text>
+      <text x="560" y="631" class="inner-note">At each level: teach → independent check</text>
+      <text x="560" y="656" class="inner-note">Not yet secure? Adjust support and repeat.</text>
+      <text x="560" y="682" class="inner-kicker">THE ORIGINAL G6 GOAL STAYS IN VIEW</text>
+      <path d="M793 659 Q772 640 750 625" fill="none" stroke="#ac6543" stroke-width="2" stroke-dasharray="5 5" marker-end="url(#probe-arrow)" />
+      <text x="831" y="611" class="route-label probe-label">Gap suspected?</text>
+      <path d="M367 590 Q337 608 320 634" fill="none" stroke="#39786a" stroke-width="2" marker-end="url(#return-arrow)" />
+      <text x="285" y="587" class="route-label return-label">Verify &amp; return</text>
+    </svg>
+  </div>
+  <div class="cycle-detail" id="cycle-detail" aria-live="polite" aria-atomic="true">
+    <span id="cycle-step-label">01 / LEARNING DECISION</span>
+    <h3 id="cycle-detail-title">{stages[0].title}</h3>
+    <p id="cycle-detail-copy">{stages[0].detail}</p>
+  </div>
+  <div class="cycle-foundation">
+    <p><strong>Vocabulary &amp; language</strong> Clarify a word, offer bilingual support, and check its meaning in the problem. Separate language access from mathematical understanding.</p>
+    <p><strong>Skills &amp; misconceptions</strong> Check ratio order, same-factor scaling, per-one reasoning, and connections between representations. Confirm patterns with more evidence.</p>
+    <p><strong>Curriculum &amp; continuity</strong> Official course tasks, skill mappings, and saved learning evidence keep remediation connected to the original lesson. Free questions receive support for the mathematical relationship they involve.</p>
+  </div>
+  <script type="application/json" id="cycle-stage-data" set:html={JSON.stringify(stages)} />
+</div>
+<script>
+  const root = document.getElementById("adaptive-cycle");
+  if (root) {
+    const data = JSON.parse(root.querySelector("#cycle-stage-data")?.textContent || "[]");
+    const stages = [...root.querySelectorAll<SVGGElement>("[data-stage]")];
+    const select = (index: number) => {
+      stages.forEach((stage, i) => stage.setAttribute("aria-pressed", String(i === index)));
+      root.querySelector("#cycle-step-label")!.textContent = `${String(index + 1).padStart(2, "0")} / LEARNING DECISION`;
+      root.querySelector("#cycle-detail-title")!.textContent = data[index].title;
+      root.querySelector("#cycle-detail-copy")!.textContent = data[index].detail;
+    };
+    stages.forEach((stage, index) => {
+      stage.addEventListener("click", () => select(index));
+      stage.addEventListener("keydown", event => {
+        if (event.key === "Enter" || event.key === " ") { event.preventDefault(); select(index); }
+        if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
+          event.preventDefault();
+          const next = (index + (event.key === "ArrowRight" ? 1 : -1) + stages.length) % stages.length;
+          select(next); stages[next].focus();
+        }
+      });
+    });
+  }
+</script>
+<style>
+  .learning-cycle-figure { color: #193b4b; }
+  .cycle-entry { display: flex; justify-content: center; align-items: center; gap: 3rem; text-align: center; }
+  .cycle-entry span { font-size: .84rem; font-weight: 800; letter-spacing: .08em; }
+  .cycle-entry small { display: block; font-size: .83rem; font-weight: 400; letter-spacing: 0; margin-top: .4rem; }
+  .cycle-entry b { font-size: 1.8rem; color: #387488; }
+  .cycle-instruction { text-align: center; margin: 1.4rem 0 0; font-size: .82rem; color: #536879; }
+  .mobile-cycle-note { display: none; }
+  .cycle-scroll { overflow-x: auto; }
+  .cycle-map { display: block; width: 100%; min-width: 880px; height: auto; font-family: inherit; overflow: visible; }
+  .cycle-map text { text-anchor: middle; fill: #193b4b; }
+  .cycle-stage { cursor: pointer; outline: none; }
+  .cycle-stage circle { fill: #fff; stroke: #387488; stroke-width: 2; transition: fill .15s; }
+  .cycle-stage:hover circle, .cycle-stage:focus circle, .cycle-stage[aria-pressed="true"] circle { fill: #193b4b; }
+  .cycle-stage:focus circle { stroke-width: 5; stroke: #ac6543; }
+  .stage-number { font-size: 20px; font-weight: 800; }
+  .cycle-stage:hover .stage-number, .cycle-stage:focus .stage-number, .cycle-stage[aria-pressed="true"] .stage-number { fill: #fff; }
+  .stage-name { paint-order: stroke; stroke: #edf4f5; stroke-width: 5px; font-size: 20px; font-weight: 750; }
+  .stage-copy { paint-order: stroke; stroke: #edf4f5; stroke-width: 3px; font-size: 15px; }
+  .inner-kicker { font-size: 11px; letter-spacing: 1.3px; font-weight: 800; }
+  .inner-title { font-size: 19px; font-weight: 700; }
+  .inner-note { font-size: 14px; }
+  .grade circle { fill: #e1eeeb; stroke: #b7d2ca; }
+  .grade text { font-size: 21px; font-weight: 750; }
+  .probe-path { fill: none; stroke: #ac6543; stroke-width: 2; stroke-dasharray: 5 4; marker-end: url(#probe-arrow); }
+  .return-path { fill: none; stroke: #39786a; stroke-width: 2; marker-end: url(#return-arrow); }
+  .route-label { font-size: 13px; font-weight: 600; }
+  .cycle-map .probe-label { fill: #925236; }
+  .cycle-map .return-label { fill: #31695d; }
+  .cycle-detail { border-top: 1px solid #b8cfd5; padding: 1.5rem 0; min-height: 205px; max-width: 850px; margin: -1rem auto 0; }
+  .cycle-detail > span { color: #ac6543; font-size: .7rem; font-weight: 800; letter-spacing: .12em; }
+  .cycle-detail h3 { font-size: 1.45rem; margin: .6rem 0; }
+  .cycle-detail p { font-size: 1rem; line-height: 1.75; margin: 0; color: #47616e; }
+  .cycle-foundation { display: flex; gap: 2rem; padding-top: 1.5rem; border-top: 1px solid #cfdee2; }
+  .cycle-foundation p { flex: 1; font-size: .87rem; line-height: 1.7; color: #47616e; }
+  .cycle-foundation strong { display: block; font-size: 1rem; margin-bottom: .4rem; color: #193b4b; }
+  @media (max-width: 700px) {
+    .mobile-cycle-note { display: inline; }
+    .cycle-entry { gap: .8rem; }
+    .cycle-entry span { font-size: .7rem; }
+    .cycle-entry small { font-size: .75rem; }
+    .cycle-entry b { font-size: 1.1rem; }
+    .cycle-map { min-width: 880px; }
+    .cycle-detail { margin-top: 0; min-height: 0; }
+    .cycle-foundation { flex-direction: column; gap: .5rem; }
+  }
+</style>

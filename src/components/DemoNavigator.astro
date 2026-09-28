@@ -36,8 +36,8 @@ const liveUrl = "https://mathbridge-ai.duckdns.org/";
     const $ = (selector: string) => root.querySelector(selector) as HTMLElement;
     const views = {
       student: {
-        course: { title:"Begin with your learning profile.", intro:"Your language, interests, and reading support are saved before practice.", steps:["Save preferences in My Learning Profile.","Open Review Today's Math Course and try a task.","Ask for a hint or visual; then try Similar Problem."] },
-        free: { title:"Bring a question of your own.", intro:"Free Math Help is a separate path for a question the student brings.", steps:["Save preferences in My Learning Profile.","Open Free Math Help and enter a question.","Continue with a hint or visual when needed."] },
+        course: { title:"Learn today’s math course.", intro:"Review today’s Grade 6 lesson and work through the math with help when you need it.", steps:["Open Review Today's Math Course.","Try a course problem and explain your thinking.","Ask for a hint or visual, then practice a similar problem."] },
+        free: { title:"Bring a question of your own.", intro:"Ask any math question: review a classroom topic, bring homework, or explore an idea you want to understand.", steps:["Open Free Math Help.","Type your math question or a topic you want to learn.","Work through it with explanations, guiding questions, and visuals."] },
         access:"Use a student test account."
       },
       teacher: { course: { title:"Look behind the answer.", intro:"Teacher Dashboard and Class Overview organize learning evidence for planning.", steps:["Select a student in Teacher Dashboard.","Review recent attempts and possible skill gaps.","Open Class Overview to look across the class."] }, access:"Use a teacher test account." },

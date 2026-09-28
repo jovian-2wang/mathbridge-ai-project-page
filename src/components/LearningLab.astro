@@ -1,14 +1,14 @@
 <div id="learning-lab" class="mb-lab">
   <div class="mb-profile">
     <span class="mb-eyebrow">MY LEARNING PROFILE</span>
-    <h3>Start with the learner.</h3>
-    <p>Try the choices saved in the real student's profile.</p>
-    <fieldset><legend>Language</legend><div class="mb-chips">
-      <button type="button" data-lang="en" aria-pressed="true">English only</button>
-      <button type="button" data-lang="zh" aria-pressed="false">Bilingual · English + 中文</button>
-      <button type="button" data-lang="es" aria-pressed="false">Bilingual · English + Español</button>
+    <h3>Choose your language.</h3>
+    <p>Read in English, or see English together with Chinese or Spanish. Click a speaker to listen.</p>
+    <fieldset><legend>Language</legend><div class="mb-chips mb-language-options">
+      <button type="button" data-lang="en" aria-pressed="true"><strong>English</strong><span>Read and listen in English</span></button>
+      <button type="button" data-lang="zh" aria-pressed="false"><strong>English + 中文</strong><span>中英双语 · Read both languages</span></button>
+      <button type="button" data-lang="es" aria-pressed="false"><strong>English + Español</strong><span>Bilingual · Read both languages</span></button>
     </div></fieldset>
-    <fieldset><legend>Interest <small>(optional; choose all that fit)</small></legend><div class="mb-chips">
+    <fieldset><legend>Interest <small>(optional; choose up to 3)</small></legend><div class="mb-chips">
       <button type="button" data-interest="basketball" aria-pressed="false">Basketball</button>
       <button type="button" data-interest="baking" aria-pressed="false">Baking</button>
       <button type="button" data-interest="games" aria-pressed="false">Games</button>
@@ -28,7 +28,7 @@
       </form>
       <p id="lab-feedback" class="mb-feedback" role="status" aria-live="polite"></p>
       <div class="mb-help-buttons"><button id="lab-hint" type="button">A small hint ↗</button><button id="lab-visual" type="button">See a ratio table ▦</button></div>
-      <div id="lab-hint-panel" class="mb-help-panel" hidden><span>THINK ABOUT THE RELATIONSHIP</span><p id="lab-hint-copy"></p><p id="lab-hint-second" hidden></p></div>
+      <div id="lab-hint-panel" class="mb-help-panel" hidden><span>THINK ABOUT THE RELATIONSHIP</span><p id="lab-hint-copy"></p><p id="lab-hint-second" hidden></p><button id="lab-listen-hint" class="mb-listen" type="button">🔊 Listen to hint</button></div>
       <div id="lab-ratio-panel" class="mb-ratio-panel" hidden>
         <span>THE SAME RATE IN EACH COLUMN</span>
         <table aria-label="Ratio table for the example"><tbody>
@@ -72,12 +72,27 @@
       if (!interests.length) return "basketball";
       return interests[Math.min(problemRound, interests.length - 1)];
     };
-    const say = (value: string) => {
-      if (!("speechSynthesis" in window)) return;
+    const say = (english: string, translation: string) => {
+      const feedback = $("#lab-feedback");
+      if (!("speechSynthesis" in window)) {
+        feedback.textContent = "Read-aloud is unavailable in this browser. Please try Chrome, Edge, or Safari.";
+        return;
+      }
       window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(value);
-      utterance.lang = "en-US";
-      window.speechSynthesis.speak(utterance);
+      const parts = [{ text: english, language: "en-US" }];
+      if (lang !== "en" && translation) parts.push({ text: translation, language: lang === "zh" ? "zh-CN" : "es-ES" });
+      for (const part of parts) {
+        const utterance = new SpeechSynthesisUtterance(part.text);
+        utterance.lang = part.language;
+        utterance.rate = 0.9;
+        const voice = window.speechSynthesis.getVoices().find(voice => voice.lang.toLowerCase().startsWith(part.language.slice(0, 2)));
+        if (voice) utterance.voice = voice;
+        utterance.onerror = event => {
+          if (event.error !== "interrupted" && event.error !== "canceled")
+            feedback.textContent = "Audio could not play. Please check your device’s speech voices and try again.";
+        };
+        window.speechSynthesis.speak(utterance);
+      }
     };
     const draw = () => {
       const selectedInterest = activeInterest(round);
@@ -86,6 +101,8 @@
       $("#lab-constant").textContent = round ? "36 ÷ 4 = ?" : "24 ÷ 3 = ?";
       $("#lab-question").textContent = round ? item.next : item.first;
       $("#lab-translation").hidden = lang === "en";
+      $("#lab-translation").lang = lang === "zh" ? "zh-CN" : "es";
+      $("#lab-hint-second").lang = lang === "zh" ? "zh-CN" : "es";
       $("#lab-translation").textContent = lang === "zh" ? item.zh[round] : item.es[round];
       $("#lab-unit").textContent = item.unit;
       $("#lab-round").textContent = round ? "02 / 02" : "01 / 02";
@@ -112,12 +129,15 @@
     for (const button of root.querySelectorAll<HTMLButtonElement>("[data-lang]")) button.addEventListener("click", () => { lang = button.dataset.lang || "en"; window.speechSynthesis?.cancel(); draw(); });
     for (const button of root.querySelectorAll<HTMLButtonElement>("[data-interest]")) button.addEventListener("click", () => {
       const selected = button.dataset.interest as Interest;
+      if (!interests.includes(selected) && interests.length >= 3) return;
       interests = interests.includes(selected) ? interests.filter(item => item !== selected) : [...interests, selected];
       round = 0;
       window.speechSynthesis?.cancel();
       draw();
     });
-    $("#lab-listen").addEventListener("click", () => say(round ? problems[activeInterest(round)].next : problems[activeInterest(round)].first));
+    $("#lab-listen").addEventListener("click", () => say($("#lab-question").textContent || "", $("#lab-translation").textContent || ""));
+    $("#lab-listen-hint").addEventListener("click", () => say($("#lab-hint-copy").textContent || "", $("#lab-hint-second").textContent || ""));
+    window.addEventListener("pagehide", () => window.speechSynthesis?.cancel());
     $("#lab-hint").addEventListener("click", () => { $("#lab-hint-panel").hidden = false; });
     $("#lab-visual").addEventListener("click", () => { $("#lab-ratio-panel").hidden = false; });
     $("#lab-next").addEventListener("click", () => { round = 1; draw(); answer.focus(); });
@@ -140,3 +160,10 @@
     draw();
   }
 </script>
+
+<style>
+  .mb-language-options { display: grid; grid-template-columns: 1fr; gap: .6rem; }
+  .mb-language-options button { display: grid; gap: .25rem; width: 100%; text-align: left; border-radius: .4rem; padding: .8rem 1rem; }
+  .mb-language-options strong { font-size: .9rem; }
+  .mb-language-options span { font-size: .75rem; font-weight: 400; }
+</style>
