@@ -1,5 +1,7 @@
 ---
 import { Font } from "astro:assets";
+import MathPlayground from "../components/MathPlayground.astro";
+import RoleVideos from "../components/RoleVideos.astro";
 import AcademicHeader from "../components/AcademicHeader.astro";
 import "../styles/global.css";
 const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
@@ -21,8 +23,9 @@ const team = [
     <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
     <Font cssVariable="--font-noto-sans" preload={[{ subset: "latin", style: "normal" }]} />
   </head>
-  <body>
+  <body style={`--math-garden: url("${base}illustrations/math-garden.svg")`}>
     <header class="project-header" id="top">
+      <nav class="role-login-nav wrap" aria-label="Platform login"><a class="role-brand" href="#top">MathBridge AI</a><div><a href="https://mathbridge-ai.duckdns.org/" target="_blank" rel="noopener noreferrer">Student login ↗</a><a href="https://mathbridge-ai.duckdns.org/" target="_blank" rel="noopener noreferrer">Teacher login ↗</a><a href="https://mathbridge-ai.duckdns.org/" target="_blank" rel="noopener noreferrer">Parent login ↗</a></div><small>One sign-in page. Use your student, teacher, or parent account.</small></nav>
       <div class="logo-row wrap" aria-label="Project institutions, school partners, and funder">
         <img class="utsa-logo" src={`${base}brands/ut-san-antonio-logo.svg`} alt="UT San Antonio" width="172" height="24" />
         <img class="uf-logo" src={`${base}brands/uf-workshop.png`} alt="University of Florida" width="367" height="205" />
@@ -54,6 +57,11 @@ const team = [
         <div class="section-intro"><h2>Project Overview</h2></div>
         <div class="overview-copy"><p>MathBridge AI connects curriculum-grounded tutoring with an evolving picture of each student’s learning needs, misconceptions, and preferences. The research spans K‑12 mathematics, with a current Grade 6 prototype.</p><p>The platform design combines retrieval from instructional materials, coordinated AI agents, and learning memory. It makes mathematics relevant to students’ interests and turns learning interactions into actionable support for teachers and families.</p></div>
       </section>
+      <figure class="people-story wrap">
+        <img src={`${base}illustrations/learning-together.png`} alt="Illustration of children learning mathematics, a parent helping a child, and a teacher discussing a student's work." width="1536" height="1024" loading="lazy" />
+        <figcaption><span>For curious learners.</span><span>For supportive families.</span><span>For thoughtful teachers.</span></figcaption>
+      </figure>
+      <div class="video-garden"><span class="garden-orbit" aria-hidden="true"></span><RoleVideos /></div>
       <figure class="overview-figure wrap" aria-labelledby="figure-title">
         <div class="figure-head"><span class="kicker">CONNECTED LEARNING</span><h3 id="figure-title">One learning journey. Shared understanding.</h3></div>
         <div class="knowledge-input"><div><span class="visual-label">CURRICULUM KNOWLEDGE</span><p>Textbooks · Teacher materials · Standards · Trusted resources</p></div><span class="retrieval-label">Retrieval-grounded support ↓</span></div>
@@ -77,7 +85,7 @@ const team = [
         </article>
         <article class="feature-row reverse">
           <div class="feature-copy"><p class="module-label">02 / LANGUAGE &amp; INTERESTS</p><h3>A familiar way into the mathematics.</h3><p>Learn in English or bilingual mode, listen to questions and hints, and choose up to three interests. Familiar contexts make the same mathematical idea easier to approach.</p></div>
-          <div class="language-visual feature-visual"><span class="visual-label">MORE WAYS TO UNDERSTAND</span><div class="language-lines"><strong>English</strong><strong>English + 中文</strong><strong>English + Español</strong></div><div class="interest-line"><span>Sports</span><span>Music</span><span>Cooking</span><span>+ more</span></div><p>Read it. Hear it. Make a connection.</p></div>
+          <MathPlayground />
         </article>
         <article class="feature-row">
           <div class="feature-copy"><p class="module-label">03 / HINT DESIGN</p><h3>Guide the thinking, one step at a time.</h3><p>A short explanation, a guiding question, or a useful visual helps students reason. When prerequisite knowledge is missing, targeted support and independent checks lead back to the Grade 6 goal.</p></div>
@@ -88,12 +96,14 @@ const team = [
           <article><p class="module-label">05 / PARENT SUMMARY</p><h3>Understand progress.<br />Help with confidence.</h3><p>See what your child has been learning and where support is needed. Get a question to ask, reasoning to listen for, and a short home-practice set with a separate answer key.</p><div class="insight-strip"><span>Recent learning</span><span>Home guidance</span><span>Focused practice</span></div></article>
         </div>
       </section>
-      <section class="closing wrap"><p class="kicker">BUILT WITH EDUCATORS &amp; FAMILIES</p><h2>Connecting learning<br />across school and home.</h2><p>An early research prototype shaped through interdisciplinary co-design.</p></section>
+      <section class="closing wrap colorful-closing"><p class="kicker">BUILT WITH EDUCATORS &amp; FAMILIES</p><h2>Connecting learning<br />across school and home.</h2><p>An early research prototype shaped through interdisciplinary co-design.</p></section>
     </main>
     <footer class="wrap"><strong>MathBridge AI</strong><p>Supported by the U.S. National Science Foundation · Award #2627693</p><small>Any opinions, findings, and conclusions or recommendations expressed in this material are those of the authors and do not necessarily reflect the views of the National Science Foundation.</small><small class="template-credit">Adapted from Roman Hauksson-Neill’s Academic Project Page Template · CC BY-SA 4.0. Layout modified for MathBridge AI.</small></footer>
   </body>
 </html>
 <style is:global>
+  .role-login-nav {display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:18px 0;border-bottom:1px solid #d7e3e5}.role-login-nav a{text-decoration:none;font-size:12px;font-weight:600}.role-login-nav .role-brand{font-size:17px;color:#195b62}.role-login-nav>div{display:flex;gap:10px;flex-wrap:wrap}.role-login-nav>div a{padding:9px 15px;border:1px solid #c8d9d2;border-radius:24px}.role-login-nav>div a:hover{background:#edf5ef}.role-login-nav small{width:100%;text-align:right;color:#6b7f79;font-size:10px}@media(max-width:650px){.role-login-nav{justify-content:center}.role-login-nav>div{justify-content:center;gap:6px}.role-login-nav>div a{font-size:10px;padding:8px 10px}.role-login-nav small{text-align:center}}
+
   :root { color-scheme: light; --mb-ink: #173a49; --mb-muted: #546c76; --mb-teal: #176d73; --mb-line: #d7e3e5; }
   html { scroll-behavior: smooth; background: #fff; }
   body { margin: 0; font-family: var(--font-noto-sans), Arial, sans-serif; color: var(--mb-ink); background: #fff; }
@@ -265,4 +275,25 @@ const team = [
     .overview-copy { font-size: 15px; }
     .feature-row { gap: 24px; }
   }
+</style>
+
+<style is:global>
+  .project-header {background:#fcf7ee;position:relative;isolation:isolate;padding-bottom:26px;overflow:hidden}
+  .project-header:before {content:"";position:absolute;inset:100px 0 0;background-image:var(--math-garden);background-position:center;background-size:cover;opacity:.42;z-index:-1;pointer-events:none}
+  .role-login-nav {background:#fcf7ee}.logo-row {position:relative}.template-heading {position:relative}.template-heading h1{max-width:950px}.template-heading > .kicker{color:#9c593d}
+  .video-garden {position:relative;isolation:isolate;background:#17675f;padding:65px 0;margin:22px 0 75px;overflow:hidden}
+  .video-garden:before{content:"";position:absolute;inset:0;z-index:-1;background-image:var(--math-garden);background-size:1440px auto;background-repeat:repeat-y;opacity:.45;pointer-events:none}
+  .video-garden:after{content:"+";position:absolute;top:60px;right:3%;font-size:130px;line-height:1;color:#d5b67b;transform:rotate(12deg);z-index:-1;pointer-events:none}
+  .garden-orbit{position:absolute;left:-90px;bottom:80px;width:260px;height:260px;border:45px solid #90bda3;border-radius:50%;opacity:.5;z-index:-1;pointer-events:none}
+  .video-garden .role-videos{margin:0 auto}.video-garden .video-intro h2{color:#fff9ec}.video-garden .video-intro>.video-eyebrow{color:#e0c692!important}.video-garden .video-intro>p:last-child{color:#deeee5!important}.video-garden .video-showcase{box-shadow:0 24px 70px #073e4155;border:0}
+  .overview-figure{border-radius:24px;background:#ecf1fa;border:1px solid #d5dfee}.knowledge-input{border-color:#c7d4e5}.map-branches>span{background:#ecf1fa}.map-core{background:#315a78;box-shadow:0 0 0 10px #dce6f1}
+  .features-heading:before{content:"✦";display:block;text-align:center;color:#bd754e;font-size:40px;margin-bottom:10px}
+  .feature-row{padding-block:60px}.curriculum-visual{border-radius:24px;background:#e7efda;box-shadow:10px 12px 0 #cddbbd;transform:rotate(-1deg)}.hint-visual{border-radius:24px;background:#ede6f6;box-shadow:10px 12px 0 #d7c8e7;transform:rotate(1deg)}.hint-visual .sample-hint{color:#584872}.hint-path,.grade-return{color:#725984}.grade-return{border-color:#d5c6e0}.feature-visual:after{content:"✦";position:absolute;right:18px;top:8px;color:#af8355;font-size:32px}
+  .insight-pair{gap:28px}.insight-pair article{padding:32px;border-radius:22px;background:#eaf0f8;position:relative}.insight-pair article:last-child{background:#f8eddf}.insight-pair article:before{content:"↗";display:block;color:#577694;font-size:35px;margin-bottom:12px}.insight-pair article:last-child:before{content:"⌂";color:#9f764a}
+  .closing.colorful-closing{max-width:1120px;background:#f2e3cf;background-image:var(--math-garden);background-size:cover;border:0;border-radius:28px;padding:65px 24px;margin-bottom:40px;position:relative}.closing.colorful-closing h2{color:#214f4c}.closing.colorful-closing>p:last-child{color:#4d665c}
+  @media(max-width:650px){.project-header:before{opacity:.18;background-size:auto 650px}.video-garden{padding:40px 0;margin-bottom:45px}.video-garden:after{font-size:65px;right:-5px}.feature-row{padding-block:38px}.insight-pair article{padding:25px}.closing.colorful-closing{padding:42px 20px;background-size:auto 100%}.curriculum-visual,.hint-visual{transform:none;box-shadow:5px 7px 0 #d8d6cb}}
+</style>
+
+<style>
+.people-story{max-width:1050px;margin:8px auto 55px;background:#fcf7ee;border-radius:26px;overflow:hidden}.people-story img{width:100%;height:auto;display:block}.people-story figcaption{display:flex;justify-content:space-around;gap:15px;margin:0;padding:0 25px 25px;font-size:13px;font-weight:600;color:#365d56}.people-story figcaption span{text-align:center;flex:1}@media(max-width:600px){.people-story{margin-bottom:35px;border-radius:18px}.people-story figcaption{padding:0 12px 18px;gap:8px;font-size:10px}}
 </style>
