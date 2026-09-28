@@ -4,16 +4,15 @@
     <h3>Start with the learner.</h3>
     <p>Try the choices saved in the real student's profile.</p>
     <fieldset><legend>Language</legend><div class="mb-chips">
-      <button type="button" data-lang="en" aria-pressed="true">English</button>
-      <button type="button" data-lang="zh" aria-pressed="false">English + 中文</button>
-      <button type="button" data-lang="es" aria-pressed="false">English + Español</button>
+      <button type="button" data-lang="en" aria-pressed="true">English only</button>
+      <button type="button" data-lang="zh" aria-pressed="false">Bilingual · English + 中文</button>
+      <button type="button" data-lang="es" aria-pressed="false">Bilingual · English + Español</button>
     </div></fieldset>
-    <fieldset><legend>Interest <small>(choose up to three in the app)</small></legend><div class="mb-chips">
-      <button type="button" data-interest="basketball" aria-pressed="true">Basketball</button>
+    <fieldset><legend>Interest <small>(optional; choose all that fit)</small></legend><div class="mb-chips">
+      <button type="button" data-interest="basketball" aria-pressed="false">Basketball</button>
       <button type="button" data-interest="baking" aria-pressed="false">Baking</button>
       <button type="button" data-interest="games" aria-pressed="false">Games</button>
     </div></fieldset>
-    <label class="mb-audio-setting"><input id="lab-audio" type="checkbox" /> <span><strong>Reading support</strong><small>Listen to the English prompt or hint</small></span></label>
     <div class="mb-constant"><small>THE MATHEMATICAL IDEA</small><strong id="lab-constant">24 ÷ 3 = ?</strong><span>Changing preferences keeps the calculation intact.</span></div>
   </div>
   <div class="mb-example">
@@ -22,7 +21,7 @@
       <span id="lab-topic" class="mb-topic">BASKETBALL</span>
       <h3 id="lab-question"></h3>
       <p id="lab-translation" class="mb-translation" hidden></p>
-      <button id="lab-listen" class="mb-listen" type="button" hidden>▶ Listen to question</button>
+      <button id="lab-listen" class="mb-listen" type="button">🔊 Listen to question</button>
       <form id="lab-form">
         <label for="lab-answer">Your answer</label>
         <div class="mb-answer-row"><input id="lab-answer" inputmode="numeric" autocomplete="off" type="text" aria-describedby="lab-unit lab-feedback" /><span id="lab-unit"></span><button type="submit">Check ↗</button></div>
@@ -65,11 +64,14 @@
         es:["Un jugador recoge 24 monedas en 3 niveles por igual. ¿Cuántas por nivel?","Un jugador recoge 36 monedas en 4 niveles por igual. ¿Cuántas por nivel?"] }
     };
     type Interest = keyof typeof problems;
-    let interest: Interest = "basketball";
+    let interests: Interest[] = [];
     let lang = "en";
     let round = 0;
     const answer = $("#lab-answer") as HTMLInputElement;
-    const audio = $("#lab-audio") as HTMLInputElement;
+    const activeInterest = (problemRound: number): Interest => {
+      if (!interests.length) return "basketball";
+      return interests[Math.min(problemRound, interests.length - 1)];
+    };
     const say = (value: string) => {
       if (!("speechSynthesis" in window)) return;
       window.speechSynthesis.cancel();
@@ -78,8 +80,9 @@
       window.speechSynthesis.speak(utterance);
     };
     const draw = () => {
-      const item = problems[interest];
-      $("#lab-topic").textContent = item.topic;
+      const selectedInterest = activeInterest(round);
+      const item = problems[selectedInterest];
+      $("#lab-topic").textContent = interests.length ? item.topic : "SAMPLE PROBLEM";
       $("#lab-constant").textContent = round ? "36 ÷ 4 = ?" : "24 ÷ 3 = ?";
       $("#lab-question").textContent = round ? item.next : item.first;
       $("#lab-translation").hidden = lang === "en";
@@ -97,7 +100,6 @@
       $("#lab-hint-second").textContent = round
         ? (lang === "zh" ? "四份相同的数量合起来是 36。哪个数乘 4 等于 36？" : "Cuatro cantidades iguales suman 36. ¿Qué número por 4 da 36?")
         : (lang === "zh" ? "三份相同的数量合起来是 24。哪个数乘 3 等于 24？" : "Tres cantidades iguales suman 24. ¿Qué número por 3 da 24?");
-      $("#lab-listen").hidden = !audio.checked;
       $("#lab-hint-panel").hidden = true;
       $("#lab-ratio-panel").hidden = true;
       $("#lab-next").hidden = true;
@@ -105,13 +107,18 @@
       $("#lab-feedback").className = "mb-feedback";
       answer.value = "";
       for (const button of root.querySelectorAll<HTMLButtonElement>("[data-lang]")) button.setAttribute("aria-pressed", String(button.dataset.lang === lang));
-      for (const button of root.querySelectorAll<HTMLButtonElement>("[data-interest]")) button.setAttribute("aria-pressed", String(button.dataset.interest === interest));
+      for (const button of root.querySelectorAll<HTMLButtonElement>("[data-interest]")) button.setAttribute("aria-pressed", String(interests.includes(button.dataset.interest as Interest)));
     };
     for (const button of root.querySelectorAll<HTMLButtonElement>("[data-lang]")) button.addEventListener("click", () => { lang = button.dataset.lang || "en"; window.speechSynthesis?.cancel(); draw(); });
-    for (const button of root.querySelectorAll<HTMLButtonElement>("[data-interest]")) button.addEventListener("click", () => { interest = (button.dataset.interest || "basketball") as Interest; round = 0; window.speechSynthesis?.cancel(); draw(); });
-    audio.addEventListener("change", () => { $("#lab-listen").hidden = !audio.checked; if (audio.checked) say(round ? problems[interest].next : problems[interest].first); else window.speechSynthesis?.cancel(); });
-    $("#lab-listen").addEventListener("click", () => say(round ? problems[interest].next : problems[interest].first));
-    $("#lab-hint").addEventListener("click", () => { $("#lab-hint-panel").hidden = false; if (audio.checked) say($("#lab-hint-copy").textContent || ""); });
+    for (const button of root.querySelectorAll<HTMLButtonElement>("[data-interest]")) button.addEventListener("click", () => {
+      const selected = button.dataset.interest as Interest;
+      interests = interests.includes(selected) ? interests.filter(item => item !== selected) : [...interests, selected];
+      round = 0;
+      window.speechSynthesis?.cancel();
+      draw();
+    });
+    $("#lab-listen").addEventListener("click", () => say(round ? problems[activeInterest(round)].next : problems[activeInterest(round)].first));
+    $("#lab-hint").addEventListener("click", () => { $("#lab-hint-panel").hidden = false; });
     $("#lab-visual").addEventListener("click", () => { $("#lab-ratio-panel").hidden = false; });
     $("#lab-next").addEventListener("click", () => { round = 1; draw(); answer.focus(); });
     $("#lab-form").addEventListener("submit", event => {
