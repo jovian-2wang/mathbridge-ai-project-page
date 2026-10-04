@@ -13,8 +13,8 @@ const roles = [
     {roles.map((role,i)=><div class="role-video-panel" id={`video-panel-${role.id}`} hidden={i!==0}>
       <div class="video-copy"><p class="video-eyebrow">{role.label.toUpperCase()} WALKTHROUGH</p><h3>{role.title}</h3><p>{role.description}</p></div>
       <video controls playsinline preload="none" poster={`${base}videos/${role.id}-poster.png`} aria-label={`${role.label} sample walkthrough`}>
-        <source src={`${base}videos/${role.id}.webm`} type="video/webm" />
-        Your browser does not support this video. <a href={`${base}videos/${role.id}.webm`}>Download the {role.label.toLowerCase()} walkthrough</a>.
+        <source src={`${base}videos/${role.id}.mp4`} type="video/mp4" />
+        Your browser does not support this video. <a href={`${base}videos/${role.id}.mp4`}>Download the {role.label.toLowerCase()} walkthrough</a>.
       </video>
     </div>)}
     <p class="video-note">Recorded walkthroughs of the illustrative demo · On-screen text, no narration · Sample content, not a live platform session</p>
