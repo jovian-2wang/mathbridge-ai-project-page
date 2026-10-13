@@ -1,7 +1,7 @@
 ---
 import { Font } from "astro:assets";
-import MathPlayground from "../components/MathPlayground.astro";
-import RoleVideos from "../components/RoleVideos.astro";
+import WorkshopLearning from "../components/WorkshopLearning.astro";
+import WorkshopDemo from "../components/WorkshopDemo.astro";
 import AcademicHeader from "../components/AcademicHeader.astro";
 import "../styles/global.css";
 const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
@@ -71,28 +71,9 @@ const team = [
         <div class="platform-foundation"><div><strong>Learning memory</strong><span>Interactions · learner profiles · progress over time</span></div><div><strong>Privacy &amp; security by design</strong><span>Planned access controls · data protection · auditability</span></div></div>
         <figcaption>Platform design concept, redrawn from proposal Fig. 1. The prototype implements a focused subset of this architecture.</figcaption>
       </figure>
-      <div class="video-garden"><span class="garden-orbit" aria-hidden="true"></span><RoleVideos /></div>
+      <div class="video-garden"><span class="garden-orbit" aria-hidden="true"></span><WorkshopDemo /></div>
 
-      <section class="features wrap" id="features">
-        <div class="features-heading"><h2>Platform Features</h2></div>
-        <article class="feature-row">
-          <div class="feature-copy"><p class="module-label">01 / CURRICULUM</p><h3>Keep learning connected to class.</h3><p>Connect today’s Grade 6 concepts to official course tasks and instructional materials, or bring a question to Free Math Help. Vocabulary and skill checks help identify where support is needed.</p></div>
-          <div class="curriculum-visual feature-visual"><div class="lesson-spine" aria-hidden="true"></div><span class="visual-label">TODAY’S MATH</span><h4>Ratios &amp; relationships</h4><div class="ratio-pair" aria-label="Two blue quantities and five yellow quantities"><span>● ●</span><span>● ● ● ● ●</span></div><p>Understand the quantities.<br />Explain the relationship.</p><div class="visual-footer">Official materials · Focused skills</div></div>
-        </article>
-        <article class="feature-row reverse">
-          <div class="feature-copy"><p class="module-label">02 / LANGUAGE &amp; INTERESTS</p><h3>A familiar way into the mathematics.</h3><p>Learn in English or bilingual mode, listen to questions and hints, and choose up to three interests. Familiar contexts make the same mathematical idea easier to approach.</p></div>
-          <MathPlayground />
-        </article>
-        <article class="feature-row">
-          <div class="feature-copy"><p class="module-label">03 / HINT DESIGN</p><h3>Guide the thinking, one step at a time.</h3><p>A short explanation, a guiding question, or a useful visual helps students reason. When prerequisite knowledge is missing, targeted support and independent checks lead back to the Grade 6 goal.</p></div>
-          <div class="hint-visual feature-visual"><span class="visual-label">SOCRATIC SUPPORT</span><p class="sample-hint">“A unit rate tells us the amount for one. Which quantity should become 1?”</p><div class="hint-path"><span>Explain</span><b>→</b><span>Try</span><b>→</b><span>Check</span></div><div class="grade-return"><span>Build foundations</span><strong>Grade 4 → Grade 5 → Grade 6</strong></div></div>
-        </article>
-        <div class="insight-pair">
-          <article><p class="module-label">04 / TEACHER INSIGHTS</p><h3>See the gap.<br />Plan the next lesson.</h3><p>Turn saved learning evidence into what to teach, ask, and practice next. Find approved STAAR questions matched to the student’s recorded skill.</p><div class="insight-strip"><span>Teach next</span><span>Ask next</span><span>Matched practice</span></div></article>
-          <article><p class="module-label">05 / PARENT SUMMARY</p><h3>Understand progress.<br />Help with confidence.</h3><p>See what your child has been learning and where support is needed. Get a question to ask, reasoning to listen for, and a short home-practice set with a separate answer key.</p><div class="insight-strip"><span>Recent learning</span><span>Home guidance</span><span>Focused practice</span></div></article>
-        </div>
-      </section>
-      <section class="closing wrap colorful-closing"><p class="kicker">BUILT WITH EDUCATORS &amp; FAMILIES</p><h2>Connecting learning<br />across school and home.</h2><p>An early research prototype shaped through interdisciplinary co-design.</p></section>
+      <WorkshopLearning />
     </main>
     <footer class="wrap"><strong>MathBridge AI</strong><p>Supported by the U.S. National Science Foundation · Award #2627693</p><small>Any opinions, findings, and conclusions or recommendations expressed in this material are those of the authors and do not necessarily reflect the views of the National Science Foundation.</small><small class="template-credit">Adapted from Roman Hauksson-Neill’s Academic Project Page Template · CC BY-SA 4.0. Layout modified for MathBridge AI.</small></footer>
   </body>
