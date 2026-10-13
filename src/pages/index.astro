@@ -1,7 +1,7 @@
 ---
 import { Font } from "astro:assets";
-import WorkshopLearning from "../components/WorkshopLearning.astro";
-import WorkshopDemo from "../components/WorkshopDemo.astro";
+import MathPlayground from "../components/MathPlayground.astro";
+import RoleVideos from "../components/RoleVideos.astro";
 import AcademicHeader from "../components/AcademicHeader.astro";
 import "../styles/global.css";
 const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
@@ -71,9 +71,28 @@ const team = [
         <div class="platform-foundation"><div><strong>Learning memory</strong><span>Interactions · learner profiles · progress over time</span></div><div><strong>Privacy &amp; security by design</strong><span>Planned access controls · data protection · auditability</span></div></div>
         <figcaption>Platform design concept, redrawn from proposal Fig. 1. The prototype implements a focused subset of this architecture.</figcaption>
       </figure>
-      <div class="video-garden"><span class="garden-orbit" aria-hidden="true"></span><WorkshopDemo /></div>
+      <div class="video-garden"><span class="garden-orbit" aria-hidden="true"></span><RoleVideos /></div>
 
-      <WorkshopLearning />
+      <section class="features wrap" id="features">
+        <div class="features-heading"><h2>Platform Features</h2></div>
+        <article class="feature-row">
+          <div class="feature-copy"><p class="module-label">01 / CURRICULUM</p><h3>Keep learning connected to class.</h3><p>Connect today’s Grade 6 concepts to official course tasks and instructional materials, or bring a question to Free Math Help. Vocabulary and skill checks help identify where support is needed.</p></div>
+          <div class="curriculum-visual feature-visual"><div class="lesson-spine" aria-hidden="true"></div><span class="visual-label">TODAY’S MATH</span><h4>Ratios &amp; relationships</h4><div class="ratio-pair" aria-label="Two blue quantities and five yellow quantities"><span>● ●</span><span>● ● ● ● ●</span></div><p>Understand the quantities.<br />Explain the relationship.</p><div class="visual-footer">Official materials · Focused skills</div></div>
+        </article>
+        <article class="feature-row reverse">
+          <div class="feature-copy"><p class="module-label">02 / LANGUAGE &amp; INTERESTS</p><h3>A familiar way into the mathematics.</h3><p>Learn in English or bilingual mode, listen to questions and hints, and choose up to three interests. Familiar contexts make the same mathematical idea easier to approach.</p></div>
+          <MathPlayground />
+        </article>
+        <article class="feature-row">
+          <div class="feature-copy"><p class="module-label">03 / HINT DESIGN</p><h3>Guide the thinking, one step at a time.</h3><p>A short explanation, a guiding question, or a useful visual helps students reason. When prerequisite knowledge is missing, targeted support and independent checks lead back to the Grade 6 goal.</p></div>
+          <div class="hint-visual feature-visual"><span class="visual-label">SOCRATIC SUPPORT</span><p class="sample-hint">“A unit rate tells us the amount for one. Which quantity should become 1?”</p><div class="hint-path"><span>Explain</span><b>→</b><span>Try</span><b>→</b><span>Check</span></div><div class="grade-return"><span>Build foundations</span><strong>Grade 4 → Grade 5 → Grade 6</strong></div></div>
+        </article>
+        <div class="insight-pair">
+          <article><p class="module-label">04 / TEACHER INSIGHTS</p><h3>See the gap.<br />Plan the next lesson.</h3><p>Turn saved learning evidence into what to teach, ask, and practice next. Find approved STAAR questions matched to the student’s recorded skill.</p><div class="insight-strip"><span>Teach next</span><span>Ask next</span><span>Matched practice</span></div></article>
+          <article><p class="module-label">05 / PARENT SUMMARY</p><h3>Understand progress.<br />Help with confidence.</h3><p>See what your child has been learning and where support is needed. Get a question to ask, reasoning to listen for, and a short home-practice set with a separate answer key.</p><div class="insight-strip"><span>Recent learning</span><span>Home guidance</span><span>Focused practice</span></div></article>
+        </div>
+      </section>
+      <section class="closing wrap colorful-closing"><p class="kicker">BUILT WITH EDUCATORS &amp; FAMILIES</p><h2>Connecting learning<br />across school and home.</h2><p>An early research prototype shaped through interdisciplinary co-design.</p></section>
     </main>
     <footer class="wrap"><strong>MathBridge AI</strong><p>Supported by the U.S. National Science Foundation · Award #2627693</p><small>Any opinions, findings, and conclusions or recommendations expressed in this material are those of the authors and do not necessarily reflect the views of the National Science Foundation.</small><small class="template-credit">Adapted from Roman Hauksson-Neill’s Academic Project Page Template · CC BY-SA 4.0. Layout modified for MathBridge AI.</small></footer>
   </body>
@@ -258,10 +277,10 @@ const team = [
   .project-header {background:#fcf7ee;position:relative;isolation:isolate;padding-bottom:26px;overflow:hidden}
   .project-header:before {content:"";position:absolute;inset:100px 0 0;background-image:var(--math-garden);background-position:center;background-size:cover;opacity:.42;z-index:-1;pointer-events:none}
   .role-login-nav {background:#fcf7ee}.logo-row {position:relative}.template-heading {position:relative}.template-heading h1{max-width:950px}.template-heading > .kicker{color:#9c593d}
-  .video-garden {position:relative;isolation:isolate;background:#ffe86d;padding:65px 0;margin:22px 0 75px;overflow:hidden}
-  .video-garden:before{content:"";position:absolute;inset:0;z-index:-1;background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNDQwIiBoZWlnaHQ9IjY1MCIgdmlld0JveD0iMCAwIDE0NDAgNjUwIiBmaWxsPSJub25lIj4KPGcgc3Ryb2tlPSIjYjQzN2FlIiBzdHJva2Utd2lkdGg9IjMiIG9wYWNpdHk9Ii41Ij48cGF0aCBkPSJNNTUgMTAwaDY1bS0zMi0zMnY2NU0xMjcwIDQ4MGg3MG0tMzUtMzV2NzAiLz48Y2lyY2xlIGN4PSIxMzQ1IiBjeT0iMTE1IiByPSI1NSIvPjxwYXRoIGQ9Ik0xMzE1IDExNWg2MG0tMzAtMzB2NjBNMTAwIDQ1MGw1MCA4Nkg1MHpNMTI0MCAyODBsODUtMzIgMzAgODEtODUgMzJ6Ii8+PC9nPgo8cGF0aCBkPSJNMCAyMjVhMTIwIDEyMCAwIDAgMSAxMjAgMTIwSDY1YTY1IDY1IDAgMCAwLTY1LTY1IiBmaWxsPSIjZmY3OTQ1Ii8+PHBhdGggZD0iTTE0NDAgNTUwYTEzMCAxMzAgMCAwIDEtMTMwLTEzMGg2MGE3MCA3MCAwIDAgMCA3MCA3MCIgZmlsbD0iI2VkNzBiZiIvPgo8ZyBmaWxsPSIjZWY1Y2E4Ij48Y2lyY2xlIGN4PSIxODIiIGN5PSIxMTAiIHI9IjEyIi8+PGNpcmNsZSBjeD0iMjIwIiBjeT0iMTEwIiByPSIxMiIvPjxjaXJjbGUgY3g9IjE4MiIgY3k9IjE0OCIgcj0iMTIiLz48Y2lyY2xlIGN4PSIyMjAiIGN5PSIxNDgiIHI9IjEyIi8+PHBhdGggZD0iTTExNTUgNDNoNDV2MThoLTQ1em0wIDMyaDQ1djE4aC00NXoiLz48L2c+CjxnIHN0cm9rZT0iI2I0MzdhZSIgc3Ryb2tlLXdpZHRoPSIzIj48cGF0aCBkPSJNMzUgNjEwcTkwLTEzMCAxODAtMTV0MTQwLTMwTTExMTAgNTgwcTkwLTEwMCAxODAtMjAiLz48cGF0aCBkPSJNMTIwIDIwbDE4IDIwLTE4IDIwbTEyMDAgMjY1bDE4IDIwLTE4IDIwIi8+PC9nPjxnIGZpbGw9IiNmZmFkMzkiPjxwYXRoIGQ9Ik0zMTAgMHY2MGE2MCA2MCAwIDAgMCA2MC02MHpNMTEwMCA2NTB2LTYwYTYwIDYwIDAgMCAwLTYwIDYweiIvPjxjaXJjbGUgY3g9IjEzODAiIGN5PSIzMCIgcj0iMTMiLz48L2c+Cjwvc3ZnPgo=");background-size:1440px auto;background-repeat:repeat-y;opacity:.8;pointer-events:none}
-  .video-garden:after{content:"+";position:absolute;top:60px;right:3%;font-size:130px;line-height:1;color:#e95638;transform:rotate(12deg);z-index:-1;pointer-events:none}
-  .garden-orbit{position:absolute;left:-90px;bottom:80px;width:260px;height:260px;border:45px solid #ed70bf;border-radius:50%;opacity:.5;z-index:-1;pointer-events:none}
+  .video-garden {position:relative;isolation:isolate;background:#17675f;padding:65px 0;margin:22px 0 75px;overflow:hidden}
+  .video-garden:before{content:"";position:absolute;inset:0;z-index:-1;background-image:var(--math-garden);background-size:1440px auto;background-repeat:repeat-y;opacity:.45;pointer-events:none}
+  .video-garden:after{content:"+";position:absolute;top:60px;right:3%;font-size:130px;line-height:1;color:#d5b67b;transform:rotate(12deg);z-index:-1;pointer-events:none}
+  .garden-orbit{position:absolute;left:-90px;bottom:80px;width:260px;height:260px;border:45px solid #90bda3;border-radius:50%;opacity:.5;z-index:-1;pointer-events:none}
   .video-garden .role-videos{margin:0 auto}.video-garden .video-intro h2{color:#fff9ec}.video-garden .video-intro>.video-eyebrow{color:#e0c692!important}.video-garden .video-intro>p:last-child{color:#deeee5!important}.video-garden .video-showcase{box-shadow:0 24px 70px #073e4155;border:0}
   .overview-figure{border-radius:24px;background:#ecf1fa;border:1px solid #d5dfee}.knowledge-input{border-color:#c7d4e5}.map-branches>span{background:#ecf1fa}.map-core{background:#315a78;box-shadow:0 0 0 10px #dce6f1}
   .features-heading:before{content:"✦";display:block;text-align:center;color:#bd754e;font-size:40px;margin-bottom:10px}
