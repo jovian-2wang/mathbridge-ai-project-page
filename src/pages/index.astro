@@ -1,4 +1,5 @@
 ---
+import ArchitectureWorkflow from "../components/ArchitectureWorkflow.astro";
 import { Font } from "astro:assets";
 import MathPlayground from "../components/MathPlayground.astro";
 import RoleVideos from "../components/RoleVideos.astro";
@@ -57,39 +58,31 @@ const team = [
         <div class="section-intro"><h2>Project Overview</h2></div>
         <div class="overview-copy"><p>MathBridge AI connects curriculum-grounded tutoring with an evolving picture of each student’s learning needs, misconceptions, and preferences. The research spans K‑12 mathematics, with a current Grade 6 prototype.</p><p>The platform design combines retrieval from instructional materials, coordinated AI agents, and learning memory. It makes mathematics relevant to students’ interests and turns learning interactions into actionable support for teachers and families.</p></div>
       </section>
-      <figure class="overview-figure wrap" id="connected-learning" aria-labelledby="figure-title">
-        <div class="figure-head"><span class="kicker">CONNECTED LEARNING</span><h3 id="figure-title">One learning journey. Shared understanding.</h3></div>
-        <div class="knowledge-input"><div><span class="visual-label">CURRICULUM KNOWLEDGE</span><p>Textbooks · Teacher materials · Standards · Trusted resources</p></div><span class="retrieval-label">Retrieval-grounded support ↓</span></div>
-        <div class="connection-map">
-          <div class="map-person student"><span class="person-icon" aria-hidden="true">✎</span><h4>Student</h4><p>Ask. Reason. Practice.</p><span class="map-tag">Course + Free Math Help</span></div>
-          <div class="map-connector"><span>Questions &amp; attempts</span><b aria-hidden="true">⇄</b><span>Guidance &amp; feedback</span></div>
-          <div class="map-core"><span class="core-kicker">MATHBRIDGE AI</span><h4>Understand.<br />Reason.<br />Adapt.</h4><p>Question understanding<br />Reasoning · Student model</p></div>
-          <div class="map-branches" aria-hidden="true"><span>Insights<br />&amp; suggestions</span><svg viewBox="0 0 100 240"><path d="M0 120 H35 V45 H92 M35 120 V195 H92"/><path d="M84 37 L92 45 L84 53 M84 187 L92 195 L84 203"/></svg></div>
-          <div class="map-adults"><div class="map-person"><span class="role-label">IN THE CLASSROOM</span><h4>Teacher</h4><p>Understand gaps.<br />Plan teaching &amp; practice.</p></div><div class="map-person"><span class="role-label">AT HOME</span><h4>Parent</h4><p>See progress.<br />Know how to help.</p></div></div>
-        </div>
-        <div class="return-loop"><span aria-hidden="true">↶</span> Better support in class and at home <span aria-hidden="true">↵</span></div>
-        <div class="platform-foundation"><div><strong>Learning memory</strong><span>Interactions · learner profiles · progress over time</span></div><div><strong>Privacy &amp; security by design</strong><span>Planned access controls · data protection · auditability</span></div></div>
-        <figcaption>Platform design concept, redrawn from proposal Fig. 1. The prototype implements a focused subset of this architecture.</figcaption>
+      <figure class="proposal-figure wrap" id="connected-learning" aria-labelledby="figure-title">
+        <a href={`${base}illustrations/proposal-figure-1.png`} target="_blank" rel="noopener" aria-label="Open the full-size platform diagram">
+          <img src={`${base}illustrations/proposal-figure-1.png`} alt="Proposed MathBridge AI platform: curriculum resources support retrieval and core AI agents for question understanding, reasoning, and student modeling. Teacher insight and parent summary agents connect school and home, supported by memory and privacy and security modules." width="968" height="460" />
+        </a>
+        <figcaption id="figure-title"><strong>Fig. 1.</strong> Proposed student-aware AI learning platform for connected and contextualized K–12 mathematics support.</figcaption>
+        <p class="proposal-note">Proposed architecture from the project proposal. The current prototype implements a subset of this design. <a href={`${base}illustrations/proposal-figure-1.png`} target="_blank" rel="noopener">View full-size figure ↗</a></p>
       </figure>
       <div class="video-garden"><span class="garden-orbit" aria-hidden="true"></span><RoleVideos /></div>
 
       <section class="features wrap" id="features">
         <div class="features-heading"><h2>Platform Features</h2></div>
+        <ArchitectureWorkflow />
         <article class="feature-row">
-          <div class="feature-copy"><p class="module-label">01 / CURRICULUM</p><h3>Keep learning connected to class.</h3><p>Connect today’s Grade 6 concepts to official course tasks and instructional materials, or bring a question to Free Math Help. Vocabulary and skill checks help identify where support is needed.</p></div>
+          <div class="feature-copy"><p class="module-label">02 / CURRICULUM</p><h3>Keep learning connected to class.</h3><p>Connect today’s Grade 6 concepts to official course tasks and instructional materials, or bring a question to Free Math Help. Vocabulary and skill checks help identify where support is needed.</p></div>
           <div class="curriculum-visual feature-visual"><div class="lesson-spine" aria-hidden="true"></div><span class="visual-label">TODAY’S MATH</span><h4>Ratios &amp; relationships</h4><div class="ratio-pair" aria-label="Two blue quantities and five yellow quantities"><span>● ●</span><span>● ● ● ● ●</span></div><p>Understand the quantities.<br />Explain the relationship.</p><div class="visual-footer">Official materials · Focused skills</div></div>
         </article>
         <article class="feature-row reverse">
-          <div class="feature-copy"><p class="module-label">02 / LANGUAGE &amp; INTERESTS</p><h3>A familiar way into the mathematics.</h3><p>Learn in English or bilingual mode, listen to questions and hints, and choose up to three interests. Familiar contexts make the same mathematical idea easier to approach.</p></div>
+          <div class="feature-copy"><p class="module-label">03 / LANGUAGE &amp; INTERESTS</p><h3>A familiar way into the mathematics.</h3><p>Learn in English or bilingual mode, listen to questions and hints, and choose up to three interests. Familiar contexts make the same mathematical idea easier to approach.</p></div>
           <MathPlayground />
         </article>
-        <article class="feature-row">
-          <div class="feature-copy"><p class="module-label">03 / HINT DESIGN</p><h3>Guide the thinking, one step at a time.</h3><p>A short explanation, a guiding question, or a useful visual helps students reason. When prerequisite knowledge is missing, targeted support and independent checks lead back to the Grade 6 goal.</p></div>
-          <div class="hint-visual feature-visual"><span class="visual-label">SOCRATIC SUPPORT</span><p class="sample-hint">“A unit rate tells us the amount for one. Which quantity should become 1?”</p><div class="hint-path"><span>Explain</span><b>→</b><span>Try</span><b>→</b><span>Check</span></div><div class="grade-return"><span>Build foundations</span><strong>Grade 4 → Grade 5 → Grade 6</strong></div></div>
-        </article>
-        <div class="insight-pair">
-          <article><p class="module-label">04 / TEACHER INSIGHTS</p><h3>See the gap.<br />Plan the next lesson.</h3><p>Turn saved learning evidence into what to teach, ask, and practice next. Find approved STAAR questions matched to the student’s recorded skill.</p><div class="insight-strip"><span>Teach next</span><span>Ask next</span><span>Matched practice</span></div></article>
-          <article><p class="module-label">05 / PARENT SUMMARY</p><h3>Understand progress.<br />Help with confidence.</h3><p>See what your child has been learning and where support is needed. Get a question to ask, reasoning to listen for, and a short home-practice set with a separate answer key.</p><div class="insight-strip"><span>Recent learning</span><span>Home guidance</span><span>Focused practice</span></div></article>
+        <div class="insight-pair" id="role-support">
+          <article class="student-course"><p class="module-label">04 / STUDENT · COURSE MODE</p><h3>Follow the course.<br />Build each skill.</h3><p>Work through course tasks linked to instructional materials. Practice the target skill with vocabulary support, guiding hints, and visuals when needed.</p><div class="insight-strip"><span>Course tasks</span><span>Skill practice</span><span>Guided support</span></div></article>
+          <article class="student-free"><p class="module-label">05 / STUDENT · FREE MATH HELP</p><h3>Bring a question.<br />Work it through.</h3><p>Ask a math question outside the course sequence. Get help understanding the question and reasoning through the next step.</p><div class="insight-strip"><span>Your question</span><span>Clear explanations</span><span>Step-by-step help</span></div></article>
+          <article><p class="module-label">06 / TEACHER INSIGHTS</p><h3>See the gap.<br />Plan the next lesson.</h3><p>Turn saved learning evidence into what to teach, ask, and practice next. Find approved STAAR questions matched to the student’s recorded skill.</p><div class="insight-strip"><span>Teach next</span><span>Ask next</span><span>Matched practice</span></div></article>
+          <article><p class="module-label">07 / PARENT SUMMARY</p><h3>Understand progress.<br />Help with confidence.</h3><p>See what your child has been learning and where support is needed. Get a question to ask, reasoning to listen for, and a short home-practice set with a separate answer key.</p><div class="insight-strip"><span>Recent learning</span><span>Home guidance</span><span>Focused practice</span></div></article>
         </div>
       </section>
       <section class="closing wrap colorful-closing"><p class="kicker">BUILT WITH EDUCATORS &amp; FAMILIES</p><h2>Connecting learning<br />across school and home.</h2><p>An early research prototype shaped through interdisciplinary co-design.</p></section>
@@ -241,6 +234,9 @@ const team = [
     footer { grid-template-columns: 1fr; } footer p { text-align: left; } footer small { grid-column: 1; }
   }
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .project-links a { transition: none; } }
+
+.proposal-figure{background:#fff;margin-bottom:50px;padding:20px;border:1px solid #d5dfee;border-radius:16px}.proposal-figure>a{display:block}.proposal-figure img{display:block;width:100%;height:auto}.proposal-figure figcaption{font-size:18px;line-height:1.6;margin-top:20px;color:#193e48}.proposal-note{font-size:16px;line-height:1.6;color:#52656b;margin-top:12px}.proposal-note a{color:#195b62;text-decoration:underline}.proposal-figure a:focus-visible{outline:3px solid #195b62;outline-offset:4px}@media(max-width:650px){.proposal-figure{padding:12px}.proposal-figure figcaption{font-size:17px}}
+.insight-pair article.student-course{background:#edf2e5}.insight-pair article.student-free{background:#f0e9f7}.insight-pair article.student-course:before{content:"▤";color:#617c48}.insight-pair article.student-free:before{content:"?";color:#82629b}
 </style>
 
 <style is:global>
