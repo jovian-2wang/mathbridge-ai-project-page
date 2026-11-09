@@ -6,10 +6,25 @@ import RoleVideos from "../components/RoleVideos.astro";
 import AcademicHeader from "../components/AcademicHeader.astro";
 import "../styles/global.css";
 const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
-const team = [
-  ["Jiannan Cai", "1"], ["Emily Bonner", "1"], ["Claudia Cabrera", "1, 2"],
-  ["Priscilla Rubio", "3"], ["Brenda Hinojosa-Bolaños", "3"],
-  ["Shuai Li", "4"], ["Yuanyuan Lei", "4"], ["Jiangwei Wang", "4"],
+const teams = [
+  {
+    name: "Technical Team",
+    members: [
+      { name: "Jiannan Cai", notes: ["1"] },
+      { name: "Shuai Li", notes: ["4"] },
+      { name: "Yuanyuan Lei", notes: ["4"] },
+      { name: "Jiangwei Wang", notes: ["4"] },
+    ],
+  },
+  {
+    name: "Education Team",
+    members: [
+      { name: "Emily Bonner", notes: ["1"] },
+      { name: "Claudia Cabrera", notes: ["1", "2"] },
+      { name: "Priscilla Rubio", notes: ["3"] },
+      { name: "Brenda Hinojosa-Bolaños", notes: ["3"] },
+    ],
+  },
 ];
 ---
 <!doctype html>
@@ -38,7 +53,7 @@ const team = [
         <p class="kicker">MATHBRIDGE AI</p>
         <AcademicHeader
           title="A Student-Aware AI Platform for Connected and Contextualized K‑12 Mathematics Support"
-          authors={team.map(([name, affiliations]) => ({ name, notes: affiliations.split(", ") }))}
+          teams={teams}
           notes={[
             { symbol: "1", text: " UT San Antonio" },
             { symbol: "2", text: " 1882 Dual Language Lab School" },

@@ -21,13 +21,13 @@ type Link = {
 
 interface Props {
   title: string;
-  authors: Author[];
+  teams: { name: string; members: Author[] }[];
   conference?: string;
   notes?: Note[];
   links?: Link[];
 }
 
-const { title, authors, conference, notes, links } = Astro.props;
+const { title, teams, conference, notes, links } = Astro.props;
 
 const hasBackground = Astro.slots.has("background");
 ---
@@ -56,29 +56,21 @@ const hasBackground = Astro.slots.has("background");
     ]}
   >
     <h1 class="my-0 text-5xl font-medium">{title}</h1>
-    <div class="flex flex-row flex-wrap justify-center gap-x-8 gap-y-4">
-      {
-        authors.map((author) => (
-          <div class="flex flex-col items-center text-center">
-            <div class="flex flex-row text-xl">
-              {author.url ? (
-                <a class:list={[hasBackground && "not-prose text-blue-200 hover:text-blue-100 underline decoration-dashed underline-offset-4 hover:decoration-solid"]} href={author.url}>{author.name}</a>
-              ) : (
-                author.name
-              )}
-              {author.notes && (
-                <sup class="text-xl">
-                  {author.notes.map(
-                    (note, index, array) =>
-                      note + (index < array.length - 1 ? "," : ""),
-                  )}
-                </sup>
-              )}
-            </div>
-            {author.institution && <div>{author.institution}</div>}
-          </div>
-        ))
-      }
+    <div class="project-teams">
+      {teams.map((team) => (
+        <section class="project-team" aria-label={team.name}>
+          <h2>{team.name}</h2>
+          <ul>
+            {team.members.map((author) => (
+              <li>
+                {author.url ? <a href={author.url}>{author.name}</a> : author.name}
+                {author.notes && author.notes.length > 0 && <sup>{author.notes.join(",")}</sup>}
+                {author.institution && <div>{author.institution}</div>}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
     </div>
     {conference && <div>{conference}</div>}
     {
@@ -117,6 +109,38 @@ const hasBackground = Astro.slots.has("background");
 </header>
 
 <style>
+  .project-teams {
+    display: grid;
+    width: min(100%, 37rem);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem 3rem;
+    text-align: left;
+  }
+  .project-team h2 {
+    margin: 0 0 0.6rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid #c8d5d0;
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+  .project-team ul {
+    display: grid;
+    gap: 0.15rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .project-team li {
+    font-size: 1.05rem;
+    line-height: 1.55;
+  }
+  @media (max-width: 38rem) {
+    .project-teams {
+      grid-template-columns: 1fr;
+      width: min(100%, 23rem);
+    }
+  }
+
   /* Make the slotted cover (Picture/Video, or a plain <img>/<video>) fill the
      header, overriding those components' figure styling. Scoped to `.cover`.
      Kept as scoped CSS because expressing it with Tailwind would require
